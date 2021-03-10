@@ -1,5 +1,6 @@
 import classes from "../../styles/Home.module.scss";
-import FilterBox from "./FilterBox";
+import FilterBox from "./Filters/FiltersBox";
+import StoreList from "./Stores/StoreList";
 
 const ControlPanel = () => {
   return (
@@ -8,7 +9,7 @@ const ControlPanel = () => {
         <FilterBox />
       </div>
       <div>
-        <p>Results</p>
+        <StoreList />
       </div>
     </div>
   );
