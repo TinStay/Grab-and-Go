@@ -1,0 +1,23 @@
+@import "./variables";
+
+.navbar{
+    display: flex;
+    justify-content: space-between;
+    // margin: 20px 0;
+    padding: 20px 0;
+    background-color: $light-green;
+    color: white;
+}
+
+.nav_links{
+    display: flex;
+    justify-content: flex-end;
+    list-style: none;
+    align-items: center;
+    margin: auto 0;
+
+    li{
+        margin: auto 1.1rem;
+        
+    }
+}
