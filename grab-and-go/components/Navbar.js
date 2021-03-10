@@ -5,7 +5,7 @@ const Navbar = () => {
 
     let navbarClasses = ["container", classes.navbar]
   return (
-    <nav className="light-green-bgc">
+    <nav className="green-bgc">
       <div className={navbarClasses.join(" ")}>
         <div>Grab and Go</div>
         <ul className={classes.nav_links}>
