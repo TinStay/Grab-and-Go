@@ -17,6 +17,12 @@ a {
   box-sizing: border-box;
 }
 
+.logo{
+  font-family: $font-family-logo;
+  font-size: 1.5rem;
+  color: $dark-green;
+}
+
 
 // Common classes
 .green-bgc{
@@ -25,6 +31,10 @@ a {
 
 .green-text{
   color: $green;
+}
+
+.yellow-text{
+  color: $yellow;
 }
 
 .dark-green-text{

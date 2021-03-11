@@ -1,3 +1,11 @@
-$green:#86C232;
-$light-green:#F2FFDF;
-$dark-green:#486447;
+@font-face {
+  font-family: "Apple Tea";
+  src: url("../fonts/AppleTea.ttf");
+}
+
+$green: #86c232;
+$light-green: #f2ffdf;
+$dark-green: #486447;
+$yellow: #FDF13F;
+
+$font-family-logo: "Apple Tea", serif;
