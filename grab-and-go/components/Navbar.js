@@ -5,7 +5,7 @@ import classes from "../styles/Navbar.module.scss";
 
 const Navbar = () => {
 
-    let navbarClasses = ["container", classes.navbar]
+    let navbarClasses = ["", classes.navbar]
   return (
     <nav className="green-bgc">
       <div className={navbarClasses.join(" ")}>

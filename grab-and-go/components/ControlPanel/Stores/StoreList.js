@@ -5,7 +5,7 @@ import classes from "../../../styles/Home.module.scss";
 const StoreList = () => {
   return (
     <div className="container">
-      <h2 className="dark-green-text">All stores</h2>
+      <h2 className="dark-green-text mt-3">All stores</h2>
       <div className="row mx-auto">
         <StoreBox
           name="Albert Heijn"
