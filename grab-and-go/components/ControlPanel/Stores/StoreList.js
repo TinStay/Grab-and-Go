@@ -23,6 +23,36 @@ const StoreList = () => {
           address="Neckerspoel, Stationsplein 22-17, 5611 AD Eindhoven"
           distance="1.9"
         />
+        <StoreBox
+          name="Albert Heijn"
+          address="Neckerspoel, Stationsplein 22-17, 5611 AD Eindhoven"
+          distance="1.2"
+        />
+        <StoreBox
+          name="Albert Heijn"
+          address="Neckerspoel, Stationsplein 22-17, 5611 AD Eindhoven"
+          distance="1.9"
+        />
+        <StoreBox
+          name="Albert Heijn"
+          address="Neckerspoel, Stationsplein 22-17, 5611 AD Eindhoven"
+          distance="1.2"
+        />
+        <StoreBox
+          name="Albert Heijn"
+          address="Neckerspoel, Stationsplein 22-17, 5611 AD Eindhoven"
+          distance="1.9"
+        />
+        <StoreBox
+          name="Albert Heijn"
+          address="Neckerspoel, Stationsplein 22-17, 5611 AD Eindhoven"
+          distance="1.2"
+        />
+        <StoreBox
+          name="Albert Heijn"
+          address="Neckerspoel, Stationsplein 22-17, 5611 AD Eindhoven"
+          distance="1.9"
+        />
       </div>
     </div>
   );

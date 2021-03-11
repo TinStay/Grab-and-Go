@@ -6,7 +6,7 @@ const FiltersBox = () => {
     let filterBoxClasses = ["row", classes.white_container]
   return (
     <div className="container">
-      <h2 className="dark-green-text">Filter</h2>
+      <h2 className="dark-green-text">Filters</h2>
       <div className={filterBoxClasses.join(" ")}>
 
         <FilterSelect label="Store Type"/>
