@@ -1,9 +1,10 @@
-const withReactSvg = require('next-react-svg')
-const path = require('path')
+module.exports = {
+  webpack(config) {
+    config.module.rules.push({
+      test: /\.svg$/,
+      use: ["@svgr/webpack"]
+    });
 
-module.exports = withReactSvg({
-  include: path.resolve(__dirname, 'src/assets/svg'),
-  webpack(config, options) {
-    return config
+    return config;
   }
-})
+};

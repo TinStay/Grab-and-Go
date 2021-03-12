@@ -10,7 +10,8 @@ import {
 
 const Map = (props) => {
   const [userPosition, setUserPosition] = useState();
-  const [locations, setLocations] = useState([]);
+  const [stores, setStores] = useState([]);
+  const [selectedStore, setSelectedStore] = useState();
 
   useEffect(() => {
     // Get location of user
@@ -36,7 +37,6 @@ const Map = (props) => {
     // locationList.map((place) => {
     //   promises.push(Geocode.fromAddress(place.address));
 
-      
     // });
 
     // Promise.all(promises).then(
@@ -46,7 +46,7 @@ const Map = (props) => {
     //         const { lat, lng } = location.results[0].geometry.location;
     //         // Update coordinates
     //         location = { ...location, lat: lat, lng: lng };
-  
+
     //         allLocations.push(location);
     //       });
     //     },
@@ -55,8 +55,7 @@ const Map = (props) => {
     //     }
     //   );
 
-    
-      setLocations(locationList);
+    setStores(locationList);
 
     // // Get latitude and longitude from address
     // await Geocode.fromAddress(place.address).then(
@@ -74,18 +73,18 @@ const Map = (props) => {
     //   setLocations(allLocations);
   }, []);
 
-  console.log('locations', locations)
 
   return (
     <GoogleMap defaultZoom={13} defaultCenter={{ lat: 51.44083, lng: 5.47778 }}>
       {userPosition && (
         <Marker position={{ lat: userPosition.lat, lng: userPosition.lng }} />
       )}
-      {locations &&
-        locations.map((location, idx) => (
+      {stores &&
+        stores.map((store, idx) => (
           <Marker
             key={idx}
-            position={{ lat: location.lat, lng: location.lng }}
+            position={{ lat: store.lat, lng: store.lng }}
+            onClick={() => setSelectedStore(store)}
           />
         ))}
     </GoogleMap>

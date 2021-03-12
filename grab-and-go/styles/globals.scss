@@ -17,10 +17,16 @@ a {
   box-sizing: border-box;
 }
 
+
+.logo-container{
+  height: 60px;
+  width: 130px;
+
+}
+
 .logo{
-  font-family: $font-family-logo;
-  font-size: 1.5rem;
-  color: $dark-green;
+  height: 55px;
+  width: 140px;
 }
 
 

@@ -2,15 +2,24 @@
 
 .main_container {
   background-color: $light-green;
-  display: flex;
-  justify-content: space-between;
+  // display: flex;
+  // justify-content: space-between;
 }
 
 .control_panel {
   padding: 1.5rem 0;
-  height: 100vh;
-  overflow-y: auto;
+  min-height: 100%;
   // background-color: #f2ffdf;
+
+  @media screen  and (min-width: 992px){
+    height: 100vh;
+    overflow-y: auto;
+  }
+
+
+  // .select_control{
+  //   width: 50%;
+  // }
 }
 
 .white_container {

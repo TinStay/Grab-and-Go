@@ -9,6 +9,7 @@ const Meta = ({ title, keywords, description }) => {
       <meta charSet='utf-8' />
       <link rel='icon' href='/favicon.ico' />
       <title>{title}</title>
+      <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
     </Head>
   )
 }
