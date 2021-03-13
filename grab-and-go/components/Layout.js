@@ -4,7 +4,7 @@ import Meta from './Meta'
 
 const Layout = ({children}) => {
     return (
-        <div>
+        <div className="light-green-bgc h-100vh">
             <Meta />
             <Navbar />
             {children}

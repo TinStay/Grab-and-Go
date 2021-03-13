@@ -139,7 +139,7 @@ const Login = (props) => {
                   id="checkbox"
                 />
               }
-              label="Remember me "
+              label="Remember me"
             />
           </div>
         </div>
