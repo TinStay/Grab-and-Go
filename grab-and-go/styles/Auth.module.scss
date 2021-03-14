@@ -1,11 +1,18 @@
 @import "./variables";
 
+
+.login_page{
+  padding: 2.5rem 0 8rem 0;
+}
+
+
 .login_container {
   max-width: 500px;
   background-color: white;
   border-radius: 7px;
   width: 90%;
-  margin: 3rem auto;
+  margin: 0rem auto;
+  
   text-align: center;
 
   -webkit-box-shadow: 0px 5px 27px 1px rgba(0, 0, 0, 0.3);

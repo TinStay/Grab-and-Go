@@ -5,7 +5,7 @@ import { lime } from "@material-ui/core/colors";
 import { TextField, FormControlLabel, Checkbox } from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 import SocialButton from "../components/SocialButton";
-import classes from '../styles/Auth.module.scss'
+import classes from "../styles/Auth.module.scss";
 
 // import facebookIcon from "../assets/images/facebookIcon.png";
 // import googleIcon from "../assets/images/googleIcon.png";
@@ -96,72 +96,78 @@ const Login = (props) => {
   }
 
   return (
-    <div className={classes.login_container}>
-      <form onSubmit={(e) => submitForm(e)} className={classes.login_form}>
-        <h1 className={classes.form_heading}>Log in with</h1>
+    <div className={classes.login_page}>
+      <div className={classes.login_container}>
+        <form onSubmit={(e) => submitForm(e)} className={classes.login_form}>
+          <h1 className={classes.form_heading}>Log in with</h1>
 
-        <div className={classes.form_heading}>
-          <SocialButton platform="Facebook" src={"/images/facebookIcon.png"} />
-          <SocialButton platform="Google" src={"/images/googleIcon.png"} />
-          <SocialButton platform="Twitter" src={"/images/twitterIcon.png"} />
-        </div>
-
-        <p className={classes.line_break_label}>or</p>
-
-        {/* Alert */}
-        {showAlert && alert}
-
-        <div className={classes.form_controls}>
-          <ColoredTextField
-            className={classes.form_field}
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            id="email-field"
-            label="Email"
-            // variant="outlined"
-            size="small"
-          />
-          <ColoredTextField
-            className={classes.form_field}
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            type="password"
-            id="password-field"
-            label="Password"
-            // variant="outlined"
-            size="small"
-          />
-          <div className={classes.checkbox}>
-            <FormControlLabel
-              control={
-                <OrangeCheckbox
-                  checked={isChecked}
-                  title="remember me"
-                  onChange={(e) => setIsChecked(e.target.checked)}
-                  id="checkbox"
-                />
-              }
-              label="Remember me"
+          <div className={classes.form_heading}>
+            <SocialButton
+              platform="Facebook"
+              src={"/images/facebookIcon.png"}
             />
+            <SocialButton platform="Google" src={"/images/googleIcon.png"} />
+            <SocialButton platform="Twitter" src={"/images/twitterIcon.png"} />
           </div>
-        </div>
 
-        <Button
-          id="submit-button"
-          type="submit"
-          className={classes.submit_button}
-          variant="outlined"
-          color="primary"
-          fullWidth
-          size="large"
-        >
-          Log in
-        </Button>
+          <p className={classes.line_break_label}>or</p>
 
-        <div className={classes.change_auth}>
-          Don't have an account? <a className={classes.sign_up_link}>Sign Up</a>
-        </div>
-      </form>
+          {/* Alert */}
+          {showAlert && alert}
+
+          <div className={classes.form_controls}>
+            <ColoredTextField
+              className={classes.form_field}
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              id="email-field"
+              label="Email"
+              // variant="outlined"
+              size="small"
+            />
+            <ColoredTextField
+              className={classes.form_field}
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              type="password"
+              id="password-field"
+              label="Password"
+              // variant="outlined"
+              size="small"
+            />
+            <div className={classes.checkbox}>
+              <FormControlLabel
+                control={
+                  <OrangeCheckbox
+                    checked={isChecked}
+                    title="remember me"
+                    onChange={(e) => setIsChecked(e.target.checked)}
+                    id="checkbox"
+                  />
+                }
+                label="Remember me"
+              />
+            </div>
+          </div>
+
+          <Button
+            id="submit-button"
+            type="submit"
+            className={classes.submit_button}
+            variant="outlined"
+            color="primary"
+            fullWidth
+            size="large"
+          >
+            Log in
+          </Button>
+
+          <div className={classes.change_auth}>
+            Don't have an account?{" "}
+            <a className={classes.sign_up_link}>Sign Up</a>
+          </div>
+        </form>
+      </div>
     </div>
   );
 };

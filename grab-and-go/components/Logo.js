@@ -1,4 +1,4 @@
-import Logo from "../assets/images/Grab&GoLogoV4.svg";
+import Logo from "../public/images/Grab&GoLogoV4.svg";
 import Link from "next/link";
 
 export default () => (
