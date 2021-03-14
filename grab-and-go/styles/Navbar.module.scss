@@ -1,40 +1,44 @@
 @import "./variables";
 
-.navbar{
-    display: flex;
-    justify-content: space-between;
-    width: 96%;
-    margin: 0 auto;
-    padding: 10px 0;
-    color: white;
-   
-    
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  width: 96%;
+  margin: 0 auto;
+  padding: 10px 0;
+  color: white;
 }
 
-.nav_items{
-    display: flex;
-    justify-content: flex-end;
-    list-style: none;
-    align-items: center;
-    margin: auto 0;
+.logo_container {
+  height: 55px;
+  width: 130px;
+}
 
-    .nav_link{
-        
-        font-size: 1.3rem;
-        padding: 0 0 5px 0;
-        font-weight: 500;
-        color: $dark-green;
-        border-bottom: 3px solid transparent;
-        text-decoration: none;
-        transition: all 0.2s ease-in;
+.logo {
+  height: 55px;
+  width: 140px;
+  cursor: pointer;
+}
 
-        &:hover{
-            border-bottom: 3px solid $dark-green;
-            // opacity: 0.9;
-            // color: $light-green;
-        }
+.nav_items {
+  display: flex;
+  justify-content: flex-end;
+  list-style: none;
+  align-items: center;
+  margin: auto 0;
+
+  .nav_link {
+    font-size: 1.2rem;
+    padding: 0 0 5px 0;
+    font-weight: 500;
+    color: $dark-green;
+    border-bottom: 3px solid transparent;
+    text-decoration: none;
+    transition: all 0.2s ease-in;
+
+    &:hover {
+      border-bottom: 3px solid $dark-green;
+      // color: $light-green;
     }
-    
-   
-} 
-
+  }
+}
