@@ -12,13 +12,13 @@ class Home extends PureComponent {
 
 
     return (
-      <div className="">
+      <div className="mx-auto">
         <Head>
           <title>Grab and Go</title>
           <link rel="icon" href="/favicon.ico" />
         </Head>
         <main className={mainContainerClasses.join(" ")}>
-          <div className="col-12 col-lg-7 " style={{ height: "100vh" }}>
+          <div className="col-12 col-lg-7 px-0" style={{ height: "100vh" }}>
             <Map
               googleMapURL={`https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=${process.env.NEXT_PUBLIC_GOOGLE_KEY}`}
               loadingElement={<div style={{ height: `100%` }} />}
@@ -26,7 +26,7 @@ class Home extends PureComponent {
               mapElement={<div style={{ height: `100%` }} />}
             />
           </div>
-          <div className="col-12 col-lg-5">
+          <div className="col-12 col-lg-5 px-0">
             <ControlPanel />
           </div>
         </main>

@@ -9,6 +9,7 @@ import {
 } from "react-google-maps";
 
 const Map = (props) => {
+  // State
   const [userPosition, setUserPosition] = useState();
   const [stores, setStores] = useState([]);
   const [selectedStore, setSelectedStore] = useState();
