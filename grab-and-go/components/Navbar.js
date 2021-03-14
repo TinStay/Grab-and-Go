@@ -9,14 +9,20 @@ const Navbar = () => {
   return (
     <nav className="green-bgc">
       <div className={navbarClasses.join(" ")}>
-        
-          <Logo />
-        
+        <Logo />
+
         {/* <img src={Logo} width={100} height={30} /> */}
-        <ul className={classes.nav_links}>
-          <Link href="/login">Log In</Link>
-          <li>Sign Up</li>
-          <li>Contact</li>
+        <ul className={classes.nav_items}>
+          <li className="mx-3">
+            <Link href="/login">
+              <a className={classes.nav_link}> Log In</a>
+            </Link>
+          </li>
+          <li className="mx-3">
+            <Link href="/signup">
+              <a className={classes.nav_link}> Sign Up</a>
+            </Link>
+          </li>
         </ul>
       </div>
     </nav>

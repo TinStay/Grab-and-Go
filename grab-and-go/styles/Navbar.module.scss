@@ -11,15 +11,30 @@
     
 }
 
-.nav_links{
+.nav_items{
     display: flex;
     justify-content: flex-end;
     list-style: none;
     align-items: center;
     margin: auto 0;
 
-    li{
-        margin: auto 1.1rem;
+    .nav_link{
         
+        font-size: 1.3rem;
+        padding: 0 0 5px 0;
+        font-weight: 500;
+        color: $dark-green;
+        border-bottom: 3px solid transparent;
+        text-decoration: none;
+        transition: all 0.2s ease-in;
+
+        &:hover{
+            border-bottom: 3px solid $dark-green;
+            // opacity: 0.9;
+            // color: $light-green;
+        }
     }
-}
+    
+   
+} 
+
