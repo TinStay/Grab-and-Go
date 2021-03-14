@@ -5,6 +5,7 @@ import { lime } from "@material-ui/core/colors";
 import { TextField, FormControlLabel, Checkbox } from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 import SocialButton from "../components/SocialButton";
+
 // import facebookIcon from "../assets/images/facebookIcon.png";
 // import googleIcon from "../assets/images/googleIcon.png";
 // import twitterIcon from "../assets/images/twitterIcon.png";
@@ -46,7 +47,6 @@ const Login = (props) => {
     "Please fill in all form fields."
   );
 
-
   const submitForm = (e) => {
     e.preventDefault();
 
@@ -59,13 +59,14 @@ const Login = (props) => {
     if (email != "" && password != "") {
       if (isEmail(email) && password.length >= 6) isValid = true;
       else if (!isEmail(email)) setErrorMessage("Invalid email address.");
-      else if (password.length < 6) setErrorMessage("Password must be at least 6 symbols."); 
+      else if (password.length < 6)
+        setErrorMessage("Password must be at least 6 symbols.");
       else setErrorMessage("Incorrect email or password.");
     } else {
       setErrorMessage("Please fill in all form fields");
     }
 
-    // Save credentials in local storage 
+    // Save credentials in local storage
     // if(isChecked){
     //   localStorage.setItem('email', email);
     // }
@@ -97,14 +98,14 @@ const Login = (props) => {
     <div className="login-container">
       <form onSubmit={(e) => submitForm(e)} className="login-form">
         <h1 className="form-heading">Log in with</h1>
-{/* 
-        <div className="social-buttons">
-          <SocialButton platform="Facebook" src={facebookIcon} />
-          <SocialButton platform="Google" src={googleIcon} />
-          <SocialButton platform="Twitter" src={twitterIcon} />
-        </div> */}
 
-        {/* <p className="line-break-label ">or</p> */}
+        <div className="social-buttons">
+          <SocialButton platform="Facebook" src={"/images/facebookIcon.png"} />
+          <SocialButton platform="Google" src={"/images/googleIcon.png"} />
+          <SocialButton platform="Twitter" src={"/images/twitterIcon.png"} />
+        </div>
+
+        <p className="line-break-label ">or</p>
 
         {/* Alert */}
         {showAlert && alert}
@@ -157,10 +158,7 @@ const Login = (props) => {
         </Button>
 
         <div className="change-auth">
-          Don't have an account?{" "}
-          <a  className="sign-up-link">
-            Sign Up
-          </a>
+          Don't have an account? <a className="sign-up-link">Sign Up</a>
         </div>
       </form>
     </div>
