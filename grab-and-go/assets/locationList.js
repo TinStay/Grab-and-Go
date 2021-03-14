@@ -11,5 +11,23 @@ export const locationList = [
     lat: 51.470346,
     lng: 5.4941355
   },
+  {
+    name: "Chinese food",
+    address: "Langdonkenstraat 7, 5616 PN Eindhoven",
+    lat: 51.440040,
+    lng: 5.464760
+  },
+  {
+    name: "KFC",
+    address: "Marktstraat 1, 5611 AE Eindhoven",
+    lat: 51.439440,
+    lng: 5.477920
+  },
+  {
+    name: "De burger",
+    address: "Kerkstraat 5, 5611 GH Eindhoven",
+    lat: 51.436770,
+    lng: 5.478520
+  },
   
 ];
