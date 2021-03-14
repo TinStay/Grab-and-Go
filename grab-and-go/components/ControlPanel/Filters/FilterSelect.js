@@ -23,8 +23,8 @@ const FilterSelect = (props) => {{}
   };
   
     return (
-      <FormControl className="w-100">
-        <InputLabel htmlFor="age-native-simple">Age</InputLabel>
+      <FormControl className="w-100 mb-2">
+        <InputLabel htmlFor="age-native-simple">{props.label}</InputLabel>
         <Select
           native
           value={state.age}
