@@ -1,132 +1,119 @@
-.login-container {
-    max-width: 500px;
-    background-color: white;
-    border-radius: 7px;
-  
-    margin: 0 auto;
-    text-align: center;
-  
-    -webkit-box-shadow: 0px 5px 27px 1px rgba(0, 0, 0, 0.3);
-    box-shadow: 0px 5px 27px 1px rgba(0, 0, 0, 0.3);
+@import "./variables";
+
+.login_container {
+  max-width: 500px;
+  background-color: white;
+  border-radius: 7px;
+  width: 90%;
+  margin: 3rem auto;
+  text-align: center;
+
+  -webkit-box-shadow: 0px 5px 27px 1px rgba(0, 0, 0, 0.3);
+  box-shadow: 0px 5px 27px 1px rgba(0, 0, 0, 0.3);
+
+  @media screen and (min-width: 992px) {
+    // margin: 4rem auto;
   }
-  
-  .login-form {
-    padding: 20px 8%;
-  
-    @media screen and (min-width: 992px) {
-      padding: 20px 45px;
+}
+
+.login_form {
+  padding: 20px 10%;
+
+  @media screen and (min-width: 992px) {
+  }
+
+  .form_heading {
+    margin: 10px 0 35px 0;
+    font-size: 2.4rem;
+    color: $font-color;
+  }
+
+  .line_break_label {
+    margin: 28px auto;
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: $font-color;
+    border-bottom: 1px solid rgb(204, 204, 204);
+    // border-bottom: 1px solid #2f5f2d3b;
+  }
+
+  .form_controls {
+    margin: 30px auto;
+
+    .form_field {
+      margin: 18px 0;
+      width: 100%;
     }
-  
-    .form-heading{
-      margin: 10px 0 35px 0;
-      font-size: 2.4rem;
-      color: $font-color;
+  }
+
+  .social_buttons {
+    display: flex;
+    justify-content: space-around;
+  }
+
+  .social_button {
+    margin: 5px 15px;
+    height: 58px;
+    width: 58px;
+    transition: all 0.2s ease-in-out;
+    cursor: pointer;
+
+    &:hover {
+      opacity: 95%;
+      // transform: scale(1.1);
     }
-  
-    .form-controls {
-      margin: 30px auto;
-  
-      .form-field {
-        margin: 18px 0;
-        width: 100%;
-      }
+
+    @media screen and(min-width: 992px) {
+      height: 80px;
+      width: 80px;
+      
     }
-  
-    .social-buttons {
-      display: flex;
-      justify-content: space-around;
-  
-      .social-button {
-        margin: 5px 15px;
-        height: 58px;
-        width: 58px;
-        transition: all 0.2s ease-in-out;
-  
-        &:hover {
-          opacity: 95%;
-          transform: scale(1.1);
-        }
-  
-        @media screen and(min-width: 992px) {
-          height: 65px;
-          width: 65px;
-        }
-      }
-    }
-  
-    .line-break-label {
-      margin: 28px auto;
-      font-size: 1.4rem;
-      font-weight: 600;
-      color: $font-color;
-      border-bottom: 1px solid rgb(204, 204, 204);
-      // border-bottom: 1px solid #2f5f2d3b;
-    }
-  
-    .checkbox {
-      text-align: left;
-    }
-  
-    .submit-button {
+  }
+
+  .checkbox {
+    text-align: left;
+  }
+
+  .submit_button {
+    color: white;
+    padding: 9px 0;
+    text-decoration: none;
+    font-weight: 500;
+    background-color: $green; /* fallback for old browsers */
+    outline: none;
+    border: none;
+
+    &:hover {
       color: white;
-      padding: 9px 0;
-      text-decoration: none;
-      font-weight: 500;
-      background: $dark-pink; /* fallback for old browsers */
-      background: -webkit-linear-gradient(
-        to left,
-        $light-pink,
-        $dark-pink
-      ); /* Chrome 10-25, Safari 5.1-6 */
-      background: linear-gradient(
-        to left,
-        $light-pink,
-        $dark-pink
-      ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-      border: none;
-  
-      &:hover {
-        color: white;
-        background: $dark-pink-hover; /* fallback for old browsers */
-        background: -webkit-linear-gradient(
-          to left,
-          $light-pink-hover,
-          $dark-pink-hover
-        ); /* Chrome 10-25, Safari 5.1-6 */
-        background: linear-gradient(
-          to left,
-          $light-pink-hover,
-          $dark-pink-hover
-        ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-    
-      }
-      &:active,
-      &:focus,
-      &:hover {
-        outline: none;
-        border: none;
-      }
+      background-color: $green-hover; /* fallback for old browsers */
     }
-  
-    .change-auth {
-      margin: 20px 0;
-      color: $font-color;
-  
-      .sign-up-link {
-        color: rgb(0, 89, 255);
+    &:active,
+    &:focus,
+    &:hover {
+      outline: none;
+      border: none;
+    }
+  }
+
+  .change_auth {
+    margin: 20px 0;
+    color: $font-color;
+
+    .sign_up_link {
+      color: rgb(0, 89, 255);
+      text-decoration: none;
+      transition: all 0.2s ease-in-out;
+      cursor: pointer;
+
+      &:hover {
+        color: rgb(0, 77, 219);
+        text-decoration: underline;
+      }
+
+      &:active,
+      &:focus {
         text-decoration: none;
-        transition: all 0.2s ease-in-out;
-  
-        &:hover {
-          color: rgb(0, 77, 219);
-          text-decoration: underline;
-        }
-  
-        &:active,
-        &:focus {
-          text-decoration: none;
-        }
       }
     }
   }
-  
+}

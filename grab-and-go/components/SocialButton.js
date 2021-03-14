@@ -1,11 +1,11 @@
 import React from "react";
 import Image from "next/image";
-// import moduleName from '../assets/images/'
+import classes from '../styles/Auth.module.scss'
 
 const SocialButton = (props) => {
   return (
-    <a className="social-button">
-      <Image  src={props.src} width={80} height={80} alt={`${props.platform} icon`} />
+    <a className={classes.social_button}>
+      <Image  src={props.src} width={65} height={65} alt={`${props.platform} icon`} />
     </a>
   );
 };
