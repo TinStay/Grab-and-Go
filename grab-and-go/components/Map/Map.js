@@ -6,13 +6,14 @@ import {
   Marker,
   withScriptjs,
   withGoogleMap,
+  InfoWindow
 } from "react-google-maps";
 
 const Map = (props) => {
   // State
   const [userPosition, setUserPosition] = useState();
   const [stores, setStores] = useState([]);
-  const [selectedStore, setSelectedStore] = useState();
+  const [selectedStore, setSelectedStore] = useState(null);
 
   useEffect(() => {
     // Get location of user
@@ -74,6 +75,7 @@ const Map = (props) => {
     //   setLocations(allLocations);
   }, []);
 
+  console.log(`selectedStore`, selectedStore)
 
   return (
     <GoogleMap defaultZoom={13} defaultCenter={{ lat: 51.44083, lng: 5.47778 }}>
@@ -88,6 +90,15 @@ const Map = (props) => {
             onClick={() => setSelectedStore(store)}
           />
         ))}
+        {selectedStore && (
+          <InfoWindow  position={{ lat: selectedStore.lat, lng: selectedStore.lng }}>
+            <div>
+              <h4> {selectedStore.name}</h4>
+              <p>{selectedStore.address}</p>
+              
+            </div>
+          </InfoWindow>
+        )}
     </GoogleMap>
   );
 };
