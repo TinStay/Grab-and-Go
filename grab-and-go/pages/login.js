@@ -1,8 +1,14 @@
 import React, { useState } from "react";
-import { withStyles } from "@material-ui/core/styles";
+import { withStyles, makeStyles } from "@material-ui/core/styles";
 import Alert from "@material-ui/lab/Alert";
 import { lime } from "@material-ui/core/colors";
-import { TextField, FormControlLabel, Checkbox } from "@material-ui/core";
+import {
+  TextField,
+  FormControlLabel,
+  Checkbox,
+  Paper,
+  Typography,
+} from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 import SocialButton from "../components/SocialButton";
 import classes from "../styles/Auth.module.scss";
@@ -11,7 +17,7 @@ import classes from "../styles/Auth.module.scss";
 // import googleIcon from "../assets/images/googleIcon.png";
 // import twitterIcon from "../assets/images/twitterIcon.png";
 
-const OrangeCheckbox = withStyles({
+const LimeCheckbox = withStyles({
   root: {
     color: lime["A700"],
     "&$checked": {
@@ -37,6 +43,22 @@ const ColoredTextField = withStyles({
   },
 })(TextField);
 
+const useStyles = makeStyles((theme) => ({
+  root: {
+    maxWidth: "500px",
+    margin: "0 auto",
+    textAlign: "center",
+    borderRadius: "7px",
+  },
+  title: {
+    color: "#444444",
+    fontSize: "2.4rem",
+    fontWeight: "500",
+    marginTop: "20px",
+    marginBottom: "35px"
+  }
+}));
+
 const Login = (props) => {
   // State
   const [email, setEmail] = useState("");
@@ -47,6 +69,8 @@ const Login = (props) => {
   const [errorMessage, setErrorMessage] = useState(
     "Please fill in all form fields."
   );
+
+  const styles = useStyles();
 
   const submitForm = (e) => {
     e.preventDefault();
@@ -97,9 +121,11 @@ const Login = (props) => {
 
   return (
     <div className={classes.login_page}>
-      <div className={classes.login_container}>
+      <Paper className={styles.root} elevation={5}>
         <form onSubmit={(e) => submitForm(e)} className={classes.login_form}>
-          <h1 className={classes.form_heading}>Log in with</h1>
+          <Typography variant="h3" fontWeight={500} className={styles.title}>
+            Log in with
+          </Typography>
 
           <div className={classes.form_heading}>
             <SocialButton
@@ -138,7 +164,7 @@ const Login = (props) => {
             <div className={classes.checkbox}>
               <FormControlLabel
                 control={
-                  <OrangeCheckbox
+                  <LimeCheckbox
                     checked={isChecked}
                     title="remember me"
                     onChange={(e) => setIsChecked(e.target.checked)}
@@ -167,7 +193,7 @@ const Login = (props) => {
             <a className={classes.sign_up_link}>Sign Up</a>
           </div>
         </form>
-      </div>
+      </Paper>
     </div>
   );
 };
