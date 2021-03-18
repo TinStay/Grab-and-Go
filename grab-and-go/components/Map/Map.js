@@ -6,8 +6,10 @@ import {
   Marker,
   withScriptjs,
   withGoogleMap,
-  InfoWindow
+  InfoWindow,
 } from "react-google-maps";
+import mapStyles from './mapStyles'
+
 
 const Map = (props) => {
   // State
@@ -75,10 +77,9 @@ const Map = (props) => {
     //   setLocations(allLocations);
   }, []);
 
-  console.log(`selectedStore`, selectedStore)
 
   return (
-    <GoogleMap defaultZoom={13} defaultCenter={{ lat: 51.44083, lng: 5.47778 }}>
+    <GoogleMap defaultZoom={13} defaultCenter={{ lat: 51.44083, lng: 5.47778 }} defaultOptions={{styles: mapStyles}}>
       {userPosition && (
         <Marker position={{ lat: userPosition.lat, lng: userPosition.lng }} />
       )}
@@ -88,17 +89,23 @@ const Map = (props) => {
             key={idx}
             position={{ lat: store.lat, lng: store.lng }}
             onClick={() => setSelectedStore(store)}
+            icon={{
+              url: "/images/pointer.svg",
+              scaledSize: new window.google.maps.Size(45, 50),
+            }}
           />
         ))}
-        {selectedStore && (
-          <InfoWindow  position={{ lat: selectedStore.lat, lng: selectedStore.lng }}>
-            <div>
-              <h4> {selectedStore.name}</h4>
-              <p>{selectedStore.address}</p>
-              
-            </div>
-          </InfoWindow>
-        )}
+      {selectedStore && (
+        <InfoWindow
+          position={{ lat: selectedStore.lat, lng: selectedStore.lng }}
+          onCloseClick={() => setSelectedStore(null)}
+        >
+          <div>
+            <h4> {selectedStore.name}</h4>
+            <p>{selectedStore.address}</p>
+          </div>
+        </InfoWindow>
+      )}
     </GoogleMap>
   );
 };
