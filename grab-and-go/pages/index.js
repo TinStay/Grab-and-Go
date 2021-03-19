@@ -5,12 +5,24 @@ import Map from "../components/Map/Map";
 import classes from "../styles/Home.module.scss";
 
 class Home extends PureComponent {
-  state = {};
+  state = {
+    storeType: null,
+    sortBy: null,
+    range: null,
+    location: null,
+  };
+
+  handleFilterChange = (e) => {
+    // Update state filter value
+    this.setState({ ...this.state,
+      [e.target.name]: e.target.value });
+    };
+
 
   render() {
     let mainContainerClasses = [classes.main_container, "row"];
 
-
+console.log(`this.state`, this.state)
     return (
       <div className="mx-auto">
         <Head>
@@ -27,7 +39,7 @@ class Home extends PureComponent {
             />
           </div>
           <div className="col-12 col-lg-5 px-0">
-            <ControlPanel />
+            <ControlPanel handleFilterChange={(e) => this.handleFilterChange(e)}/>
           </div>
         </main>
       </div>

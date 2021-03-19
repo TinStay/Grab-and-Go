@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{ useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import InputLabel from '@material-ui/core/InputLabel';
 import FormHelperText from '@material-ui/core/FormHelperText';
@@ -8,30 +8,26 @@ import NativeSelect from '@material-ui/core/NativeSelect';
 import classes from '../../../styles/Home.module.scss'
 
 const FilterSelect = (props) => {{}
-// const classes = useStyles();
-  const [state, setState] = React.useState({
-    age: '',
-    name: 'hai',
-  });
+  const [selectedValue, setSelectedValue] = useState(null);
 
-  const handleChange = (event) => {
-    const name = event.target.name;
-    setState({
-      ...state,
-      [name]: event.target.value,
-    });
-  };
+  // const handleChange = (event) => {
+  //   const name = event.target.name;
+  //   setState({
+  //     ...state,
+  //     [name]: event.target.value,
+  //   });
+  // };
   
     return (
       <FormControl className="w-100 mb-2">
-        <InputLabel htmlFor="age-native-simple">{props.label}</InputLabel>
+        <InputLabel htmlFor={`${props.name}-select`}>{props.label}</InputLabel>
         <Select
           native
-          value={state.age}
-          onChange={handleChange}
+          value={selectedValue}
+          onChange={e => props.handleFilterChange(e)}
           inputProps={{
-            name: 'age',
-            id: 'age-native-simple',
+            name: props.name,
+            id: `${props.name}-select`
           }}
         >
           <option aria-label="None" value="" />
