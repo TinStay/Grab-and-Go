@@ -29,34 +29,27 @@
   @media screen and (min-width: 992px) {
   }
 
-  .form_heading {
-    margin: 10px 0 35px 0;
-    font-size: 2.4rem;
-    color: $font-color;
-  }
+  
 
   .line_break_label {
     margin: 28px auto;
     font-size: 1.4rem;
     font-weight: 600;
     color: $font-color;
+    padding-bottom: 4px;
     border-bottom: 1px solid rgb(204, 204, 204);
     // border-bottom: 1px solid #2f5f2d3b;
   }
 
   .form_controls {
-    margin: 30px auto;
+    margin: 30px auto 40px auto;
 
     .form_field {
-      margin: 18px 0;
+      margin: 12px 0;
       width: 100%;
     }
   }
 
-  .social_buttons {
-    display: flex;
-    justify-content: space-around;
-  }
 
   .social_button {
     margin: 5px 15px;
@@ -79,6 +72,7 @@
 
   .checkbox {
     text-align: left;
+    margin-top: 8px;
   }
 
   .submit_button {
@@ -86,13 +80,11 @@
     padding: 9px 0;
     text-decoration: none;
     font-weight: 500;
-    background-color: $green; /* fallback for old browsers */
     outline: none;
     border: none;
 
     &:hover {
       color: white;
-      background-color: $green-hover; /* fallback for old browsers */
     }
     &:active,
     &:focus,

@@ -1,15 +1,18 @@
-import React from 'react'
-import Navbar from './Navbar'
-import Meta from './Meta'
+import React from "react";
+import Navbar from "./Navbar";
+import Meta from "./Meta";
+import ThemeProvider from "../styles/ThemeProvider";
 
-const Layout = ({children}) => {
-    return (
-        <div className="light-green-bgc h-100vh">
-            <Meta />
-            <Navbar />
-            {children}
-        </div>
-    )
-}
+const Layout = ({ children }) => {
+  return (
+    <ThemeProvider>
+      <div className="light-green-bgc h-100vh">
+        <Meta />
+        <Navbar />
+        {children}
+      </div>
+    </ThemeProvider>
+  );
+};
 
-export default Layout
+export default Layout;

@@ -8,6 +8,7 @@ import {
   Checkbox,
   Paper,
   Typography,
+  Box
 } from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 import SocialButton from "../components/SocialButton";
@@ -91,10 +92,6 @@ const Login = (props) => {
       setErrorMessage("Please fill in all form fields");
     }
 
-    // Save credentials in local storage
-    // if(isChecked){
-    //   localStorage.setItem('email', email);
-    // }
 
     // Update state
     if (isValid) setIsFormValid(true);
@@ -127,14 +124,14 @@ const Login = (props) => {
             Log in with
           </Typography>
 
-          <div className={classes.form_heading}>
+          <Box display="flex" justifyContent="center">
             <SocialButton
               platform="Facebook"
               src={"/images/facebookIcon.png"}
             />
             <SocialButton platform="Google" src={"/images/googleIcon.png"} />
             <SocialButton platform="Twitter" src={"/images/twitterIcon.png"} />
-          </div>
+          </Box>
 
           <p className={classes.line_break_label}>or</p>
 
@@ -180,7 +177,7 @@ const Login = (props) => {
             id="submit-button"
             type="submit"
             className={classes.submit_button}
-            variant="outlined"
+            variant="contained"
             color="primary"
             fullWidth
             size="large"
