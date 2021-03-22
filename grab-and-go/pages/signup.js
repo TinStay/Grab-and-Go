@@ -59,9 +59,14 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const Login = (props) => {
+const Signup = (props) => {
   // State
-  const [email, setEmail] = useState("");
+  const [userData, setUserData] = useState({
+      name: "",
+      email: "",
+      password:"",
+      confirmPassword:"",
+  });
   const [password, setPassword] = useState("");
   const [isChecked, setIsChecked] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
@@ -99,6 +104,11 @@ const Login = (props) => {
     setShowAlert(true);
   };
 
+
+  const handleChange = (e) => {
+    console.log(`name:${e.target.name} value: ${e.target.value}`)
+}
+
   // Change alert messages on invalid form
   let alert = (
     <Alert style={{ marginBottom: "15px" }} severity="error">
@@ -115,12 +125,13 @@ const Login = (props) => {
     );
   }
 
+
   return (
     <div className={classes.login_page}>
       <Paper className={styles.root} elevation={5}>
         <form onSubmit={(e) => submitForm(e)} className={classes.login_form}>
           <Typography color="secondary" className={styles.title}>
-            Sign In
+            Sign Up
           </Typography>
 
           <Box display="flex" justifyContent="center">
@@ -140,21 +151,40 @@ const Login = (props) => {
           <div className={classes.form_controls}>
             <ColoredTextField
               className={classes.form_field}
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              id="email-field"
-              label="Email"
-              // variant="outlined"
+              value={userData.name}
+              onChange={(e) => handleChange(e)}
+              id="name-field"
+              label="Name"
+              name=""
               size="small"
             />
             <ColoredTextField
               className={classes.form_field}
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              value={userData.email}
+              onChange={(e) => handleChange(e)}
+              id="email-field"
+              label="Email"
+              name=""
+              size="small"
+            />
+            <ColoredTextField
+              className={classes.form_field}
+              value={userData.password}
+              onChange={(e) => handleChange(e)}
               type="password"
               id="password-field"
               label="Password"
-              // variant="outlined"
+              name=""
+              size="small"
+            />
+            <ColoredTextField
+              className={classes.form_field}
+              value={userData.confirmPassword}
+              onChange={(e) => handleChange(e)}
+              type="password"
+              id="confirm-password-field"
+              label="Confirm Password"
+              name=""
               size="small"
             />
             <div className={classes.checkbox}>
@@ -181,12 +211,12 @@ const Login = (props) => {
             fullWidth
             size="large"
           >
-            Sign In
+            Sign up
           </Button>
 
           <div className={classes.change_auth}>
-            Don't have an account?{" "}
-            <a className={classes.sign_up_link}>Sign Up</a>
+            Already have an account?{" "}
+            <a className={classes.sign_up_link}>Sign in</a>
           </div>
         </form>
       </Paper>
@@ -203,4 +233,4 @@ const isEmail = (email) => {
   }
 };
 
-export default Login;
+export default Signup;

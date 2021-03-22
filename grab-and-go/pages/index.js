@@ -22,7 +22,6 @@ class Home extends PureComponent {
   render() {
     let mainContainerClasses = [classes.main_container, "row"];
 
-console.log(`this.state`, this.state)
     return (
       <div className="mx-auto">
         <Head>

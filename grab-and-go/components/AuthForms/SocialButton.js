@@ -1,6 +1,6 @@
 import React from "react";
 import Image from "next/image";
-import classes from '../styles/Auth.module.scss'
+import classes from '../../styles/Auth.module.scss'
 
 const SocialButton = (props) => {
   return (
