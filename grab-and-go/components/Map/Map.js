@@ -8,8 +8,7 @@ import {
   withGoogleMap,
   InfoWindow,
 } from "react-google-maps";
-import mapStyles from './mapStyles'
-
+import mapStyles from "./mapStyles";
 
 const Map = (props) => {
   // State
@@ -77,11 +76,21 @@ const Map = (props) => {
     //   setLocations(allLocations);
   }, []);
 
-
   return (
-    <GoogleMap defaultZoom={13} defaultCenter={{ lat: 51.44083, lng: 5.47778 }} defaultOptions={{styles: mapStyles}}>
+    <GoogleMap
+      defaultZoom={13}
+      defaultCenter={{ lat: 51.44083, lng: 5.47778 }}
+      defaultOptions={{ styles: mapStyles }}
+    >
       {userPosition && (
-        <Marker position={{ lat: userPosition.lat, lng: userPosition.lng }} />
+        <Marker
+          position={{ lat: userPosition.lat, lng: userPosition.lng }}
+          icon={{
+            url: "/images/userPointer.svg",
+            scaledSize: new window.google.maps.Size(45, 50),
+            
+          }}
+        />
       )}
       {stores &&
         stores.map((store, idx) => (
