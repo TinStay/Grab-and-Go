@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { withStyles, makeStyles } from "@material-ui/core/styles";
+import ColoredTextField from "../components/AuthForms/ColoredTextField";
 import Alert from "@material-ui/lab/Alert";
 import { lime } from "@material-ui/core/colors";
 import {
@@ -8,7 +9,7 @@ import {
   Checkbox,
   Paper,
   Typography,
-  Box
+  Box,
 } from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 import SocialButton from "../components/AuthForms/SocialButton";
@@ -28,22 +29,6 @@ const LimeCheckbox = withStyles({
   checked: {},
 })((props) => <Checkbox color="default" {...props} />);
 
-const ColoredTextField = withStyles({
-  root: {
-    "& label.Mui-focused": {
-      color: "#7eb92c",
-    },
-    "& .MuiInput-underline:after": {
-      borderBottomColor: "#7eb92c",
-    },
-    "& .MuiOutlinedInput-root": {
-      "&.Mui-focused fieldset": {
-        borderColor: "#7eb92c",
-      },
-    },
-  },
-})(TextField);
-
 const useStyles = makeStyles((theme) => ({
   root: {
     maxWidth: "500px",
@@ -55,17 +40,17 @@ const useStyles = makeStyles((theme) => ({
     fontSize: "2.5rem",
     fontWeight: "600",
     marginTop: "10px",
-    marginBottom: "30px"
-  }
+    marginBottom: "30px",
+  },
 }));
 
 const Signup = (props) => {
   // State
   const [userData, setUserData] = useState({
-      name: "",
-      email: "",
-      password:"",
-      confirmPassword:"",
+    name: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
   });
   const [password, setPassword] = useState("");
   const [isChecked, setIsChecked] = useState(false);
@@ -80,22 +65,38 @@ const Signup = (props) => {
   const submitForm = (e) => {
     e.preventDefault();
 
+    // Form values
+    let name = userData.name;
+    let email = userData.email;
+    let password = userData.password;
+    let confirmPassword = userData.confirmPassword;
+
     // Reset state
     setShowAlert(false);
 
     let isValid = false;
 
     // Form Validation
-    if (email != "" && password != "") {
-      if (isEmail(email) && password.length >= 6) isValid = true;
-      else if (!isEmail(email)) setErrorMessage("Invalid email address.");
+    if (name != "" && email != "" && password != "" && confirmPassword != "") {
+      if (
+        name.length >= 2 &&
+        isEmail(email) &&
+        password.length >= 6 &&
+        password === confirmPassword
+      ) {
+          // Set form to valid
+        isValid = true;
+      } else if (!isEmail(email)) setErrorMessage("Invalid email address.");
       else if (password.length < 6)
         setErrorMessage("Password must be at least 6 symbols.");
+      else if (password !== confirmPassword)
+        setErrorMessage("Passwords do not match.");
+      else if (name.length < 2)
+        setErrorMessage("Name must be at least 2 letters.");
       else setErrorMessage("Incorrect email or password.");
     } else {
       setErrorMessage("Please fill in all form fields");
     }
-
 
     // Update state
     if (isValid) setIsFormValid(true);
@@ -104,10 +105,16 @@ const Signup = (props) => {
     setShowAlert(true);
   };
 
-
   const handleChange = (e) => {
-    console.log(`name:${e.target.name} value: ${e.target.value}`)
-}
+    // Copy data from state
+    let newUserData = { ...userData };
+
+    // Update state value
+    newUserData[e.target.name] = e.target.value;
+
+    // Set new state
+    setUserData(newUserData);
+  };
 
   // Change alert messages on invalid form
   let alert = (
@@ -124,7 +131,6 @@ const Signup = (props) => {
       </Alert>
     );
   }
-
 
   return (
     <div className={classes.login_page}>
@@ -150,42 +156,32 @@ const Signup = (props) => {
 
           <div className={classes.form_controls}>
             <ColoredTextField
-              className={classes.form_field}
-              value={userData.name}
-              onChange={(e) => handleChange(e)}
-              id="name-field"
               label="Name"
-              name=""
-              size="small"
+              name="name"
+              value={userData.name}
+              type="text"
+              handleChange={(e) => handleChange(e)}
             />
             <ColoredTextField
-              className={classes.form_field}
-              value={userData.email}
-              onChange={(e) => handleChange(e)}
-              id="email-field"
               label="Email"
-              name=""
-              size="small"
+              name="email"
+              value={userData.email}
+              type="text"
+              handleChange={(e) => handleChange(e)}
             />
             <ColoredTextField
-              className={classes.form_field}
-              value={userData.password}
-              onChange={(e) => handleChange(e)}
-              type="password"
-              id="password-field"
               label="Password"
-              name=""
-              size="small"
+              name="password"
+              value={userData.password}
+              type="password"
+              handleChange={(e) => handleChange(e)}
             />
             <ColoredTextField
-              className={classes.form_field}
-              value={userData.confirmPassword}
-              onChange={(e) => handleChange(e)}
-              type="password"
-              id="confirm-password-field"
               label="Confirm Password"
-              name=""
-              size="small"
+              name="confirmPassword"
+              value={userData.confirmPassword}
+              type="password"
+              handleChange={(e) => handleChange(e)}
             />
             <div className={classes.checkbox}>
               <FormControlLabel

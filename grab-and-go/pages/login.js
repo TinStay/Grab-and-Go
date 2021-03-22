@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { withStyles, makeStyles } from "@material-ui/core/styles";
 import Alert from "@material-ui/lab/Alert";
+import ColoredTextField from '../components/AuthForms/ColoredTextField'
 import { lime } from "@material-ui/core/colors";
 import {
   TextField,
@@ -28,21 +29,6 @@ const LimeCheckbox = withStyles({
   checked: {},
 })((props) => <Checkbox color="default" {...props} />);
 
-const ColoredTextField = withStyles({
-  root: {
-    "& label.Mui-focused": {
-      color: "#7eb92c",
-    },
-    "& .MuiInput-underline:after": {
-      borderBottomColor: "#7eb92c",
-    },
-    "& .MuiOutlinedInput-root": {
-      "&.Mui-focused fieldset": {
-        borderColor: "#7eb92c",
-      },
-    },
-  },
-})(TextField);
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -139,23 +125,18 @@ const Login = (props) => {
 
           <div className={classes.form_controls}>
             <ColoredTextField
-              className={classes.form_field}
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              id="email-field"
               label="Email"
-              // variant="outlined"
-              size="small"
+              name="email"
+              value={email}
+              type="text"
+              handleChange={(e) => setEmail(e.target.value)}
             />
             <ColoredTextField
-              className={classes.form_field}
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              type="password"
-              id="password-field"
               label="Password"
-              // variant="outlined"
-              size="small"
+              name="password"
+              value={password}
+              type="password"
+              handleChange={(e) => setPassword(e.target.value)}
             />
             <div className={classes.checkbox}>
               <FormControlLabel
