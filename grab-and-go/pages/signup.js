@@ -34,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
     maxWidth: "500px",
     margin: "0 auto",
     textAlign: "center",
-    borderRadius: "7px",
+    borderRadius: "30px",
   },
   title: {
     fontSize: "2.5rem",

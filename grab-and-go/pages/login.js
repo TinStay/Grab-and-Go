@@ -35,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
     maxWidth: "500px",
     margin: "0 auto",
     textAlign: "center",
-    borderRadius: "7px",
+    borderRadius: "30px",
   },
   title: {
     fontSize: "2.5rem",
@@ -106,7 +106,7 @@ const Login = (props) => {
       <Paper className={styles.root} elevation={5}>
         <form onSubmit={(e) => submitForm(e)} className={classes.login_form}>
           <Typography color="secondary" className={styles.title}>
-            Sign In
+            Log In
           </Typography>
 
           <Box display="flex" justifyContent="center">
