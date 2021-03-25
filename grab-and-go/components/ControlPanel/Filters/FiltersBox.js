@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import classes from "../../../styles/Home.module.scss";
 import FilterSelect from "./FilterSelect";
+import { Typography } from '@material-ui/core'
 
 const FiltersBox = (props) => {
  
@@ -10,7 +11,7 @@ const FiltersBox = (props) => {
 
   return (
     <div className="container">
-      <h2 className="dark-green-text">Filters</h2>
+     <h2 className="dark-green-text">Filters</h2>
       <div className={filterBoxClasses.join(" ")}>
         <div className="col-6">
           <FilterSelect

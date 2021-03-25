@@ -2,28 +2,19 @@
 
 .main_container {
   background-color: $light-green;
-  // max-width: 100vw;
   margin: 0;
   padding: 0;
-  // width: 100vw;
-  // display: flex;
-  // justify-content: space-between;
 }
 
 .control_panel {
   padding: 1.5rem 0;
   min-height: 100%;
-  // background-color: #f2ffdf;
 
   @media screen  and (min-width: 992px){
     height: 100vh;
     overflow-y: auto;
   }
 
-
-  // .select_control{
-  //   width: 50%;
-  // }
 }
 
 .white_container {
@@ -35,4 +26,22 @@
 
   -webkit-box-shadow: 2px 6px 10px 0px rgba(0, 0, 0, 0.26);
   box-shadow: 2px 6px 10px 0px rgba(0, 0, 0, 0.26);
+}
+
+.info_window{
+  padding: 7px 10px;
+  max-width: 320px;
+
+  &_heading{
+    color: $dark-green;
+  }
+
+  p{
+    // color: red;
+    // width: 80%;
+    margin: 10px 0 20px 0;
+    font-size: 1rem;
+    color: $gray-muted;
+    font-weight: 400;
+  }
 }

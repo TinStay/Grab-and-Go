@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import Geocode from "react-geocode";
+import {Button, makeStyles, Typography} from '@material-ui/core'
 import { locationList } from "../../assets/locationList";
 import {
   GoogleMap,
@@ -9,12 +10,25 @@ import {
   InfoWindow,
 } from "react-google-maps";
 import mapStyles from "./mapStyles";
+import classes from '../../styles/Home.module.scss'
+
+const useStyles = makeStyles(theme => ({
+  infoWindowButton: {
+    backgroundColor: theme.palette.secondary.main,
+    borderRadius: "50px",
+    "&:hover": {
+      backgroundColor: theme.palette.secondary.dark,
+    }
+  }
+}))
 
 const Map = (props) => {
   // State
   const [userPosition, setUserPosition] = useState();
   const [stores, setStores] = useState([]);
   const [selectedStore, setSelectedStore] = useState(null);
+
+  const styles = useStyles()
 
   useEffect(() => {
     // Get location of user
@@ -108,10 +122,15 @@ const Map = (props) => {
         <InfoWindow
           position={{ lat: selectedStore.lat, lng: selectedStore.lng }}
           onCloseClick={() => setSelectedStore(null)}
+         
         >
-          <div>
-            <h4> {selectedStore.name}</h4>
+          <div className={classes.info_window}>
+            <h4 className={classes.info_window_heading}> {selectedStore.name}</h4>
             <p>{selectedStore.address}</p>
+            <Button className={styles.infoWindowButton} variant="contained" color="primary" fullWidth>
+              View products
+            </Button>
+           
           </div>
         </InfoWindow>
       )}
