@@ -2,6 +2,10 @@ import React, { useState } from "react";
 import classes from "../../../styles/Home.module.scss";
 import FilterSelect from "./FilterSelect";
 import { Typography } from '@material-ui/core'
+import StoreIcon from '@material-ui/icons/Store';
+import SortIcon from '@material-ui/icons/Sort';
+import MyLocationIcon from '@material-ui/icons/MyLocation';
+import LocationCityIcon from '@material-ui/icons/LocationCity';
 
 const FiltersBox = (props) => {
  
@@ -18,6 +22,7 @@ const FiltersBox = (props) => {
             label="Store Type"
             name="storeType"
             handleFilterChange={(e) => props.handleFilterChange(e)}
+            icon={<StoreIcon style={{marginRight: "2px"}}/>}
           />
         </div>
         <div className="col-6">
@@ -25,6 +30,7 @@ const FiltersBox = (props) => {
             label="Sort By"
             name="sortBy"
             handleFilterChange={(e) => props.handleFilterChange(e)}
+            icon={<SortIcon style={{marginRight: "2px"}}/>}
           />
         </div>
         <div className="col-6">
@@ -32,6 +38,7 @@ const FiltersBox = (props) => {
             label="Range"
             name="range"
             handleFilterChange={(e) => props.handleFilterChange(e)}
+            icon={<MyLocationIcon style={{marginRight: "2px"}}/>}
           />
         </div>
         <div className="col-6">
@@ -39,6 +46,7 @@ const FiltersBox = (props) => {
             label="Location"
             name="location"
             handleFilterChange={(e) => props.handleFilterChange(e)}
+            icon={<LocationCityIcon style={{marginRight: "2px"}}/>}
           />
         </div>
       </div>

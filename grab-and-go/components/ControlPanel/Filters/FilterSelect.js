@@ -4,6 +4,7 @@ import InputLabel from "@material-ui/core/InputLabel";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 import classes from "../../../styles/Home.module.scss";
+
 import * as filterOptions from "./FilterOptions";
 
 const FilterSelect = (props) => {
@@ -31,7 +32,8 @@ const FilterSelect = (props) => {
 
   return (
     <FormControl className="w-100 mb-2">
-      <InputLabel htmlFor={`${props.name}-select`}>{props.label}</InputLabel>
+      
+      <InputLabel htmlFor={`${props.name}-select`}>{props.icon} {props.label}</InputLabel>
       <Select
         native
         value={selectedValue}
