@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import Geocode from "react-geocode";
 import Link from "next/link";
-import { useRouter } from 'next/router'
+import { useRouter } from "next/router";
 import { Button, makeStyles, Typography } from "@material-ui/core";
 import { locationList } from "../../assets/locationList";
+import { useStoreContext, useUpdateStoreContext } from "../../context";
 import {
   GoogleMap,
   Marker,
@@ -27,12 +28,17 @@ const useStyles = makeStyles((theme) => ({
 const Map = (props) => {
   // State
   const [userPosition, setUserPosition] = useState();
+  const [showInfo, setShowInfo] = useState(false);
   const [stores, setStores] = useState([]);
-  const [selectedStore, setSelectedStore] = useState(null);
+  const [markerMap, setMarkerMap] = useState({});
+  // const [selectedStore, setSelectedStore] = useState(null);
+
+  const {selectedStore, setSelectedStore} = useStoreContext();
 
   const styles = useStyles();
+  const router = useRouter();
 
-  const router = useRouter()
+  console.log(`selectedStore`, selectedStore);
 
   useEffect(() => {
     // Get location of user
@@ -94,12 +100,23 @@ const Map = (props) => {
     //   setLocations(allLocations);
   }, []);
 
-  const handleClick = (e, href) => {
-    // e.preventDefault()
-    console.log(`e.target`, e)
-    router.push(href)
+  const markerLoadHandler = (marker, store) => {
+    return setMarkerMap(prevState => {
+      return { ...prevState, [store.id]: marker };
+    });
+  };
 
+  const handleMarkerClick = (e, store) =>{
+    setSelectedStore(store)
+    setShowInfo(true)
   }
+
+  console.log(`selectedStore`, selectedStore)
+
+  const goToStorePage = (e, href) => {
+    // e.preventDefault()
+    router.push(href);
+  };
 
   return (
     <GoogleMap
@@ -121,17 +138,20 @@ const Map = (props) => {
           <Marker
             key={idx}
             position={{ lat: store.lat, lng: store.lng }}
-            onClick={() => setSelectedStore(store)}
+            onLoad={marker => markerLoadHandler(marker, store)}
+            onClick={(e) => handleMarkerClick(e, store)}
             icon={{
               url: "/images/pointer.svg",
               scaledSize: new window.google.maps.Size(45, 50),
             }}
           />
         ))}
-      {selectedStore && (
+      {showInfo && selectedStore && (
         <InfoWindow
+        // options={{pixelOffset: new google.maps.Size(0,-30)}}
+        // anchor={markerMap[selectedStore.id]}
           position={{ lat: selectedStore.lat, lng: selectedStore.lng }}
-          onCloseClick={() => setSelectedStore(null)}
+          onCloseClick={() => setShowInfo(false)}
         >
           <div className={classes.info_window}>
             <h4 className={classes.info_window_heading}>
@@ -139,7 +159,7 @@ const Map = (props) => {
               {selectedStore.name}
             </h4>
             <p>{selectedStore.address}</p>
-            <a  onClick={(e) => handleClick(e, `store/${selectedStore.name}`)}>
+            <a onClick={(e) => goToStorePage(e, `store/${selectedStore.name}`)}>
               <Button
                 className={styles.infoWindowButton}
                 variant="contained"

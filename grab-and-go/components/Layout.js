@@ -3,8 +3,7 @@ import Navbar from "./Navbar";
 import Meta from "./Meta";
 import ThemeProvider from "../styles/ThemeProvider";
 import { createMuiTheme, MuiThemeProvider } from "@material-ui/core/styles";
-import { RouterContext } from "next/dist/next-server/lib/router-context";
-import {Router} from 'next/router';
+import { StoreProvider } from "../context";
 
 const Layout = ({ children }) => {
   const greenTheme = createMuiTheme({
@@ -22,13 +21,13 @@ const Layout = ({ children }) => {
 
   return (
     <MuiThemeProvider theme={greenTheme}>
-      {/* <RouterContext.Provider value={Router}> */}
+      <StoreProvider>
         <div className="light-green-bgc h-100vh">
           <Meta />
           <Navbar />
           {children}
         </div>
-      {/* </RouterContext.Provider> */}
+      </StoreProvider>
     </MuiThemeProvider>
   );
 };
