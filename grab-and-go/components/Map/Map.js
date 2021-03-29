@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import Geocode from "react-geocode";
-import {Button, makeStyles, Typography} from '@material-ui/core'
+import Link from "next/link";
+import { useRouter } from 'next/router'
+import { Button, makeStyles, Typography } from "@material-ui/core";
 import { locationList } from "../../assets/locationList";
 import {
   GoogleMap,
@@ -10,17 +12,17 @@ import {
   InfoWindow,
 } from "react-google-maps";
 import mapStyles from "./mapStyles";
-import classes from '../../styles/Home.module.scss'
+import classes from "../../styles/Home.module.scss";
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   infoWindowButton: {
     backgroundColor: theme.palette.secondary.main,
     borderRadius: "50px",
     "&:hover": {
       backgroundColor: theme.palette.secondary.dark,
-    }
-  }
-}))
+    },
+  },
+}));
 
 const Map = (props) => {
   // State
@@ -28,7 +30,9 @@ const Map = (props) => {
   const [stores, setStores] = useState([]);
   const [selectedStore, setSelectedStore] = useState(null);
 
-  const styles = useStyles()
+  const styles = useStyles();
+
+  const router = useRouter()
 
   useEffect(() => {
     // Get location of user
@@ -90,6 +94,13 @@ const Map = (props) => {
     //   setLocations(allLocations);
   }, []);
 
+  const handleClick = (e, href) => {
+    // e.preventDefault()
+    console.log(`e.target`, e)
+    router.push(href)
+
+  }
+
   return (
     <GoogleMap
       defaultZoom={13}
@@ -102,7 +113,6 @@ const Map = (props) => {
           icon={{
             url: "/images/userPointer.svg",
             scaledSize: new window.google.maps.Size(45, 50),
-            
           }}
         />
       )}
@@ -122,15 +132,24 @@ const Map = (props) => {
         <InfoWindow
           position={{ lat: selectedStore.lat, lng: selectedStore.lng }}
           onCloseClick={() => setSelectedStore(null)}
-         
         >
           <div className={classes.info_window}>
-            <h4 className={classes.info_window_heading}> {selectedStore.name}</h4>
+            <h4 className={classes.info_window_heading}>
+              {" "}
+              {selectedStore.name}
+            </h4>
             <p>{selectedStore.address}</p>
-            <Button className={styles.infoWindowButton} variant="contained" color="primary" fullWidth>
-              View products
-            </Button>
-           
+            <a  onClick={(e) => handleClick(e, `store/${selectedStore.name}`)}>
+              <Button
+                className={styles.infoWindowButton}
+                variant="contained"
+                color="primary"
+                fullWidth
+                // onClick={e => e.preventDefault()}
+              >
+                View products
+              </Button>
+            </a>
           </div>
         </InfoWindow>
       )}
