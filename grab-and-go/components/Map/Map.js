@@ -5,6 +5,7 @@ import { useRouter } from "next/router";
 import { Button, makeStyles, Typography } from "@material-ui/core";
 import { locationList } from "../../assets/locationList";
 import { useStoreContext, useUpdateStoreContext } from "../../context";
+import axios from "axios";
 import {
   GoogleMap,
   Marker,
@@ -30,20 +31,17 @@ const Map = (props) => {
   const [userPosition, setUserPosition] = useState();
   const [showInfo, setShowInfo] = useState(false);
   const [stores, setStores] = useState([]);
-  const [markerMap, setMarkerMap] = useState({});
-  // const [selectedStore, setSelectedStore] = useState(null);
 
-  const {selectedStore, setSelectedStore} = useStoreContext();
+  const { selectedStore, setSelectedStore } = useStoreContext();
 
   const styles = useStyles();
   const router = useRouter();
 
-  console.log(`selectedStore`, selectedStore);
+  useEffect(async () => {
 
-  useEffect(() => {
     // Get location of user
     if ("geolocation" in navigator) {
-      navigator.geolocation.getCurrentPosition(function (position) {
+      await navigator.geolocation.getCurrentPosition(function (position) {
         setUserPosition({
           lat: position.coords.latitude,
           lng: position.coords.longitude,
@@ -53,68 +51,83 @@ const Map = (props) => {
       console.log("Geolocation Not Available");
     }
 
-    // // Push data to a new object array
-    // let allLocations = [];
-
-    // // Connect to Google key
-    // Geocode.setApiKey(process.env.NEXT_PUBLIC_GOOGLE_KEY);
-
-    // let promises = [];
-
-    // locationList.map((place) => {
-    //   promises.push(Geocode.fromAddress(place.address));
-
-    // });
-
-    // Promise.all(promises).then(
-    //     (newLocations) => {
-    //       newLocations.map((location) => {
-    //         //   console.log('location', location)
-    //         const { lat, lng } = location.results[0].geometry.location;
-    //         // Update coordinates
-    //         location = { ...location, lat: lat, lng: lng };
-
-    //         allLocations.push(location);
-    //       });
-    //     },
-    //     (error) => {
-    //       console.error(error);
-    //     }
-    //   );
-
     setStores(locationList);
 
-    // // Get latitude and longitude from address
-    // await Geocode.fromAddress(place.address).then(
-    //     (response) => {
-    //       const { lat, lng } = response.results[0].geometry.location;
-    //       // Update coordinates
-    //       place = {...place, lat: lat, lng: lng}
-
-    //       allLocations.push(place);
-    //     },
-    //     (error) => {
-    //       console.error(error);
-    //     }
-    //   );
-    //   setLocations(allLocations);
   }, []);
 
-  const markerLoadHandler = (marker, store) => {
-    return setMarkerMap(prevState => {
-      return { ...prevState, [store.id]: marker };
+  useEffect(() => {
+    if (!userPosition) return;
+    const service = new google.maps.DistanceMatrixService();
+
+    // User position
+    const origin = { lat: userPosition.lat, lng: userPosition.lng };
+
+    // Add store addresses in a destinations array
+    const destinations = [];
+    stores.map((store) => {
+      destinations.push(`${store.address}`);
     });
+
+    service.getDistanceMatrix(
+      {
+        origins: [origin],
+        destinations: destinations,
+        travelMode: google.maps.TravelMode.DRIVING,
+        unitSystem: google.maps.UnitSystem.METRIC,
+        avoidHighways: false,
+        avoidTolls: false,
+      },
+      (response, status) => {
+        if (status !== "OK") {
+          alert("Error was: " + status);
+        } else {
+          const originList = response.originAddresses;
+          const destinationList = response.destinationAddresses;
+          const distanceFromOrigin = response.rows[0].elements;
+
+          let destinationInfo = destinationList.map((destination, idx) => {
+            return {
+              destination,
+              distance: distanceFromOrigin[idx].distance,
+              duration: distanceFromOrigin[idx].duration,
+            };
+          });
+
+          let updatedStoreList = [];
+
+          stores.map((store) => {
+            // Filter destination info for the current store
+            const targetDestination = destinationInfo.find(
+              (destination) => store.address === destination.destination
+            );
+
+            // Duplicate current store object with new data
+            const newStoreData = {
+              ...store,
+              distanceInfo: {
+                distance: targetDestination.distance,
+                duration: targetDestination.duration,
+              },
+            };
+
+            // Update store in stores object
+            updatedStoreList.push(newStoreData)
+          });
+
+          setStores(updatedStoreList)
+
+        }
+      }
+    );
+  }, [userPosition]);
+
+
+  const handleMarkerClick = (e, store) => {
+    setSelectedStore(store);
+    setShowInfo(true);
   };
 
-  const handleMarkerClick = (e, store) =>{
-    setSelectedStore(store)
-    setShowInfo(true)
-  }
-
-  console.log(`selectedStore`, selectedStore)
-
   const goToStorePage = (e, href) => {
-    // e.preventDefault()
     router.push(href);
   };
 
@@ -138,7 +151,6 @@ const Map = (props) => {
           <Marker
             key={idx}
             position={{ lat: store.lat, lng: store.lng }}
-            onLoad={marker => markerLoadHandler(marker, store)}
             onClick={(e) => handleMarkerClick(e, store)}
             icon={{
               url: "/images/pointer.svg",
@@ -148,8 +160,6 @@ const Map = (props) => {
         ))}
       {showInfo && selectedStore && (
         <InfoWindow
-        // options={{pixelOffset: new google.maps.Size(0,-30)}}
-        // anchor={markerMap[selectedStore.id]}
           position={{ lat: selectedStore.lat, lng: selectedStore.lng }}
           onCloseClick={() => setShowInfo(false)}
         >

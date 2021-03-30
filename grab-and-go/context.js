@@ -8,11 +8,14 @@ export function useStoreContext() {
 }
 
 export const StoreProvider = ({ children }) => {
+  const [stores, setStores] = useState([]);
   const [selectedStore, setSelectedStore] = useState(null);
 
   return (
     <StoreContext.Provider
       value={{
+        stores,
+        setStores,
         selectedStore,
         setSelectedStore
       }}
