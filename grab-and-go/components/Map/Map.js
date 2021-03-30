@@ -4,8 +4,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { Button, makeStyles, Typography } from "@material-ui/core";
 import { locationList } from "../../assets/locationList";
-import { useStoreContext, useUpdateStoreContext } from "../../context";
-import axios from "axios";
+import { useStoreContext } from "../../context";
 import {
   GoogleMap,
   Marker,
@@ -30,9 +29,9 @@ const Map = (props) => {
   // State
   const [userPosition, setUserPosition] = useState();
   const [showInfo, setShowInfo] = useState(false);
-  const [stores, setStores] = useState([]);
+  // const [stores, setStores] = useState([]);
 
-  const { selectedStore, setSelectedStore } = useStoreContext();
+  const { selectedStore, setSelectedStore, stores, setStores } = useStoreContext();
 
   const styles = useStyles();
   const router = useRouter();

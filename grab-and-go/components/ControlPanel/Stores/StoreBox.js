@@ -9,7 +9,7 @@ const StoreBox = (props) => {
           <p className="text-muted">{props.address}</p>
         </div>
         <div>
-          <span className="green-text h5">{props.distance} km</span>
+          <span className="green-text h5">{props.distance}</span>
         </div>
       </div>
     </div>
