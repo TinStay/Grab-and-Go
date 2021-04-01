@@ -190,7 +190,7 @@ const Map = (props) => {
               onClick={(e) =>
                 goToStorePage(
                   e,
-                  `stores/${selectedStore.name}/${selectedStore.id}`
+                  `stores/${selectedStore.id}`
                 )
               }
             >
