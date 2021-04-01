@@ -36,12 +36,12 @@
     color: $dark-green;
   }
 
-  p{
-    // color: red;
-    // width: 80%;
+  &_address{
     margin: 10px 0 20px 0;
     font-size: 1rem;
     color: $gray-muted;
     font-weight: 400;
   }
+
+
 }

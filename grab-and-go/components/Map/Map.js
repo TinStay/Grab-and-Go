@@ -2,7 +2,13 @@ import { useEffect, useState } from "react";
 import Geocode from "react-geocode";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { Button, makeStyles, Typography } from "@material-ui/core";
+import {
+  Button,
+  makeStyles,
+  Typography,
+  Box,
+  useTheme,
+} from "@material-ui/core";
 import { locationList } from "../../assets/locationList";
 import { useStoreContext } from "../../context";
 import {
@@ -29,15 +35,19 @@ const Map = (props) => {
   // State
   const [userPosition, setUserPosition] = useState();
   const [showInfo, setShowInfo] = useState(false);
-  // const [stores, setStores] = useState([]);
 
-  const { selectedStore, setSelectedStore, stores, setStores } = useStoreContext();
+  const {
+    selectedStore,
+    setSelectedStore,
+    stores,
+    setStores,
+  } = useStoreContext();
 
+  const theme = useTheme();
   const styles = useStyles();
   const router = useRouter();
 
   useEffect(async () => {
-
     // Get location of user
     if ("geolocation" in navigator) {
       await navigator.geolocation.getCurrentPosition(function (position) {
@@ -51,7 +61,6 @@ const Map = (props) => {
     }
 
     setStores(locationList);
-
   }, []);
 
   useEffect(() => {
@@ -110,16 +119,14 @@ const Map = (props) => {
             };
 
             // Update store in stores object
-            updatedStoreList.push(newStoreData)
+            updatedStoreList.push(newStoreData);
           });
 
-          setStores(updatedStoreList)
-
+          setStores(updatedStoreList);
         }
       }
     );
   }, [userPosition]);
-
 
   const handleMarkerClick = (e, store) => {
     setSelectedStore(store);
@@ -163,12 +170,30 @@ const Map = (props) => {
           onCloseClick={() => setShowInfo(false)}
         >
           <div className={classes.info_window}>
-            <h4 className={classes.info_window_heading}>
-              {" "}
-              {selectedStore.name}
-            </h4>
-            <p>{selectedStore.address}</p>
-            <a onClick={(e) => goToStorePage(e, `store/${selectedStore.name}`)}>
+            <Box display="flex" justifyContent="space-between">
+              <h4 className={classes.info_window_heading}>
+                {" "}
+                {selectedStore.name}
+              </h4>
+              <Typography
+                variant="h6"
+                style={{ color: theme.palette.primary.main }}
+              >
+                {selectedStore.distanceInfo.distance.text}
+              </Typography>
+            </Box>
+
+            <p className={classes.info_window_address}>
+              {selectedStore.address}
+            </p>
+            <a
+              onClick={(e) =>
+                goToStorePage(
+                  e,
+                  `stores/${selectedStore.name}/${selectedStore.id}`
+                )
+              }
+            >
               <Button
                 className={styles.infoWindowButton}
                 variant="contained"
