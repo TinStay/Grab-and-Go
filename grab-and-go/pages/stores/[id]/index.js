@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import ProductCard from "../../../components/Store/ProductCard";
 
 // Material ui
 import { withStyles, makeStyles } from "@material-ui/core/styles";
@@ -44,14 +45,15 @@ import { useStoreContext } from "../../../context";
 
 const useStyles = makeStyles((theme) => ({
   container: {
-    padding: "15px 20px",
+    padding: "20px 25px",
   },
 }));
 
-function a11yProps(index) {
+// Generate ID for Tab
+function tabProps(index) {
   return {
     id: `scrollable-auto-tab-${index}`,
-    'aria-controls': `scrollable-auto-tabpanel-${index}`,
+    "aria-controls": `scrollable-auto-tabpanel-${index}`,
   };
 }
 
@@ -59,7 +61,7 @@ const Store = () => {
   const styles = useStyles();
 
   // State
-  const [selectedTab, setSelectedTab] = useState()
+  const [selectedTab, setSelectedTab] = useState(0);
   const { selectedStore, setSelectedStore } = useStoreContext(0);
 
   return (
@@ -68,12 +70,17 @@ const Store = () => {
         <Grid container spacing={4}>
           <Grid item xs={3}>
             <Paper className={styles.container} elevation={5}>
-              <Typography variant="h6">{selectedStore?.name}</Typography>
+              <Typography color="primary" variant="h4">
+                {selectedStore?.name}
+              </Typography>
+              <Typography variant="h7">{selectedStore?.address}</Typography>
+              <Typography color="primary" variant="h6">
+                {selectedStore?.distanceInfo.distance.text} away
+              </Typography>
             </Paper>
           </Grid>
           <Grid item xs={9}>
             {/* <Paper className={styles.container} elevation={5}> */}
-            <Typography variant="h2">{selectedStore?.name}</Typography>
 
             <AppBar position="static" color="default">
               <Tabs
@@ -85,38 +92,28 @@ const Store = () => {
                 scrollButtons="auto"
                 aria-label="scrollable auto tabs example"
               >
-                <Tab label="Item One" {...a11yProps(0)} />
-                <Tab label="Item Two" {...a11yProps(1)} />
-                <Tab label="Item Three" {...a11yProps(2)} />
-                <Tab label="Item Four" {...a11yProps(3)} />
-                <Tab label="Item Five" {...a11yProps(4)} />
-                <Tab label="Item Six" {...a11yProps(5)} />
-                <Tab label="Item Seven" {...a11yProps(6)} />
+                {/* Display product categories */}
+                {selectedStore?.products?.map((category, idx) => {
+                  return <Tab label={category.category} {...tabProps(idx)} />;
+                })}
               </Tabs>
             </AppBar>
-            <TabPanel value={selectedTab} index={0}>
-              Item One
-            </TabPanel>
-            <TabPanel value={selectedTab} index={1}>
-              Item Two
-            </TabPanel>
-            <TabPanel value={selectedTab} index={2}>
-              Item Three
-            </TabPanel>
-            <TabPanel value={selectedTab} index={3}>
-              Item Four
-            </TabPanel>
-            <TabPanel value={selectedTab} index={4}>
-              Item Five
-            </TabPanel>
-            <TabPanel value={selectedTab} index={5}>
-              Item Six
-            </TabPanel>
-            <TabPanel value={selectedTab} index={6}>
-              Item Seven
-            </TabPanel>
-            
 
+            {selectedStore?.products?.map((category, idx) => {
+              return (
+                <TabPanel value={selectedTab} index={idx} {...tabProps(idx)}>
+                  <Grid container spacing={2}>
+                    {category.items.map((item) => {
+                      return (
+                        <Grid item xs={4}>
+                          <ProductCard item={item} />
+                        </Grid>
+                      )
+                    })}
+                  </Grid>
+                </TabPanel>
+              );
+            })}
           </Grid>
         </Grid>
       </Box>
