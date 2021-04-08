@@ -13,12 +13,8 @@ import {
   AppBar,
   Tabs,
   Tab,
-  Card,
-  CardMedia,
-  CardContent,
-  CardActions,
-  CardActionArea,
 } from "@material-ui/core";
+import Image from 'next/image'
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -70,6 +66,7 @@ const Store = () => {
         <Grid container spacing={4}>
           <Grid item md={3}>
             <Paper className={styles.container} elevation={5}>
+              {/* <Image src={selectedStore?.storeImage}`  /> */}
               <Typography color="primary" variant="h4">
                 {selectedStore?.name}
               </Typography>
@@ -82,7 +79,7 @@ const Store = () => {
           <Grid item md={9}>
             {/* <Paper className={styles.container} elevation={5}> */}
 
-            <AppBar position="static" color="default">
+            <AppBar position="static" color="default" style={{width: "95%", margin: "0 auto"}}>
               <Tabs
                 value={selectedTab}
                 onChange={(e, newValue) => setSelectedTab(newValue)}

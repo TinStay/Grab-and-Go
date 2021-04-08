@@ -5,6 +5,7 @@ export const locationList = [
     address: "Woenselse Markt 5, 5612 CP Eindhoven, Netherlands",
     lat: 51.4517023,
     lng: 5.4722792,
+    storeImage: "/images/store/beefBurger.png",
     distanceInfo: {
       distance: null,
       duration: null,
@@ -66,6 +67,7 @@ export const locationList = [
     address: "Orionstraat 137, 5632 DC Eindhoven, Netherlands",
     lat: 51.470346,
     lng: 5.4941355,
+    storeImage: "/images/store/beefBurger.png",
     distanceInfo: {
       distance: null,
       duration: null,
@@ -78,6 +80,7 @@ export const locationList = [
     address: "Langdonkenstraat 7, 5616 PP Eindhoven, Netherlands",
     lat: 51.44004,
     lng: 5.46476,
+    storeImage: "/images/store/beefBurger.png",
     distanceInfo: {
       distance: null,
       duration: null,
@@ -90,6 +93,7 @@ export const locationList = [
     address: "Marktstraat 1, 5611 EA Eindhoven, Netherlands",
     lat: 51.43944,
     lng: 5.47792,
+    storeImage: "/images/store/beefBurger.png",
     distanceInfo: {
       distance: null,
       duration: null,
@@ -102,6 +106,7 @@ export const locationList = [
     address: "Kerkstraat 5, 5611 GH Eindhoven, Netherlands",
     lat: 51.43677,
     lng: 5.47852,
+    storeImage: "/images/store/beefBurger.png",
     distanceInfo: {
       distance: null,
       duration: null,
