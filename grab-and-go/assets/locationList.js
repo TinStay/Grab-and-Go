@@ -17,7 +17,7 @@ export const locationList = [
             name: "Beef Burger",
             price: "6.00$",
             description:
-              "Lorem, ipsum dolor  Laborum culpa tempore iure voluptas molestias exercitationem dolores nesciunt itaque! Esse, nisi.",
+              "Lorem, ipsum dolor  Laborum culpa tempore iure voluptas molestias exercitationem.",
             image: "/images/store/beefBurger.png"
           },
           {

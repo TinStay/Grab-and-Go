@@ -20,11 +20,12 @@ import RemoveIcon from "@material-ui/icons/Remove";
 const useStyles = makeStyles({
   root: {
     height: "100%",
+    
   },
   media: {
-    maxHeight: "300px",
+    height: "60%",
     backgroundSize: "cover",
-    padding: "15px 15px 0px 15px"
+    padding: "10px 15px 0px 15px"
   },
   cardButtons: {
     display: "block",
@@ -41,7 +42,7 @@ const ProductCard = (props) => {
   console.log(`item.image`, item.image);
 
   return (
-    <Card className={styles.root} elevation={4}>
+    <Card className={styles.root} elevation={4} >
       <CardActionArea style={{ height: "74%" }}>
         <CardMedia className={styles.media} src={item.image} component="img" />
         <CardContent>
