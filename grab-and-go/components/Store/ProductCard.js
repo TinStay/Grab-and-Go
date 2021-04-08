@@ -22,7 +22,8 @@ const useStyles = makeStyles({
     height: "100%",
   },
   media: {
-    height: "200px",
+    maxHeight: "300px",
+    backgroundSize: "cover",
     padding: "15px 15px 0px 15px"
   },
   cardButtons: {
@@ -40,7 +41,7 @@ const ProductCard = (props) => {
   console.log(`item.image`, item.image);
 
   return (
-    <Card className={styles.root}>
+    <Card className={styles.root} elevation={4}>
       <CardActionArea style={{ height: "74%" }}>
         <CardMedia className={styles.media} src={item.image} component="img" />
         <CardContent>

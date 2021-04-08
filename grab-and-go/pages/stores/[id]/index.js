@@ -68,7 +68,7 @@ const Store = () => {
     <Container>
       <Box my="3rem">
         <Grid container spacing={4}>
-          <Grid item xs={3}>
+          <Grid item md={3}>
             <Paper className={styles.container} elevation={5}>
               <Typography color="primary" variant="h4">
                 {selectedStore?.name}
@@ -79,7 +79,7 @@ const Store = () => {
               </Typography>
             </Paper>
           </Grid>
-          <Grid item xs={9}>
+          <Grid item md={9}>
             {/* <Paper className={styles.container} elevation={5}> */}
 
             <AppBar position="static" color="default">
@@ -105,7 +105,7 @@ const Store = () => {
                   <Grid container alignItems="stretch" spacing={2}>
                     {category.items.map((item) => {
                       return (
-                        <Grid item xs={4} >
+                        <Grid item md={4} sm={6} >
                           <ProductCard item={item} />
                         </Grid>
                       )
