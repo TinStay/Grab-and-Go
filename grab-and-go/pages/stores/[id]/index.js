@@ -102,10 +102,10 @@ const Store = () => {
             {selectedStore?.products?.map((category, idx) => {
               return (
                 <TabPanel value={selectedTab} index={idx} {...tabProps(idx)}>
-                  <Grid container spacing={2}>
+                  <Grid container alignItems="stretch" spacing={2}>
                     {category.items.map((item) => {
                       return (
-                        <Grid item xs={4}>
+                        <Grid item xs={4} >
                           <ProductCard item={item} />
                         </Grid>
                       )

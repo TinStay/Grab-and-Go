@@ -15,21 +15,24 @@ export const locationList = [
         items: [
           {
             name: "Beef Burger",
-            price: "6$",
+            price: "6.00$",
             description:
               "Lorem, ipsum dolor  Laborum culpa tempore iure voluptas molestias exercitationem dolores nesciunt itaque! Esse, nisi.",
+            image: "/images/store/beefBurger.png"
           },
           {
             name: "Cheeseburger",
-            price: "4$",
+            price: "4.00$",
             description:
               "Lorem, culpa tempore iure voluptas molestias exercitationem dolores nesciunt itaque! Esse, nisi.",
+            image: "/images/store/cheese-burger.png"
           },
           {
             name: "Veggie Burger",
             price: "4.50$",
             description:
               "Laborum culpa tempore iure voluptas molestias exercitationem dolores nesciunt itaque! Esse, nisi.",
+            image: "/images/store/veggie-burger.png"
           },
         ],
       },
