@@ -14,7 +14,7 @@ import {
   Tabs,
   Tab,
 } from "@material-ui/core";
-import Image from 'next/image'
+import Image from "next/image";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -60,13 +60,25 @@ const Store = () => {
   const [selectedTab, setSelectedTab] = useState(0);
   const { selectedStore, setSelectedStore } = useStoreContext(0);
 
+  console.log(`selectedStore?.storeImage`, selectedStore?.storeImage);
   return (
     <Container>
       <Box my="3rem">
         <Grid container spacing={4}>
-          <Grid item md={3}>
+          <Grid item md={12}>
             <Paper className={styles.container} elevation={5}>
-              {/* <Image src={selectedStore?.storeImage}`  /> */}
+              {selectedStore != null && (
+                <Image
+                  src={selectedStore?.storeImage}
+                  width="300px"
+                  height="300px"
+                  // style={}
+                />
+                // <Box style={{backgroundImage: `url(public/${selectedStore?.storeImage}), backg`}}>
+
+                // </Box>
+              )}
+
               <Typography color="primary" variant="h4">
                 {selectedStore?.name}
               </Typography>
@@ -76,10 +88,14 @@ const Store = () => {
               </Typography>
             </Paper>
           </Grid>
-          <Grid item md={9}>
+          <Grid item md={12} >
             {/* <Paper className={styles.container} elevation={5}> */}
 
-            <AppBar position="static" color="default" style={{width: "95%", margin: "0 auto"}}>
+            <AppBar
+              position="static"
+              color="default"
+              style={{ width: "100%", margin: "0 auto", }}
+            >
               <Tabs
                 value={selectedTab}
                 onChange={(e, newValue) => setSelectedTab(newValue)}
@@ -98,14 +114,14 @@ const Store = () => {
 
             {selectedStore?.products?.map((category, idx) => {
               return (
-                <TabPanel value={selectedTab} index={idx} {...tabProps(idx)}>
-                  <Grid container alignItems="stretch" spacing={2}>
+                <TabPanel value={selectedTab} index={idx} {...tabProps(idx)} >
+                  <Grid container alignItems="stretch" spacing={3} >
                     {category.items.map((item) => {
                       return (
-                        <Grid item md={4} sm={6} >
+                        <Grid item md={3} sm={6} >
                           <ProductCard item={item} />
                         </Grid>
-                      )
+                      );
                     })}
                   </Grid>
                 </TabPanel>

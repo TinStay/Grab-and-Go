@@ -40,7 +40,7 @@ const ProductCard = (props) => {
 
   const item = { ...props.item };
 
-  console.log(`item.image`, item.image);
+  // console.log(`item.image`, item.image);
 
   return (
     <Card className={styles.root} elevation={4} >

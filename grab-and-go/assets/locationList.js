@@ -5,7 +5,7 @@ export const locationList = [
     address: "Woenselse Markt 5, 5612 CP Eindhoven, Netherlands",
     lat: 51.4517023,
     lng: 5.4722792,
-    storeImage: "/images/store/beefBurger.png",
+    storeImage: "/images/store/AH.jpg",
     distanceInfo: {
       distance: null,
       duration: null,
