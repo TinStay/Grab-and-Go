@@ -65,36 +65,69 @@ const Store = () => {
     <Container>
       <Box my="3rem">
         <Grid container spacing={4}>
+          {/* Store info */}
           <Grid item md={12}>
             <Paper className={styles.container} elevation={5}>
-              {selectedStore != null && (
-                <Image
-                  src={selectedStore?.storeImage}
-                  width="300px"
-                  height="300px"
-                  // style={}
-                />
-                // <Box style={{backgroundImage: `url(public/${selectedStore?.storeImage}), backg`}}>
+              <Grid container spacing={4}>
+                <Grid item md={4} style={{ width: "100%" }}>
+                  {selectedStore != null && (
+                    <img
+                      src={selectedStore?.storeImage}
+                      style={{ width: "100%", height: "100%" }}
+                    />
+                    // <Box style={{backgroundImage: `url(public/${selectedStore?.storeImage}), backg`}}>
 
-                // </Box>
-              )}
+                    // </Box>
+                  )}
+                </Grid>
+                <Grid item md={8}>
+                  <Box display="flex" flexDirection="column" height={1}>
+                    {/* Name + distance away */}
+                    <Box
+                      display="flex"
+                      flexGrow="0"
+                      justifyContent="space-between"
+                    >
+                      <Typography color="primary" variant="h4">
+                        {selectedStore?.name}
+                      </Typography>
+                      <Typography color="primary" variant="h6">
+                        {selectedStore?.distanceInfo.distance.text} away
+                      </Typography>
+                    </Box>
 
-              <Typography color="primary" variant="h4">
-                {selectedStore?.name}
-              </Typography>
-              <Typography variant="h7">{selectedStore?.address}</Typography>
-              <Typography color="primary" variant="h6">
-                {selectedStore?.distanceInfo.distance.text} away
-              </Typography>
+                    {/* Address */}
+                    <Typography className="gray-muted" variant="h7" component="h6">
+                      {selectedStore?.address}
+                    </Typography>
+
+                    {/* Description */}
+                    <Box flexGrow={1} mt={1} mb={3}>
+                      <Typography variant="h7">
+                      {selectedStore?.description}
+                      </Typography>
+                    </Box>
+
+                    {/* Ready for pick up */}
+                    <Box flexGrow={0} >
+                      <Typography color="secondary" variant="h7" component="h6">
+                        Ready for pick up: {selectedStore?.pickUpTime}{" "}
+                      </Typography>
+                    </Box>
+                  </Box>
+                </Grid>
+              </Grid>
             </Paper>
           </Grid>
-          <Grid item md={12} >
+
+          {/* Menu */}
+          <Grid item md={12}>
             {/* <Paper className={styles.container} elevation={5}> */}
 
             <AppBar
               position="static"
               color="default"
-              style={{ width: "100%", margin: "0 auto", }}
+              style={{ width: "100%", margin: "0 auto" }}
             >
               <Tabs
                 value={selectedTab}
@@ -114,11 +147,11 @@ const Store = () => {
 
             {selectedStore?.products?.map((category, idx) => {
               return (
-                <TabPanel value={selectedTab} index={idx} {...tabProps(idx)} >
-                  <Grid container alignItems="stretch" spacing={3} >
+                <TabPanel value={selectedTab} index={idx} {...tabProps(idx)}>
+                  <Grid container alignItems="stretch" spacing={3}>
                     {category.items.map((item) => {
                       return (
-                        <Grid item md={3} sm={6} >
+                        <Grid item md={3} sm={6}>
                           <ProductCard item={item} />
                         </Grid>
                       );
