@@ -17,9 +17,12 @@ import {
 import AddIcon from "@material-ui/icons/Add";
 import RemoveIcon from "@material-ui/icons/Remove";
 
-const useStyles = makeStyles({
+const useStyles = makeStyles( theme => ({
   root: {
-    height: "100%",
+
+    [theme.breakpoints.up('md')]: {
+      height: "100%",
+    },
     
   },
   media: {
@@ -32,7 +35,7 @@ const useStyles = makeStyles({
     padding: "5px 20px",
     justifyContent: "space-between",
   },
-});
+}));
 
 const ProductCard = (props) => {
   const styles = useStyles();
