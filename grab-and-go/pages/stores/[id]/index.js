@@ -13,9 +13,10 @@ import {
   AppBar,
   Tabs,
   Tab,
-  Link
+  Link,
+  IconButton,
 } from "@material-ui/core";
-// import Link from "next/link";
+import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -44,6 +45,22 @@ const useStyles = makeStyles((theme) => ({
   container: {
     padding: "20px 25px",
   },
+  cartContainer: {
+    position: "fixed",
+    bottom: "10%",
+    right: "5%",
+    width: "250px",
+    height: "500px",
+    padding: "20px 25px",
+    backgroundColor: "white",
+    [theme.breakpoints.up("sm")]: {
+      width: "300px",
+    },
+    [theme.breakpoints.up("md")]: {
+      width: "400px",
+      height: "500px",
+    }
+  },
 }));
 
 // Generate ID for Tab
@@ -59,16 +76,20 @@ const Store = () => {
 
   // State
   const [selectedTab, setSelectedTab] = useState(0);
+  const [showCart, setShowCart] = useState(false);
   const { selectedStore, setSelectedStore } = useStoreContext(0);
 
   console.log(`selectedStore?.storeImage`, selectedStore?.storeImage);
   return (
     <Container>
-      <Box my="2rem">
-        <Link color="secondary"  className="text-decoration-none" href="/">
-          <i className="fas fa-angle-left mb-2 me-1"></i>Go back
-        </Link>
-        
+      <Box position="relative" my="1rem">
+        {/* Go back link */}
+        <Typography>
+          <Link color="secondary" className="text-decoration-none" href="/">
+            <i className="fas fa-angle-left mb-3 me-1"></i>Go back
+          </Link>
+        </Typography>
+
         {/* Store info */}
         <Box mb={3}>
           <Paper className={styles.container} elevation={5}>
@@ -129,7 +150,6 @@ const Store = () => {
         <Box>
           <AppBar
             position="static"
-            
             style={{ margin: "0 auto", backgroundColor: "white" }}
           >
             <Tabs
@@ -164,7 +184,27 @@ const Store = () => {
             );
           })}
         </Box>
-        {/* </Grid> */}
+        {/* Shopping cart con container */}
+        {showCart && 
+        <Paper className={styles.cartContainer} elevation={6}>
+          <Box color="primary">
+
+          </Box>
+          
+        </Paper>}
+
+        {/* Shopping cart button */}
+        <Box style={{ position: "fixed", bottom: "3%", right: "5%" }}>
+          <Button
+            variant="contained"
+            color="secondary"
+            onClick={() => setShowCart(true)}
+            style={{ color: "white", padding: "10px 25px" }}
+          >
+            <ShoppingCartIcon style={{ marginRight: "5px" }} />{" "}
+            <Typography>Shopping Cart: 7$</Typography>
+          </Button>
+        </Box>
       </Box>
     </Container>
   );
