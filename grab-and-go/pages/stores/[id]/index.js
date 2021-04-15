@@ -49,12 +49,12 @@ const useStyles = makeStyles((theme) => ({
     position: "fixed",
     bottom: "10%",
     right: "5%",
-    width: "250px",
+    width: "300px",
     height: "500px",
     padding: "20px 25px",
     backgroundColor: "white",
     [theme.breakpoints.up("sm")]: {
-      width: "300px",
+      width: "350px",
     },
     [theme.breakpoints.up("md")]: {
       width: "400px",
