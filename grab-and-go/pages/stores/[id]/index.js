@@ -1,5 +1,9 @@
 import React, { useState } from "react";
 import ProductCard from "../../../components/Store/ProductCard";
+import Image from "next/image";
+
+// Components
+import CartItem from "../../../components/Store/CartItem";
 
 // Material ui
 import { withStyles, makeStyles } from "@material-ui/core/styles";
@@ -15,8 +19,11 @@ import {
   Tab,
   Link,
   IconButton,
+  useTheme,
+  Divider,
 } from "@material-ui/core";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
+import ExpandMoreRoundedIcon from "@material-ui/icons/ExpandMoreRounded";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -51,7 +58,6 @@ const useStyles = makeStyles((theme) => ({
     right: "5%",
     width: "300px",
     height: "500px",
-    padding: "20px 25px",
     backgroundColor: "white",
     [theme.breakpoints.up("sm")]: {
       width: "350px",
@@ -59,7 +65,7 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.up("md")]: {
       width: "400px",
       height: "500px",
-    }
+    },
   },
 }));
 
@@ -74,9 +80,14 @@ function tabProps(index) {
 const Store = () => {
   const styles = useStyles();
 
+  const theme = useTheme();
+
+  const primary = theme.palette.primary.main;
+
   // State
   const [selectedTab, setSelectedTab] = useState(0);
   const [showCart, setShowCart] = useState(false);
+
   const { selectedStore, setSelectedStore } = useStoreContext(0);
 
   console.log(`selectedStore?.storeImage`, selectedStore?.storeImage);
@@ -184,14 +195,93 @@ const Store = () => {
             );
           })}
         </Box>
-        {/* Shopping cart con container */}
-        {showCart && 
-        <Paper className={styles.cartContainer} elevation={6}>
-          <Box color="primary">
+        {/* Shopping cart container */}
+        {showCart && (
+          <Paper className={styles.cartContainer} elevation={6}>
+            <Box  
+            height={1}
+            display="flex"
+            flexDirection="column"
+            >
 
-          </Box>
-          
-        </Paper>}
+            
+            {/* Label + close button */}
+            <Box
+              display="flex"
+              alignItems="center"
+              justifyContent="space-between"
+              flexGrow={0}
+              style={{
+                padding: "12px 25px",
+                backgroundColor: primary,
+                color: "white",
+                textAlign: "right",
+              }}
+            >
+              <Typography style={{ fontWeight: "500", fontSize: "1.2rem" }}>
+                My Shopping Cart
+              </Typography>
+              <IconButton onClick={() => setShowCart(false)}>
+                <ExpandMoreRoundedIcon
+                  style={{ color: "white", transform: "scale(1.4)" }}
+                />
+              </IconButton>
+            </Box>
+
+            <Box
+            display="flex"
+            flexDirection="column"
+            height={"80%"}
+            justifyContent="space-between"
+            flexGrow={1}
+              style={{
+                padding: "12px 25px",
+                
+              }}
+            >
+              {/* Shopping cart items */}
+              <Box style={{ overflowY: "auto" }}>
+                <CartItem></CartItem>
+                <CartItem></CartItem>
+                <CartItem></CartItem>
+                <CartItem></CartItem>
+                <CartItem></CartItem>
+              </Box>
+
+              <Box>
+              {/* Total price info */}
+              <Box
+                mt={3}
+                display="flex"
+                justifyContent="space-between"
+                className="gray-muted"
+              >
+                <Typography>Subtotal: </Typography>
+                <Typography>$10</Typography>
+              </Box>
+              <Box
+                display="flex"
+                justifyContent="space-between"
+                className="gray-muted"
+              >
+                <Typography>Service cost: </Typography>
+                <Typography>$2</Typography>
+              </Box>
+              <Divider style={{ opacity: 0.8 }} />
+              <Box
+                mt={1}
+                display="flex"
+                justifyContent="space-between"
+                className="green-text"
+              >
+                <Typography variant="h6">Total: </Typography>
+                <Typography variant="h6">$12</Typography>
+              </Box>
+            </Box>
+            </Box>
+            </Box>
+          </Paper>
+        )}
 
         {/* Shopping cart button */}
         <Box style={{ position: "fixed", bottom: "3%", right: "5%" }}>
