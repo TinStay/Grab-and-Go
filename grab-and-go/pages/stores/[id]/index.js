@@ -231,16 +231,31 @@ const Store = () => {
             <Box
             display="flex"
             flexDirection="column"
-            height={"80%"}
+            height={"82%"}
             justifyContent="space-between"
             flexGrow={1}
               style={{
-                padding: "12px 25px",
+                padding: "12px 15px",
                 
               }}
             >
               {/* Shopping cart items */}
-              <Box style={{ overflowY: "auto" }}>
+              <Box style={{ overflowY: "auto", paddingRight: '1rem' }}>
+                <CartItem></CartItem>
+                <CartItem></CartItem>
+                <CartItem></CartItem>
+                <CartItem></CartItem>
+                <CartItem></CartItem>
+                <CartItem></CartItem>
+                <CartItem></CartItem>
+                <CartItem></CartItem>
+                <CartItem></CartItem>
+                <CartItem></CartItem>
+                <CartItem></CartItem>
+                <CartItem></CartItem>
+                <CartItem></CartItem>
+                <CartItem></CartItem>
+                <CartItem></CartItem>
                 <CartItem></CartItem>
                 <CartItem></CartItem>
                 <CartItem></CartItem>
