@@ -246,27 +246,13 @@ const Store = () => {
                 <CartItem></CartItem>
                 <CartItem></CartItem>
                 <CartItem></CartItem>
-                <CartItem></CartItem>
-                <CartItem></CartItem>
-                <CartItem></CartItem>
-                <CartItem></CartItem>
-                <CartItem></CartItem>
-                <CartItem></CartItem>
-                <CartItem></CartItem>
-                <CartItem></CartItem>
-                <CartItem></CartItem>
-                <CartItem></CartItem>
-                <CartItem></CartItem>
-                <CartItem></CartItem>
-                <CartItem></CartItem>
-                <CartItem></CartItem>
-                <CartItem></CartItem>
               </Box>
 
-              <Box>
+              <Box style={{padding: "5px 15px"}}>
               {/* Total price info */}
               <Box
-                mt={3}
+                mt={2}
+                mb={0.2}
                 display="flex"
                 justifyContent="space-between"
                 className="gray-muted"
@@ -275,6 +261,7 @@ const Store = () => {
                 <Typography>$10</Typography>
               </Box>
               <Box
+              mb={0.2}
                 display="flex"
                 justifyContent="space-between"
                 className="gray-muted"
@@ -289,8 +276,8 @@ const Store = () => {
                 justifyContent="space-between"
                 className="green-text"
               >
-                <Typography variant="h6">Total: </Typography>
-                <Typography variant="h6">$12</Typography>
+                <Typography variant="h5">Total: </Typography>
+                <Typography variant="h5">$12</Typography>
               </Box>
             </Box>
             </Box>
