@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useStoreContext } from "../../context";
+import { findObjectIdxInArray } from '../../shared/sharedFunctions'
 
 //  Material UI
 import { makeStyles } from "@material-ui/core/styles";
@@ -48,7 +49,7 @@ const ProductCard = (props) => {
     let newShoppingCart = { ...shoppingCart };
 
     // Returns index of item if it is already in the shopping list otherwise returns -1
-    let indexOfItem = objectPropInArray(
+    let indexOfItem = findObjectIdxInArray(
       newShoppingCart.items,
       "name",
       item.name
@@ -153,13 +154,4 @@ const ProductCard = (props) => {
 
 export default ProductCard;
 
-function objectPropInArray(list, prop, val) {
-  if (list.length > 0) {
-    for (let i in list) {
-      if (list[i][prop] === val) {
-        return i;
-      }
-    }
-  }
-  return -1;
-}
+

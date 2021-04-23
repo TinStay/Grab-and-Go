@@ -1,5 +1,7 @@
 import React, {useState} from "react";
 import Image from "next/image";
+import { useStoreContext } from '../../context' 
+import { findObjectIdxInArray } from "../../shared/sharedFunctions"
 
 // Mui
 import {
@@ -12,8 +14,22 @@ import AddIcon from "@material-ui/icons/Add";
 import RemoveIcon from "@material-ui/icons/Remove";
 
 const CartItem = ({item}) => {
+  const { shoppingCart, setShoppingCart } = useStoreContext()
 
-    const [count, setCount] = useState(0);
+  const setNewCount = newCount => {
+    // Duplicate state
+    let newShoppingCart = {...shoppingCart}
+
+    // Update item new count
+    let itemIdx = findObjectIdxInArray(newShoppingCart.items, "name", item.name)
+
+    // Update item count
+    newShoppingCart.items[itemIdx].count = newCount
+
+    // Update store state 
+    setShoppingCart(newShoppingCart)
+  }
+
   return (
     <Box display="flex" justifyContent="space-between" alignItems="center">
       <Image src={item.image} height="80px" width="80px" />
@@ -29,7 +45,7 @@ const CartItem = ({item}) => {
           aria-label="reduce"
           color="secondary"
           onClick={() => {
-            setCount(Math.max(count - 1, 1));
+            setNewCount(Math.max(item.count - 1, 1));
           }}
         >
           <RemoveIcon fontSize="small" />
@@ -41,7 +57,7 @@ const CartItem = ({item}) => {
           aria-label="increase"
           color="secondary"
           onClick={() => {
-            setCount(count + 1);
+            setNewCount(item.count + 1);
           }}
         >
           <AddIcon fontSize="small" />

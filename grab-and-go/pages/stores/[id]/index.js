@@ -124,7 +124,7 @@ const Store = () => {
                       {selectedStore?.name}
                     </Typography>
                     <Typography color="primary" variant="h6">
-                      {selectedStore?.distanceInfo.distance.text} away
+                      {selectedStore?.distanceInfo?.distance.text} away
                     </Typography>
                   </Box>
 
