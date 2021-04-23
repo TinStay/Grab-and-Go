@@ -254,7 +254,7 @@ const Store = () => {
                 className="gray-muted"
               >
                 <Typography>Subtotal: </Typography>
-                <Typography>${shoppingCart.totalPrice}</Typography>
+                <Typography>${shoppingCart.totalPrice.toFixed(2)}</Typography>
               </Box>
               <Box
               mb={0.2}
@@ -273,7 +273,7 @@ const Store = () => {
                 className="green-text"
               >
                 <Typography variant="h5">Total: </Typography>
-                <Typography variant="h5">$12</Typography>
+                <Typography variant="h5">${(shoppingCart.totalPrice + 2).toFixed(2)}</Typography>
               </Box>
             </Box>
             </Box>

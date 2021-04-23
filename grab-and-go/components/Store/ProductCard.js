@@ -66,6 +66,18 @@ const ProductCard = (props) => {
       // Add item to the shopping cart
       newShoppingCart.items.push(newItem);
     }
+
+    // Update total price
+    let newTotalPrice = 0;
+    newShoppingCart.items.map(item => {
+      newTotalPrice += (item.price * item.count) 
+    })
+
+
+    newShoppingCart.totalPrice = newTotalPrice
+
+    
+
     // Reset count
     setCount(1)
 
@@ -99,7 +111,7 @@ const ProductCard = (props) => {
             style={{ fontWeight: "500" }}
             color="primary"
           >
-            ${item.price}
+            ${item.price.toFixed(2)}
           </Typography>
           <Box display="flex" alignItems="center">
             <IconButton

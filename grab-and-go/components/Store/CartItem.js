@@ -49,7 +49,7 @@ const CartItem = ({item}) => {
       </Box>
       {/* Price */}
       <Typography variant="h6" style={{ fontWeight: "500" }} color="primary">
-        ${item.price}
+        ${(item.price * item.count).toFixed(2) }
       </Typography>
     </Box>
   );
