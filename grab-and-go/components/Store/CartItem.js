@@ -26,6 +26,14 @@ const CartItem = ({item}) => {
     // Update item count
     newShoppingCart.items[itemIdx].count = newCount
 
+     // Update total price
+     let newTotalPrice = 0;
+     newShoppingCart.items.map(item => {
+       newTotalPrice += (item.price * item.count) 
+     })
+ 
+     newShoppingCart.totalPrice = newTotalPrice
+
     // Update store state 
     setShoppingCart(newShoppingCart)
   }

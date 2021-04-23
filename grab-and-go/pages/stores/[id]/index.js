@@ -78,17 +78,16 @@ function tabProps(index) {
 }
 
 const Store = () => {
+  // Mui
   const styles = useStyles();
-
   const theme = useTheme();
-
   const primary = theme.palette.primary.main;
 
   // State
+  const { selectedStore, shoppingCart, setShoppingCart } = useStoreContext(0);
   const [selectedTab, setSelectedTab] = useState(0);
   const [showCart, setShowCart] = useState(false);
 
-  const { selectedStore, shoppingCart, setShoppingCart } = useStoreContext(0);
 
   return (
     <Container>

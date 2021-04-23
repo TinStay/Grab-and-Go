@@ -74,10 +74,7 @@ const ProductCard = (props) => {
       newTotalPrice += (item.price * item.count) 
     })
 
-
     newShoppingCart.totalPrice = newTotalPrice
-
-    
 
     // Reset count
     setCount(1)
