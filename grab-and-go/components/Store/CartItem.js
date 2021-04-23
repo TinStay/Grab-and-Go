@@ -11,17 +11,17 @@ import {
 import AddIcon from "@material-ui/icons/Add";
 import RemoveIcon from "@material-ui/icons/Remove";
 
-const CartItem = () => {
+const CartItem = ({item}) => {
 
     const [count, setCount] = useState(0);
   return (
     <Box display="flex" justifyContent="space-between" alignItems="center">
-      <Image src="/images/store/KFC/zinger.jpg" height="80px" width="80px" />
+      <Image src={item.image} height="80px" width="80px" />
       <Typography
         color="secondary"
         style={{ fontWeight: "500", fontSize: "1.2rem" }}
       >
-        Zinger
+        {item.name}
       </Typography>
       {/* Product count */}
       <Box display="flex" alignItems="center">
@@ -29,13 +29,13 @@ const CartItem = () => {
           aria-label="reduce"
           color="secondary"
           onClick={() => {
-            setCount(Math.max(count - 1, 0));
+            setCount(Math.max(count - 1, 1));
           }}
         >
           <RemoveIcon fontSize="small" />
         </IconButton>
         <Typography color="secondary" aria-label="count">
-          {count}
+          {item.count}
         </Typography>
         <IconButton
           aria-label="increase"
@@ -49,7 +49,7 @@ const CartItem = () => {
       </Box>
       {/* Price */}
       <Typography variant="h6" style={{ fontWeight: "500" }} color="primary">
-        $5
+        ${item.price}
       </Typography>
     </Box>
   );

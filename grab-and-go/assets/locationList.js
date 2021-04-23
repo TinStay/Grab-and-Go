@@ -65,28 +65,28 @@ export const locationList = [
         items: [
           {
             name: "Zinger",
-            price: "3.00$",
+            price: 3.00,
             description:
               "Lorem, ipsum dolor  Laborum culpa tempore iure voluptas molestias exercitationem.",
             image: "/images/store/KFC/zinger.jpg"
           },
           {
             name: "Zinger Stacker",
-            price: "4.50$",
+            price: 4.50,
             description:
               "Lorem, culpa tempore iure voluptas molestias exercitationem dolores nesciunt itaque! Esse, nisi.",
             image: "/images/store/KFC/zingerstacker.jpg"
           },
           {
             name: "Twister",
-            price: "4.50$",
+            price: 4.50,
             description:
               "Laborum culpa tempore iure voluptas molestias exercitationem dolores nesciunt itaque! Esse, nisi.",
             image: "/images/store/KFC/twister.png"
           },
           {
             name: "Veggie Burger",
-            price: "3.50$",
+            price: 3.50,
             description:
               "Laborum culpa tempore iure voluptas molestias exercitationem dolores nesciunt itaque! Esse, nisi.",
             image: "/images/store/KFC/veggie-burger.jpg"
@@ -98,7 +98,7 @@ export const locationList = [
         items: [
           {
             name: "Coca Cola",
-            price: "1.50$",
+            price: 1.50,
             image: "/images/store/De Burger/cocacola-can.png",
             description:
               "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Laborum culpa tempore iure voluptas molestias exercitationem dolores nesciunt itaque! Esse, nisi.",
@@ -110,7 +110,7 @@ export const locationList = [
         items: [
           {
             name: "Cheetos",
-            price: "2.50$",
+            price: 2.50,
             image: "/images/store/De Burger/cheetos.jpg",
             description:
               "Lorem, ipsum  consectetur adipisicing elit. Laborum culpa tempore iure voluptas molestias exercitationem dolores nesciunt itaque! Esse, nisi.",
@@ -138,21 +138,21 @@ export const locationList = [
         items: [
           {
             name: "Beef Burger",
-            price: "6.00$",
+            price: 6.00,
             description:
               "Lorem, ipsum dolor  Laborum culpa tempore iure voluptas molestias exercitationem.",
             image: "/images/store/De Burger/beefBurger.png"
           },
           {
             name: "Cheeseburger",
-            price: "4.00$",
+            price: 4.00,
             description:
               "Lorem, culpa tempore iure voluptas molestias exercitationem dolores nesciunt itaque! Esse, nisi.",
             image: "/images/store/De Burger/cheese-burger.png"
           },
           {
             name: "Veggie Burger",
-            price: "4.50$",
+            price: 4.50,
             description:
               "Laborum culpa tempore iure voluptas molestias exercitationem dolores nesciunt itaque! Esse, nisi.",
             image: "/images/store/De Burger/veggie-burger.png"
@@ -164,7 +164,7 @@ export const locationList = [
         items: [
           {
             name: "Coca Cola",
-            price: "1.50$",
+            price: 1.50,
             image: "/images/store/De Burger/cocacola-can.png",
             description:
               "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Laborum culpa tempore iure voluptas molestias exercitationem dolores nesciunt itaque! Esse, nisi.",
@@ -176,7 +176,7 @@ export const locationList = [
         items: [
           {
             name: "Cheetos",
-            price: "2.50$",
+            price: 2.50,
             image: "/images/store/De Burger/cheetos.jpg",
             description:
               "Lorem, ipsum  consectetur adipisicing elit. Laborum culpa tempore iure voluptas molestias exercitationem dolores nesciunt itaque! Esse, nisi.",

@@ -88,7 +88,7 @@ const Store = () => {
   const [selectedTab, setSelectedTab] = useState(0);
   const [showCart, setShowCart] = useState(false);
 
-  const { selectedStore, setSelectedStore } = useStoreContext(0);
+  const { selectedStore, shoppingCart, setShoppingCart } = useStoreContext(0);
 
   return (
     <Container>
@@ -202,8 +202,6 @@ const Store = () => {
             display="flex"
             flexDirection="column"
             >
-
-            
             {/* Label + close button */}
             <Box
               display="flex"
@@ -240,11 +238,10 @@ const Store = () => {
             >
               {/* Shopping cart items */}
               <Box style={{ overflowY: "auto", paddingRight: '1rem' }}>
-                <CartItem></CartItem>
-                <CartItem></CartItem>
-                <CartItem></CartItem>
-                <CartItem></CartItem>
-                <CartItem></CartItem>
+                {shoppingCart &&  shoppingCart.items.map(item => {
+                  return <CartItem item={item}></CartItem>
+                })}
+                
               </Box>
 
               <Box style={{padding: "5px 15px"}}>
@@ -257,7 +254,7 @@ const Store = () => {
                 className="gray-muted"
               >
                 <Typography>Subtotal: </Typography>
-                <Typography>$10</Typography>
+                <Typography>${shoppingCart.totalPrice}</Typography>
               </Box>
               <Box
               mb={0.2}
@@ -289,11 +286,11 @@ const Store = () => {
           <Button
             variant="contained"
             color="secondary"
-            onClick={() => setShowCart(true)}
+            onClick={() => setShowCart(!showCart)}
             style={{ color: "white", padding: "10px 25px" }}
           >
             <ShoppingCartIcon style={{ marginRight: "5px" }} />{" "}
-            <Typography>Shopping Cart: 7$</Typography>
+            <Typography>Shopping Cart</Typography>
           </Button>
         </Box>
       </Box>

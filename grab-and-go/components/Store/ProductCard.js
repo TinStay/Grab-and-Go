@@ -66,6 +66,8 @@ const ProductCard = (props) => {
       // Add item to the shopping cart
       newShoppingCart.items.push(newItem);
     }
+    // Reset count
+    setCount(1)
 
     // Update context state
     setShoppingCart(newShoppingCart);
@@ -97,7 +99,7 @@ const ProductCard = (props) => {
             style={{ fontWeight: "500" }}
             color="primary"
           >
-            {item.price}
+            ${item.price}
           </Typography>
           <Box display="flex" alignItems="center">
             <IconButton
