@@ -90,7 +90,6 @@ const Store = () => {
 
   const { selectedStore, setSelectedStore } = useStoreContext(0);
 
-  console.log(`selectedStore?.storeImage`, selectedStore?.storeImage);
   return (
     <Container>
       <Box position="relative" my="1rem">

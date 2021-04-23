@@ -10,15 +10,23 @@ export function useStoreContext() {
 export const StoreProvider = ({ children }) => {
   const [stores, setStores] = useState([]);
   const [selectedStore, setSelectedStore] = useState(null);
+  const [shoppingCart, setShoppingCart] = useState({
+    items: [],
+    totalPrice: 0
+  });
+
+  const state = {
+    stores,
+    setStores,
+    selectedStore,
+    setSelectedStore,
+    shoppingCart,
+    setShoppingCart,
+  }
 
   return (
     <StoreContext.Provider
-      value={{
-        stores,
-        setStores,
-        selectedStore,
-        setSelectedStore
-      }}
+      value={state}
     >
           {children}
     </StoreContext.Provider>
