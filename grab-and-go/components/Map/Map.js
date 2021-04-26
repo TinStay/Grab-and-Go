@@ -173,18 +173,18 @@ const Map = (props) => {
             <Box display="flex" justifyContent="space-between">
               <h4 className={classes.info_window_heading}>
                 {" "}
-                {selectedStore.name}
+                {selectedStore?.name}
               </h4>
               <Typography
                 variant="h6"
                 style={{ color: theme.palette.primary.main }}
               >
-                {selectedStore.distanceInfo.distance.text}
+                {selectedStore?.distanceInfo.distance.text}
               </Typography>
             </Box>
 
             <p className={classes.info_window_address}>
-              {selectedStore.address}
+              {selectedStore?.address}
             </p>
             <a
               onClick={(e) =>

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import ProductCard from "../../../components/Store/ProductCard";
 import Image from "next/image";
+import Link from 'next/link'
 
 // Components
 import CartItem from "../../../components/Store/CartItem";
@@ -17,7 +18,7 @@ import {
   AppBar,
   Tabs,
   Tab,
-  Link,
+  Link as MuiLink,
   IconButton,
   useTheme,
   Divider,
@@ -49,7 +50,7 @@ function TabPanel(props) {
 import { useStoreContext } from "../../../context";
 
 const useStyles = makeStyles((theme) => ({
-  container: {
+  paperBox: {
     padding: "20px 25px",
   },
   cartContainer: {
@@ -94,14 +95,14 @@ const Store = () => {
       <Box position="relative" my="1rem">
         {/* Go back link */}
         <Typography>
-          <Link color="secondary" className="text-decoration-none" href="/">
+          <MuiLink color="secondary" className="text-decoration-none" href="/">
             <i className="fas fa-angle-left mb-3 me-1"></i>Go back
-          </Link>
+          </MuiLink>
         </Typography>
 
         {/* Store info */}
         <Box mb={3}>
-          <Paper className={styles.container} elevation={5}>
+          <Paper className={styles.paperBox} elevation={5}>
             <Grid container spacing={4}>
               <Grid item md={4} style={{ width: "100%" }}>
                 {selectedStore != null && (
@@ -274,8 +275,10 @@ const Store = () => {
                 <Typography variant="h5">Total: </Typography>
                 <Typography variant="h5">${(shoppingCart.totalPrice + 2).toFixed(2)}</Typography>
               </Box>
-              <Box mt={1}  >
-                <Button fullWidth variant='contained' float="right" color="primary" style={{color: "white"}}>Go to checkout</Button>
+              <Box mt={1}>
+                <Link href="/checkout">
+                  <Button fullWidth variant='contained' float="right" color="primary" style={{color: "white"}}>Go to checkout</Button>
+                </Link>
               </Box>
             </Box>
             </Box>
