@@ -274,6 +274,9 @@ const Store = () => {
                 <Typography variant="h5">Total: </Typography>
                 <Typography variant="h5">${(shoppingCart.totalPrice + 2).toFixed(2)}</Typography>
               </Box>
+              <Box mt={1}  >
+                <Button fullWidth variant='contained' float="right" color="primary" style={{color: "white"}}>Go to checkout</Button>
+              </Box>
             </Box>
             </Box>
             </Box>
