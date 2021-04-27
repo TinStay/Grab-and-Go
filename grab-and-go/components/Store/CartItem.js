@@ -1,41 +1,20 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import Image from "next/image";
-import { useStoreContext } from '../../context' 
-import { findObjectIdxInArray } from "../../shared/sharedFunctions"
+import { useStoreContext } from "../../context";
+import { returnUpdatedShoppingCart } from "../../shared/sharedFunctions";
+
 
 // Mui
-import {
-    Typography,
-    Box,
-    IconButton,
-  } from "@material-ui/core";
-
+import { Typography, Box, IconButton } from "@material-ui/core";
 import AddIcon from "@material-ui/icons/Add";
 import RemoveIcon from "@material-ui/icons/Remove";
 
-const CartItem = ({item}) => {
-  const { shoppingCart, setShoppingCart } = useStoreContext()
+const CartItem = ({ item }) => {
+  const { shoppingCart, setShoppingCart } = useStoreContext();
 
-  const setNewCount = newCount => {
-    // Duplicate state
-    let newShoppingCart = {...shoppingCart}
-
-    // Update item new count
-    let itemIdx = findObjectIdxInArray(newShoppingCart.items, "name", item.name)
-
-    // Update item count
-    newShoppingCart.items[itemIdx].count = newCount
-
-     // Update total price
-     let newTotalPrice = 0;
-     newShoppingCart.items.map(item => {
-       newTotalPrice += (item.price * item.count) 
-     })
- 
-     newShoppingCart.totalPrice = newTotalPrice
-
-    // Update store state 
-    setShoppingCart(newShoppingCart)
+  // Update state with new shoppingcart object
+  const updateCount = (newCount) => {
+    setShoppingCart(returnUpdatedShoppingCart(item, newCount, shoppingCart))
   }
 
   return (
@@ -53,7 +32,7 @@ const CartItem = ({item}) => {
           aria-label="reduce"
           color="secondary"
           onClick={() => {
-            setNewCount(Math.max(item.count - 1, 1));
+            updateCount(Math.max(item.count - 1, 1));
           }}
         >
           <RemoveIcon fontSize="small" />
@@ -65,7 +44,7 @@ const CartItem = ({item}) => {
           aria-label="increase"
           color="secondary"
           onClick={() => {
-            setNewCount(item.count + 1);
+            updateCount(item.count + 1);
           }}
         >
           <AddIcon fontSize="small" />
@@ -73,7 +52,7 @@ const CartItem = ({item}) => {
       </Box>
       {/* Price */}
       <Typography variant="h6" style={{ fontWeight: "500" }} color="primary">
-        ${(item.price * item.count).toFixed(2) }
+        ${(item.price * item.count).toFixed(2)}
       </Typography>
     </Box>
   );

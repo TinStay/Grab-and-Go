@@ -1,59 +1,67 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import Image from "next/image";
-import { useStoreContext } from '../../context' 
-import { findObjectIdxInArray } from "../../shared/sharedFunctions"
+import { useStoreContext } from "../../context";
+import {  returnUpdatedShoppingCart } from "../../shared/sharedFunctions";
 
 // Mui
-import {
-    Typography,
-    Box,
-    IconButton,
-  } from "@material-ui/core";
+import { Typography, Box, IconButton } from "@material-ui/core";
+import { makeStyles } from '@material-ui/core/styles'
 
 import AddIcon from "@material-ui/icons/Add";
 import RemoveIcon from "@material-ui/icons/Remove";
 
-const CheckoutItemBox = ({item}) => {
-  const { shoppingCart, setShoppingCart } = useStoreContext()
-
-  const setNewCount = newCount => {
-    // Duplicate state
-    let newShoppingCart = {...shoppingCart}
-
-    // Update item new count
-    let itemIdx = findObjectIdxInArray(newShoppingCart.items, "name", item.name)
-
-    // Update item count
-    newShoppingCart.items[itemIdx].count = newCount
-
-     // Update total price
-     let newTotalPrice = 0;
-     newShoppingCart.items.map(item => {
-       newTotalPrice += (item.price * item.count) 
-     })
- 
-     newShoppingCart.totalPrice = newTotalPrice
-
-    // Update store state 
-    setShoppingCart(newShoppingCart)
+const useStyles = makeStyles((theme) => ({
+  textMuted: {
+    color: "#736f73"
   }
+}))
+
+const CheckoutItemBox = ({ item }) => {
+  const { selectedStore, shoppingCart, setShoppingCart } = useStoreContext();
+
+  const styles = useStyles()
+
+  // Update state with new shoppingcart object
+  const updateCount = (newCount) => {
+    setShoppingCart(returnUpdatedShoppingCart(item, newCount, shoppingCart))
+  }
+
 
   return (
     <Box display="flex" justifyContent="space-between" alignItems="center">
-      <Image src={item.image} height="120px" width="120px" />
-      <Typography
-        color="secondary"
-        style={{ fontWeight: "500", fontSize: "1.2rem" }}
-      >
-        {item.name}
-      </Typography>
+      <Box display="flex">
+        <Image src={item.image} height="120px" width="120px" />
+        <Box>
+          <Typography
+            color="secondary"
+            style={{
+              fontWeight: "500",
+              fontSize: "1.2rem",
+              alignSelf: "center",
+            }}
+          >
+            {item.name}
+          </Typography>
+          <Typography
+            className={styles.textMuted}
+          >
+            From: 
+          </Typography>
+          <Typography
+            className={styles.textMuted}
+          >
+            {selectedStore.name}
+          </Typography>
+        </Box>
+      </Box>
+
       {/* Product count */}
       <Box display="flex" alignItems="center">
         <IconButton
           aria-label="reduce"
           color="secondary"
           onClick={() => {
-            setNewCount(Math.max(item.count - 1, 1));
+            updateCount(Math.max(item.count - 1, 1));
           }}
         >
           <RemoveIcon fontSize="small" />
@@ -65,15 +73,16 @@ const CheckoutItemBox = ({item}) => {
           aria-label="increase"
           color="secondary"
           onClick={() => {
-            setNewCount(item.count + 1);
+            updateCount(item.count + 1);
           }}
         >
           <AddIcon fontSize="small" />
         </IconButton>
       </Box>
+
       {/* Price */}
       <Typography variant="h6" style={{ fontWeight: "500" }} color="primary">
-        ${(item.price * item.count).toFixed(2) }
+        ${(item.price * item.count).toFixed(2)}
       </Typography>
     </Box>
   );
