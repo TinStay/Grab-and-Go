@@ -91,7 +91,7 @@ const Store = () => {
 
 
   return (
-    <Container>
+    <Container style={{paddingBottom: "2rem"}}>
       <Box position="relative" my="1rem">
         {/* Go back link */}
         <Typography>

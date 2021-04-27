@@ -30,8 +30,8 @@ const Checkout = () => {
   const { shoppingCart } = useStoreContext();
 
   return (
-    <Container>
-      <Box my="1rem">
+    <Container style={{paddingBottom: "2rem"}}>
+      <Box my="1rem" >
         {/* Go back link */}
         <Typography>
           <MuiLink color="secondary" className="text-decoration-none" href="/">

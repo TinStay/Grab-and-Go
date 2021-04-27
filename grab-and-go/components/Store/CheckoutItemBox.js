@@ -28,7 +28,7 @@ const CheckoutItemBox = ({ item }) => {
   };
 
   return (
-    <Box display="flex" justifyContent="space-between" alignItems="center">
+    <Box display="flex" justifyContent="space-between" alignItems="center" my={1}>
       <Box display="flex" alignItems="center">
         <Image src={item.image} height="120px" width="120px" />
         <Box ml={2}>
