@@ -1,37 +1,37 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import { useStoreContext } from "../../context";
-import {  returnUpdatedShoppingCart } from "../../shared/sharedFunctions";
+import { returnUpdatedShoppingCart } from "../../shared/sharedFunctions";
 
 // Mui
 import { Typography, Box, IconButton } from "@material-ui/core";
-import { makeStyles } from '@material-ui/core/styles'
+import { makeStyles } from "@material-ui/core/styles";
 
 import AddIcon from "@material-ui/icons/Add";
 import RemoveIcon from "@material-ui/icons/Remove";
 
 const useStyles = makeStyles((theme) => ({
   textMuted: {
-    color: "#736f73"
-  }
-}))
+    marginRight: "5px",
+    color: "#736f73",
+  },
+}));
 
 const CheckoutItemBox = ({ item }) => {
   const { selectedStore, shoppingCart, setShoppingCart } = useStoreContext();
 
-  const styles = useStyles()
+  const styles = useStyles();
 
   // Update state with new shoppingcart object
   const updateCount = (newCount) => {
-    setShoppingCart(returnUpdatedShoppingCart(item, newCount, shoppingCart))
-  }
-
+    setShoppingCart(returnUpdatedShoppingCart(item, newCount, shoppingCart));
+  };
 
   return (
     <Box display="flex" justifyContent="space-between" alignItems="center">
-      <Box display="flex">
+      <Box display="flex" alignItems="center">
         <Image src={item.image} height="120px" width="120px" />
-        <Box>
+        <Box ml={2}>
           <Typography
             color="secondary"
             style={{
@@ -42,16 +42,12 @@ const CheckoutItemBox = ({ item }) => {
           >
             {item.name}
           </Typography>
-          <Typography
-            className={styles.textMuted}
-          >
-            From: 
-          </Typography>
-          <Typography
-            className={styles.textMuted}
-          >
-            {selectedStore.name}
-          </Typography>
+          <Box display="flex" mt={0.5}>
+            <Typography className={styles.textMuted}>From: </Typography>
+            <Typography >
+              {item.orderedFrom}
+            </Typography>
+          </Box>
         </Box>
       </Box>
 

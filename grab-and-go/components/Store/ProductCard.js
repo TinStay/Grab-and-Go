@@ -40,7 +40,7 @@ const useStyles = makeStyles((theme) => ({
 const ProductCard = (props) => {
   const styles = useStyles();
   const [count, setCount] = useState(1);
-  const { shoppingCart, setShoppingCart } = useStoreContext();
+  const { selectedStore, shoppingCart, setShoppingCart } = useStoreContext();
 
   const item = { ...props.item };
 
@@ -62,7 +62,7 @@ const ProductCard = (props) => {
     } else {
       // Item is NOT in the cart
       // Add count property to item object
-      let newItem = { ...item, count };
+      let newItem = { ...item, count, orderedFrom: selectedStore.name };
 
       // Add item to the shopping cart
       newShoppingCart.items.push(newItem);
