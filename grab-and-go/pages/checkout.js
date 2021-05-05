@@ -21,7 +21,7 @@ import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
   paperBox: {
-    padding: "20px 25px",
+    padding: "20px 30px",
   },
   mainHeading: {
     fontSize: "1.8rem",
@@ -54,7 +54,7 @@ const Checkout = () => {
           </MuiLink>
         </Typography>
         <Paper className={styles.paperBox}>
-          <Grid container spacing={2}>
+          <Grid container spacing={3}>
             <Grid item md={8}>
               <Typography className={styles.mainHeading}>Checkout</Typography>
               <Divider />

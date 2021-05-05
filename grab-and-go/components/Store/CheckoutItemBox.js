@@ -11,6 +11,12 @@ import AddIcon from "@material-ui/icons/Add";
 import RemoveIcon from "@material-ui/icons/Remove";
 
 const useStyles = makeStyles((theme) => ({
+  CheckoutItemBox: {
+    border: '1px solid #EBEBEB',
+    borderRadius: "10px",
+    padding: "5px",
+    margin: "15px 0"
+  },
   textMuted: {
     marginRight: "5px",
     color: "#736f73",
@@ -28,7 +34,13 @@ const CheckoutItemBox = ({ item }) => {
   };
 
   return (
-    <Box display="flex" justifyContent="space-between" alignItems="center" my={1}>
+    <Box
+      display="flex"
+      justifyContent="space-between"
+      alignItems="center"
+      my={1}
+      className={styles.CheckoutItemBox}
+    >
       <Box display="flex" alignItems="center">
         <Image src={item.image} height="120px" width="120px" />
         <Box ml={2}>
@@ -44,42 +56,41 @@ const CheckoutItemBox = ({ item }) => {
           </Typography>
           <Box display="flex" mt={0.5}>
             <Typography className={styles.textMuted}>From: </Typography>
-            <Typography >
-              {item.orderedFrom}
-            </Typography>
+            <Typography>{item.orderedFrom}</Typography>
           </Box>
         </Box>
       </Box>
+      <Box textAlign="center">
+        {/* Product count */}
+        <Box display="flex" alignItems="center">
+          <IconButton
+            aria-label="reduce"
+            color="secondary"
+            onClick={() => {
+              updateCount(Math.max(item.count - 1, 1));
+            }}
+          >
+            <RemoveIcon fontSize="small" />
+          </IconButton>
+          <Typography color="secondary" aria-label="count">
+            {item.count}
+          </Typography>
+          <IconButton
+            aria-label="increase"
+            color="secondary"
+            onClick={() => {
+              updateCount(item.count + 1);
+            }}
+          >
+            <AddIcon fontSize="small" />
+          </IconButton>
+        </Box>
 
-      {/* Product count */}
-      <Box display="flex" alignItems="center">
-        <IconButton
-          aria-label="reduce"
-          color="secondary"
-          onClick={() => {
-            updateCount(Math.max(item.count - 1, 1));
-          }}
-        >
-          <RemoveIcon fontSize="small" />
-        </IconButton>
-        <Typography color="secondary" aria-label="count">
-          {item.count}
+        {/* Price */}
+        <Typography variant="h6" style={{ fontWeight: "500" }} color="primary">
+          ${(item.price * item.count).toFixed(2)}
         </Typography>
-        <IconButton
-          aria-label="increase"
-          color="secondary"
-          onClick={() => {
-            updateCount(item.count + 1);
-          }}
-        >
-          <AddIcon fontSize="small" />
-        </IconButton>
       </Box>
-
-      {/* Price */}
-      <Typography variant="h6" style={{ fontWeight: "500" }} color="primary">
-        ${(item.price * item.count).toFixed(2)}
-      </Typography>
     </Box>
   );
 };
