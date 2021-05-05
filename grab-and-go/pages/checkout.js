@@ -15,6 +15,7 @@ import {
   InputLabel,
   Select,
   MenuItem,
+  Button,
   Link as MuiLink,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
@@ -63,7 +64,9 @@ const Checkout = () => {
               })}
             </Grid>
             <Grid item md={4}>
-              <Typography className={styles.mainHeading}>Billing Information</Typography>
+              <Typography className={styles.mainHeading}>
+                Billing Information
+              </Typography>
               <Divider />
               <Box mt={2}>
                 <Box display="flex" justifyContent="space-between">
@@ -142,6 +145,15 @@ const Checkout = () => {
                   size="small"
                   className={styles.formInput}
                 />
+                <Button
+                  variant="contained"
+                  color="primary"
+                  fullWidth
+                  size="large"
+                  style={{ color: "white" }}
+                >
+                  Proceed to Payment
+                </Button>
               </Box>
             </Grid>
           </Grid>
