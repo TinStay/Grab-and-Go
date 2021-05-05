@@ -179,7 +179,7 @@ const Map = (props) => {
                 variant="h6"
                 style={{ color: theme.palette.primary.main }}
               >
-                {selectedStore?.distanceInfo.distance.text}
+                {selectedStore?.distanceInfo?.distance.text}
               </Typography>
             </Box>
 

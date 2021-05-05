@@ -10,19 +10,34 @@ import {
   Typography,
   Grid,
   Divider,
+  TextField,
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
   Link as MuiLink,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   paperBox: {
     padding: "20px 25px",
   },
   mainHeading: {
-      fontSize: "1.8rem",
-      paddingBottom: "8px",
-      color: "#444444"
-  }
+    fontSize: "1.8rem",
+    paddingBottom: "8px",
+    color: "#444444",
+  },
+  formInput: {
+    margin: "10px auto",
+    paddingBottom: "8px",
+    color: "#444444",
+  },
+  formSelect: {
+    margin: "10px auto",
+    paddingBottom: "8px",
+    color: "#444444",
+  },
 }));
 
 const Checkout = () => {
@@ -30,8 +45,8 @@ const Checkout = () => {
   const { shoppingCart } = useStoreContext();
 
   return (
-    <Container style={{paddingBottom: "2rem"}}>
-      <Box my="1rem" >
+    <Container style={{ paddingBottom: "2rem" }}>
+      <Box my="1rem">
         {/* Go back link */}
         <Typography>
           <MuiLink color="secondary" className="text-decoration-none" href="/">
@@ -39,18 +54,94 @@ const Checkout = () => {
           </MuiLink>
         </Typography>
         <Paper className={styles.paperBox}>
-          <Grid container>
+          <Grid container spacing={2}>
             <Grid item md={8}>
-              <Typography className={styles.mainHeading} >
-                Checkout
-              </Typography>
+              <Typography className={styles.mainHeading}>Checkout</Typography>
               <Divider />
               {shoppingCart.items?.map((item) => {
                 return <CheckoutItemBox item={item}></CheckoutItemBox>;
               })}
             </Grid>
             <Grid item md={4}>
-              <Box>Price</Box>
+              <Typography variant="h5">Billing Information</Typography>
+              <Box mt={2}>
+                <Box display="flex" justifyContent="space-between">
+                  <TextField
+                    id="outlined-basic"
+                    label="First Name"
+                    variant="filled"
+                    fullWidth
+                    size="small"
+                    className={styles.formInput}
+                    style={{ marginRight: "15px" }}
+                  />
+
+                  <TextField
+                    id="outlined-basic"
+                    label="Last Name"
+                    variant="filled"
+                    fullWidth
+                    size="small"
+                    className={styles.formInput}
+                  />
+                </Box>
+
+                <TextField
+                  id="outlined-basic"
+                  label="Street Address"
+                  variant="filled"
+                  fullWidth
+                  size="small"
+                  className={styles.formInput}
+                />
+                <Box display="flex" justifyContent="space-between">
+                  <FormControl
+                    variant="filled"
+                    className={styles.formSelect}
+                    fullWidth
+                    style={{ marginRight: "15px" }}
+                  >
+                    <InputLabel id="demo-simple-select-label">
+                      Country
+                    </InputLabel>
+                    <Select
+                      labelId="demo-simple-select-label"
+                      id="demo-simple-select"
+                      value=""
+                      // onChange={handleChange}
+                    >
+                      <MenuItem value={10}>Ten</MenuItem>
+                      <MenuItem value={20}>Twenty</MenuItem>
+                      <MenuItem value={30}>Thirty</MenuItem>
+                    </Select>
+                  </FormControl>
+                  <FormControl
+                    variant="filled"
+                    className={styles.formSelect}
+                    fullWidth
+                  >
+                    <InputLabel id="demo-simple-select-label">City</InputLabel>
+                    <Select
+                      labelId="demo-simple-select-label"
+                      id="demo-simple-select"
+                      value=""
+                      // onChange={handleChange}
+                    >
+                      <MenuItem value={10}>Ten</MenuItem>
+                      <MenuItem value={20}>Twenty</MenuItem>
+                      <MenuItem value={30}>Thirty</MenuItem>
+                    </Select>
+                  </FormControl>
+                </Box>
+                <TextField
+                  id="outlined-basic"
+                  label="Street Address"
+                  variant="filled"
+                  fullWidth
+                  size="small"
+                  className={styles.formInput}
+                />
+              </Box>
             </Grid>
           </Grid>
         </Paper>
