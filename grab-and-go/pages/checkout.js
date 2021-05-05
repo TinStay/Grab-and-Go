@@ -63,7 +63,8 @@ const Checkout = () => {
               })}
             </Grid>
             <Grid item md={4}>
-              <Typography variant="h5">Billing Information</Typography>
+              <Typography className={styles.mainHeading}>Billing Information</Typography>
+              <Divider />
               <Box mt={2}>
                 <Box display="flex" justifyContent="space-between">
                   <TextField
