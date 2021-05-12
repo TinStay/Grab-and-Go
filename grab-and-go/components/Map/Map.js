@@ -1,6 +1,4 @@
 import { useEffect, useState } from "react";
-import Geocode from "react-geocode";
-import Link from "next/link";
 import { useRouter } from "next/router";
 import {
   Button,
@@ -23,15 +21,24 @@ import classes from "../../styles/Home.module.scss";
 
 const useStyles = makeStyles((theme) => ({
   infoWindowButton: {
+    margin: "0 auto",
     backgroundColor: theme.palette.secondary.main,
     borderRadius: "50px",
     "&:hover": {
       backgroundColor: theme.palette.secondary.dark,
     },
   },
+  infoWindowButtonUnderlined: {
+    margin: "0 auto",
+    color: theme.palette.secondary.main,
+    borderRadius: "50px",
+    "&:hover": {
+      // backgroundColor: theme.palette.secondary.dark,
+    },
+  },
 }));
 
-const Map = (props) => {
+const Map = ({ mapElement, map }) => {
   // State
   const [userPosition, setUserPosition] = useState();
   const [showInfo, setShowInfo] = useState(false);
@@ -137,6 +144,40 @@ const Map = (props) => {
     router.push(href);
   };
 
+  const showDirections = (e, href) => {
+    var mapOptions = {
+      zoom:13,
+      center: { lat: 51.44083, lng: 5.47778 }
+    }
+    var map = new google.maps.Map(document.getElementById("google-map"), mapOptions)
+  
+    let directionsService = new google.maps.DirectionsService();
+  
+    // Create a directions rendered object
+    let directionsRenderer = new google.maps.DirectionsRenderer();
+  
+    // Bind directionRenderer to map
+    directionsRenderer.setMap(map);
+    
+    var start = new google.maps.LatLng(userPosition.lat, userPosition.lng)
+    var end = new google.maps.LatLng(selectedStore.lat, selectedStore.lng)
+    var request = {
+      origin: start,
+      destination: end,
+      travelMode: "DRIVING",
+    };
+    directionsService.route(request, function (result, status) {
+      if (status == "OK") {
+        directionsRenderer.setDirections(result);
+        console.log(`result`, result.routes[0].legs[0].duration.text)
+      }
+    });
+  };
+
+ 
+
+  // console.log(`mapElement`, map)
+
   return (
     <GoogleMap
       defaultZoom={13}
@@ -186,24 +227,26 @@ const Map = (props) => {
             <p className={classes.info_window_address}>
               {selectedStore?.address}
             </p>
-            <a
-              onClick={(e) =>
-                goToStorePage(
-                  e,
-                  `stores/${selectedStore.id}`
-                )
-              }
-            >
-              <Button
-                className={styles.infoWindowButton}
-                variant="contained"
-                color="primary"
-                fullWidth
-                // onClick={e => e.preventDefault()}
+            <Box display="flex">
+              <a
+                onClick={(e) => goToStorePage(e, `stores/${selectedStore.id}`)}
               >
-                View products
+                <Button
+                  className={styles.infoWindowButton}
+                  variant="contained"
+                  color="primary"
+                >
+                  View products
+                </Button>
+              </a>
+              <Button
+                className={styles.infoWindowButtonUnderlined}
+                color="primary"
+                onClick={(e) => showDirections()}
+              >
+                Show directions
               </Button>
-            </a>
+            </Box>
           </div>
         </InfoWindow>
       )}
