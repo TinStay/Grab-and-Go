@@ -20,9 +20,7 @@ const StoreList = () => {
             return (
               <StoreBox
                 key={store.id}
-                name={store.name}
-                address={store.address}
-                distance={store.distanceInfo.distance?.text}
+                store={store}
               />
             );
           })}

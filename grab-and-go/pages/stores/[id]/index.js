@@ -94,7 +94,6 @@ const Store = () => {
   return (
     <Container style={{paddingBottom: "2rem", position: "relative"}}>
      {/* Snackbar message */}
-     {/* style={{position: "fixed", top: 100, left: "100%", height:"60px"}} */}
      <Snackbar  anchorOrigin={{ vertical: 'top', horizontal: 'right' }} fullWidth open={open} autoHideDuration={6000} onClose={() => setOpen(false)}>
         <Alert onClose={() => setOpen(false)} variant="filled" severity="success">
           Item was added to your shopping cart.

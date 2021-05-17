@@ -1,7 +1,6 @@
 import React from "react";
 import Navbar from "./Navbar";
 import Meta from "./Meta";
-import ThemeProvider from "../styles/ThemeProvider";
 import { createMuiTheme, MuiThemeProvider } from "@material-ui/core/styles";
 import { StoreProvider } from "../context";
 

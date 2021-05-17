@@ -1,5 +1,10 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
+import { useStoreContext } from "../../context";
+import { locationList } from "../../assets/locationList";
+import classes from "../../styles/Home.module.scss";
+
+// Material UI
 import {
   Button,
   makeStyles,
@@ -7,8 +12,9 @@ import {
   Box,
   useTheme,
 } from "@material-ui/core";
-import { locationList } from "../../assets/locationList";
-import { useStoreContext } from "../../context";
+import mapStyles from "./mapStyles";
+
+// Google maps
 import {
   GoogleMap,
   Marker,
@@ -16,8 +22,6 @@ import {
   withGoogleMap,
   InfoWindow,
 } from "react-google-maps";
-import mapStyles from "./mapStyles";
-import classes from "../../styles/Home.module.scss";
 
 const useStyles = makeStyles((theme) => ({
   infoWindowButton: {
@@ -41,7 +45,6 @@ const useStyles = makeStyles((theme) => ({
 const Map = ({ mapElement, map }) => {
   // State
   const [userPosition, setUserPosition] = useState();
-  const [showInfo, setShowInfo] = useState(false);
 
   const {
     selectedStore,
@@ -137,7 +140,6 @@ const Map = ({ mapElement, map }) => {
 
   const handleMarkerClick = (e, store) => {
     setSelectedStore(store);
-    setShowInfo(true);
   };
 
   const goToStorePage = (e, href) => {
@@ -176,8 +178,6 @@ const Map = ({ mapElement, map }) => {
 
  
 
-  // console.log(`mapElement`, map)
-
   return (
     <GoogleMap
       defaultZoom={13}
@@ -205,10 +205,10 @@ const Map = ({ mapElement, map }) => {
             }}
           />
         ))}
-      {showInfo && selectedStore && (
+      {selectedStore && (
         <InfoWindow
           position={{ lat: selectedStore.lat, lng: selectedStore.lng }}
-          onCloseClick={() => setShowInfo(false)}
+          onCloseClick={() => setSelectedStore(null)}
         >
           <div className={classes.info_window}>
             <Box display="flex" justifyContent="space-between">
@@ -228,9 +228,7 @@ const Map = ({ mapElement, map }) => {
               {selectedStore?.address}
             </p>
             <Box display="flex">
-              <a
-                onClick={(e) => goToStorePage(e, `stores/${selectedStore.id}`)}
-              >
+              <a onClick={(e) => goToStorePage(e, `stores/${selectedStore.id}`)}>
                 <Button
                   className={styles.infoWindowButton}
                   variant="contained"

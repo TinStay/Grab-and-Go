@@ -1,56 +1,72 @@
 import React, { useState } from "react";
-import classes from "../../../styles/Home.module.scss";
 import FilterSelect from "./FilterSelect";
-import { Typography } from '@material-ui/core'
-import StoreIcon from '@material-ui/icons/Store';
-import SortIcon from '@material-ui/icons/Sort';
-import MyLocationIcon from '@material-ui/icons/MyLocation';
-import LocationCityIcon from '@material-ui/icons/LocationCity';
+
+// Material UI
+import { Grid, Container } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
+
+// Icons
+import StoreIcon from "@material-ui/icons/Store";
+import SortIcon from "@material-ui/icons/Sort";
+import MyLocationIcon from "@material-ui/icons/MyLocation";
+import LocationCityIcon from "@material-ui/icons/LocationCity";
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    margin: "0.8rem auto",
+    padding: "0px 15px 15px 15px",
+    backgroundColor: "#fff",
+    borderRadius: "10px",
+    border: "1px solid #f2f2f2",
+    
+  
+    webkitBoxShadow: "2px 6px 10px 0px rgba(0, 0, 0, 0.26)",
+    boxShadow: "2px 6px 10px 0px rgba(0, 0, 0, 0.26)",
+    },
+}
+));
 
 const FiltersBox = (props) => {
- 
-
-  
-  let filterBoxClasses = ["row", classes.white_container];
+  const styles = useStyles();
 
   return (
-    <div className="container">
-     <h2 className="dark-green-text">Filters</h2>
-      <div className={filterBoxClasses.join(" ")}>
-        <div className="col-6">
-          <FilterSelect
-            label="Store Type"
-            name="storeType"
-            handleFilterChange={(e) => props.handleFilterChange(e)}
-            icon={<StoreIcon style={{marginRight: "2px"}}/>}
-          />
-        </div>
-        <div className="col-6">
-          <FilterSelect
-            label="Sort By"
-            name="sortBy"
-            handleFilterChange={(e) => props.handleFilterChange(e)}
-            icon={<SortIcon style={{marginRight: "2px"}}/>}
-          />
-        </div>
-        <div className="col-6">
-          <FilterSelect
-            label="Range"
-            name="range"
-            handleFilterChange={(e) => props.handleFilterChange(e)}
-            icon={<MyLocationIcon style={{marginRight: "2px"}}/>}
-          />
-        </div>
-        <div className="col-6">
-          <FilterSelect
-            label="Location"
-            name="location"
-            handleFilterChange={(e) => props.handleFilterChange(e)}
-            icon={<LocationCityIcon style={{marginRight: "2px"}}/>}
-          />
-        </div>
-      </div>
-    </div>
+    <Container>
+      <h2 className="dark-green-text">Filters</h2>
+        <Grid className={styles.root} container >
+          <Grid item xs={5} style={{marginRight: "auto"}}>
+            <FilterSelect
+              label="Store Type"
+              name="storeType"
+              handleFilterChange={(e) => props.handleFilterChange(e)}
+              icon={<StoreIcon style={{ marginRight: "2px" }} />}
+            />
+          </Grid>
+          <Grid item xs={5} style={{marginRight: "auto"}}>
+            <FilterSelect
+              label="Sort By"
+              name="sortBy"
+              handleFilterChange={(e) => props.handleFilterChange(e)}
+              icon={<SortIcon style={{ marginRight: "2px" }} />}
+            />
+          </Grid>
+          <Grid item xs={5} style={{marginRight: "auto"}}>
+            <FilterSelect
+              label="Range"
+              name="range"
+              handleFilterChange={(e) => props.handleFilterChange(e)}
+              icon={<MyLocationIcon style={{ marginRight: "2px" }} />}
+            />
+          </Grid>
+          <Grid item xs={5} style={{marginRight: "auto"}}>
+            <FilterSelect
+              label="Location"
+              name="location"
+              handleFilterChange={(e) => props.handleFilterChange(e)}
+              icon={<LocationCityIcon style={{ marginRight: "2px" }} />}
+            />
+          </Grid>
+        </Grid>
+    </Container>
   );
 };
 

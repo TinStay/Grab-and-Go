@@ -1,6 +1,7 @@
 import React from "react";
 import { useStoreContext } from "../context";
 import CheckoutItemBox from "../components/Store/CheckoutItemBox";
+import Link from "next/link";
 
 // Mui
 import {
@@ -145,15 +146,17 @@ const Checkout = () => {
                   size="small"
                   className={styles.formInput}
                 />
-                <Button
-                  variant="contained"
-                  color="primary"
-                  fullWidth
-                  size="large"
-                  style={{ color: "white" }}
-                >
-                  Proceed to Payment
-                </Button>
+                <Link href="/">
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    fullWidth
+                    size="large"
+                    style={{ color: "white" }}
+                  >
+                    Proceed to Payment
+                  </Button>
+                </Link>
               </Box>
             </Grid>
           </Grid>
