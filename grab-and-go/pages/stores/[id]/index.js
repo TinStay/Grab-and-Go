@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import ProductCard from "../../../components/Store/ProductCard";
-import Image from "next/image";
 import Link from 'next/link'
 
 // Components
@@ -22,7 +21,9 @@ import {
   IconButton,
   useTheme,
   Divider,
+  Snackbar 
 } from "@material-ui/core";
+import {Alert} from '@material-ui/lab'
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import ExpandMoreRoundedIcon from "@material-ui/icons/ExpandMoreRounded";
 
@@ -88,10 +89,17 @@ const Store = () => {
   const { selectedStore, shoppingCart, setShoppingCart } = useStoreContext(0);
   const [selectedTab, setSelectedTab] = useState(0);
   const [showCart, setShowCart] = useState(false);
-
+  const [open, setOpen] = useState(false);
 
   return (
-    <Container style={{paddingBottom: "2rem"}}>
+    <Container style={{paddingBottom: "2rem", position: "relative"}}>
+     {/* Snackbar message */}
+     {/* style={{position: "fixed", top: 100, left: "100%", height:"60px"}} */}
+     <Snackbar  anchorOrigin={{ vertical: 'top', horizontal: 'right' }} fullWidth open={open} autoHideDuration={6000} onClose={() => setOpen(false)}>
+        <Alert onClose={() => setOpen(false)} variant="filled" severity="success">
+          Item was added to your shopping cart.
+        </Alert>
+      </Snackbar>
       <Box position="relative" my="1rem">
         {/* Go back link */}
         <Typography>
@@ -124,7 +132,7 @@ const Store = () => {
                       {selectedStore?.name}
                     </Typography>
                     <Typography color="primary" variant="h6">
-                      {selectedStore?.distanceInfo?.distance.text} away
+                      {selectedStore?.distanceInfo?.distance?.text} away
                     </Typography>
                   </Box>
 
@@ -185,7 +193,7 @@ const Store = () => {
                   {category.items.map((item) => {
                     return (
                       <Grid item md={3} sm={6}>
-                        <ProductCard item={item} />
+                        <ProductCard item={item} showAlert={() => setOpen(true)}/>
                       </Grid>
                     );
                   })}
@@ -194,6 +202,7 @@ const Store = () => {
             );
           })}
         </Box>
+         
         {/* Shopping cart container */}
         {showCart && (
           <Paper className={styles.cartContainer} elevation={6}>

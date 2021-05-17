@@ -37,12 +37,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const ProductCard = (props) => {
+const ProductCard = ({item, showAlert}) => {
   const styles = useStyles();
   const [count, setCount] = useState(1);
   const { selectedStore, shoppingCart, setShoppingCart } = useStoreContext();
 
-  const item = { ...props.item };
 
   const addToCart = (item) => {
     // Duplicate state
@@ -79,6 +78,9 @@ const ProductCard = (props) => {
     // Reset count
     setCount(1)
 
+    // Show snackbar message
+    showAlert()
+    
     // Update context state
     setShoppingCart(newShoppingCart);
   };
