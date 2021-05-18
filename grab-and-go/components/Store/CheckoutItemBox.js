@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import { useStoreContext } from "../../context";
-import { returnUpdatedShoppingCart } from "../../shared/helperFunctions";
+import { updateShoppingCart, getNewTotalPrice } from "../../shared/helperFunctions";
 
 // Mui
 import { Typography, Box, IconButton, Button } from "@material-ui/core";
@@ -12,24 +12,38 @@ import RemoveIcon from "@material-ui/icons/Remove";
 
 const useStyles = makeStyles((theme) => ({
   CheckoutItemBox: {
-    border: '1px solid #EBEBEB',
+    border: "1px solid #EBEBEB",
     borderRadius: "10px",
     padding: "5px",
-    margin: "15px 0"
+    margin: "15px 0",
   },
   textMuted: {
     color: "#736f73",
   },
 }));
 
-const CheckoutItemBox = ({ item, removeItem }) => {
+const CheckoutItemBox = ({item}) => {
   const { shoppingCart, setShoppingCart } = useStoreContext();
+
+  const removeItem = (idx) => {
+    // Duplicate shopping cart items array
+    let newShoppingCart = {...shoppingCart};
+
+    // Remove item from array
+    newShoppingCart.items.splice(idx, 1);
+
+    // Update totalPrice with updated shopping cart items
+    newShoppingCart.totalPrice = getNewTotalPrice(newShoppingCart.items)
+
+    // Update context state
+    setShoppingCart(newShoppingCart);
+  };
 
   const styles = useStyles();
 
   // Update state with new shoppingcart object
   const updateCount = (newCount) => {
-    setShoppingCart(returnUpdatedShoppingCart(item, newCount, shoppingCart));
+    setShoppingCart(updateShoppingCart(item, newCount, shoppingCart));
   };
 
   return (
@@ -54,7 +68,12 @@ const CheckoutItemBox = ({ item, removeItem }) => {
             {item.name}
           </Typography>
           <Box display="flex" mt={0.5}>
-            <Typography className={styles.textMuted} style={{marginRight: "5px"}}>From: </Typography>
+            <Typography
+              className={styles.textMuted}
+              style={{ marginRight: "5px" }}
+            >
+              From:{" "}
+            </Typography>
             <Typography>{item.orderedFrom}</Typography>
           </Box>
         </Box>
@@ -89,7 +108,14 @@ const CheckoutItemBox = ({ item, removeItem }) => {
         <Typography variant="h6" style={{ fontWeight: "500" }} color="primary">
           ${(item.price * item.count).toFixed(2)}
         </Typography>
-        <Typography onClick={() => removeItem()} className={styles.textMuted} style={{cursor: "pointer", marginTop: "5px"}} variant="body2">Remove</Typography>
+        <Typography
+          onClick={() => removeItem()}
+          className={styles.textMuted}
+          style={{ cursor: "pointer", marginTop: "5px" }}
+          variant="body2"
+        >
+          Remove
+        </Typography>
       </Box>
     </Box>
   );

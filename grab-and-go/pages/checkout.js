@@ -44,18 +44,7 @@ const useStyles = makeStyles((theme) => ({
 
 const Checkout = () => {
   const styles = useStyles();
-  const { shoppingCart, setShoppingCart } = useStoreContext();
-
-  const removeItem = (idx) => {
-    // Duplicate shopping cart items array
-    let newShoppingCartItems = [...shoppingCart.items]
-
-    // Remove item from array
-    newShoppingCartItems.splice(idx, 1)
-
-    // Update state
-    setShoppingCart({...shoppingCart, items: newShoppingCartItems})
-  } 
+  const { shoppingCart } = useStoreContext();
 
   return (
     <Container style={{ paddingBottom: "2rem" }}>
@@ -72,10 +61,15 @@ const Checkout = () => {
               <Typography className={styles.mainHeading}>Checkout</Typography>
               <Divider />
               {shoppingCart.items?.map((item, idx) => {
-                return <CheckoutItemBox removeItem={() => removeItem(idx)} item={item}></CheckoutItemBox>;
+                return (
+                  <CheckoutItemBox
+                    item={item}
+                  ></CheckoutItemBox>
+                );
               })}
             </Grid>
             <Grid item md={4}>
+              
               <Typography className={styles.mainHeading}>
                 Billing Information
               </Typography>
@@ -157,17 +151,56 @@ const Checkout = () => {
                   size="small"
                   className={styles.formInput}
                 />
-                <Link href="/">
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    fullWidth
-                    size="large"
-                    style={{ color: "white" }}
-                  >
-                    Proceed to Payment
-                  </Button>
-                </Link>
+              </Box>
+              {/* Total price info */}
+              <Box mt={3}>
+                {/* Subtotal */}
+                <Box
+                  mt={2}
+                  mb={0.2}
+                  display="flex"
+                  justifyContent="space-between"
+                  className="gray-muted"
+                >
+                  <Typography>Subtotal: </Typography>
+                  <Typography>${shoppingCart.totalPrice.toFixed(2)}</Typography>
+                </Box>
+                {/* Service cost */}
+                <Box
+                  mb={1}
+                  display="flex"
+                  justifyContent="space-between"
+                  className="gray-muted"
+                >
+                  <Typography>Service cost: </Typography>
+                  <Typography>$2</Typography>
+                </Box>
+                <Divider style={{ opacity: 0.8 }} />
+                {/* Total price */}
+                <Box
+                  mt={1}
+                  mb={2}
+                  display="flex"
+                  justifyContent="space-between"
+                  className="green-text"
+                >
+                  <Typography variant="h5">Total: </Typography>
+                  <Typography variant="h5">
+                    ${(shoppingCart.totalPrice + 2).toFixed(2)}
+                  </Typography>
+                </Box>
+                  <Link href="/">
+                    <Button
+                      fullWidth
+                      variant="contained"
+                      float="right"
+                      size="large"
+                      color="primary"
+                      style={{ color: "white" }}
+                    >
+                      Go to checkout
+                    </Button>
+                  </Link>
               </Box>
             </Grid>
           </Grid>

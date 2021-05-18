@@ -9,7 +9,7 @@ export const findObjectIdxInArray = (array, prop, val) => {
   return -1;
 };
 
-export const returnUpdatedShoppingCart = (item, newCount, shoppingCart) => {
+export const updateShoppingCart = (item, newCount, shoppingCart) => {
   // Duplicate state
   let newShoppingCart = { ...shoppingCart };
 
@@ -20,13 +20,18 @@ export const returnUpdatedShoppingCart = (item, newCount, shoppingCart) => {
   newShoppingCart.items[itemIdx].count = newCount;
 
   // Update total price
-  let newTotalPrice = 0;
-  newShoppingCart.items.map((item) => {
-    newTotalPrice += item.price * item.count;
-  });
-
-  newShoppingCart.totalPrice = newTotalPrice;
+  newShoppingCart.totalPrice = getNewTotalPrice(newShoppingCart.items)
 
   // Return updated store state
   return newShoppingCart
 };
+
+export const getNewTotalPrice = items => {
+  let newTotalPrice = 0;
+
+  items.map(item => {
+    newTotalPrice += (item.price * item.count) 
+  })
+
+  return newTotalPrice
+}

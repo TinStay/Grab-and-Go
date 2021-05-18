@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import { useStoreContext } from "../../context";
-import { returnUpdatedShoppingCart } from "../../shared/helperFunctions";
+import { updateShoppingCart } from "../../shared/helperFunctions";
 
 
 // Mui
@@ -12,9 +12,9 @@ import RemoveIcon from "@material-ui/icons/Remove";
 const CartItem = ({ item }) => {
   const { shoppingCart, setShoppingCart } = useStoreContext();
 
-  // Update state with new shoppingcart object
+  // Update context state with new shopping cart
   const updateCount = (newCount) => {
-    setShoppingCart(returnUpdatedShoppingCart(item, newCount, shoppingCart))
+    setShoppingCart(updateShoppingCart(item, newCount, shoppingCart))
   }
 
   return (

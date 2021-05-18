@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useStoreContext } from "../../context";
-import { findObjectIdxInArray } from '../../shared/helperFunctions'
+import { findObjectIdxInArray, getNewTotalPrice } from '../../shared/helperFunctions'
 
 //  Material UI
 import { makeStyles } from "@material-ui/core/styles";
@@ -72,12 +72,7 @@ const ProductCard = ({item, showAlert}) => {
     }
 
     // Update total price
-    let newTotalPrice = 0;
-    newShoppingCart.items.map(item => {
-      newTotalPrice += (item.price * item.count) 
-    })
-
-    newShoppingCart.totalPrice = newTotalPrice
+    newShoppingCart.totalPrice = getNewTotalPrice(newShoppingCart.items);
 
     // Reset count
     setCount(1)
