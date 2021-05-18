@@ -44,7 +44,18 @@ const useStyles = makeStyles((theme) => ({
 
 const Checkout = () => {
   const styles = useStyles();
-  const { shoppingCart } = useStoreContext();
+  const { shoppingCart, setShoppingCart } = useStoreContext();
+
+  const removeItem = (idx) => {
+    // Duplicate shopping cart items array
+    let newShoppingCartItems = [...shoppingCart.items]
+
+    // Remove item from array
+    newShoppingCartItems.splice(idx, 1)
+
+    // Update state
+    setShoppingCart({...shoppingCart, items: newShoppingCartItems})
+  } 
 
   return (
     <Container style={{ paddingBottom: "2rem" }}>
@@ -60,8 +71,8 @@ const Checkout = () => {
             <Grid item md={8}>
               <Typography className={styles.mainHeading}>Checkout</Typography>
               <Divider />
-              {shoppingCart.items?.map((item) => {
-                return <CheckoutItemBox item={item}></CheckoutItemBox>;
+              {shoppingCart.items?.map((item, idx) => {
+                return <CheckoutItemBox removeItem={() => removeItem(idx)} item={item}></CheckoutItemBox>;
               })}
             </Grid>
             <Grid item md={4}>

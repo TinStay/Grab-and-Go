@@ -4,7 +4,7 @@ import { useStoreContext } from "../../context";
 import { returnUpdatedShoppingCart } from "../../shared/helperFunctions";
 
 // Mui
-import { Typography, Box, IconButton } from "@material-ui/core";
+import { Typography, Box, IconButton, Button } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 
 import AddIcon from "@material-ui/icons/Add";
@@ -18,13 +18,12 @@ const useStyles = makeStyles((theme) => ({
     margin: "15px 0"
   },
   textMuted: {
-    marginRight: "5px",
     color: "#736f73",
   },
 }));
 
-const CheckoutItemBox = ({ item }) => {
-  const { selectedStore, shoppingCart, setShoppingCart } = useStoreContext();
+const CheckoutItemBox = ({ item, removeItem }) => {
+  const { shoppingCart, setShoppingCart } = useStoreContext();
 
   const styles = useStyles();
 
@@ -55,7 +54,7 @@ const CheckoutItemBox = ({ item }) => {
             {item.name}
           </Typography>
           <Box display="flex" mt={0.5}>
-            <Typography className={styles.textMuted}>From: </Typography>
+            <Typography className={styles.textMuted} style={{marginRight: "5px"}}>From: </Typography>
             <Typography>{item.orderedFrom}</Typography>
           </Box>
         </Box>
@@ -90,6 +89,7 @@ const CheckoutItemBox = ({ item }) => {
         <Typography variant="h6" style={{ fontWeight: "500" }} color="primary">
           ${(item.price * item.count).toFixed(2)}
         </Typography>
+        <Typography onClick={() => removeItem()} className={styles.textMuted} style={{cursor: "pointer", marginTop: "5px"}} variant="body2">Remove</Typography>
       </Box>
     </Box>
   );
