@@ -41,18 +41,12 @@ class Home extends PureComponent {
     if(storeType !== ""){
       filteredStores = this.context.stores.filter(store => store.storeType === storeType)
     }
+    
     if(range !== ""){
       // Convert string to int
       let rangeInt = parseInt(range)
       filteredStores = this.context.stores.filter(store => parseInt(store.distanceInfo.distance.text) < rangeInt)
     }
-
-    console.log(`range`, range)
-
-    // if(sortBy !== ""){
-    //   filteredStores = this.context.stores.filter(store => store.storeType === storeType)
-    // }
-
       
     let mainContainerClasses = [classes.main_container, "row"];
 

@@ -29,7 +29,6 @@ const StoreBox = ({ store }) => {
 
   return (
     <Paper
-    // elevation={4}
       className={
         store === selectedStore ? `${styles.root} active` : styles.root
       }

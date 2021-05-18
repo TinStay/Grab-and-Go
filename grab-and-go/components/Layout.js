@@ -3,6 +3,7 @@ import Navbar from "./Navbar";
 import Meta from "./Meta";
 import { createMuiTheme, MuiThemeProvider } from "@material-ui/core/styles";
 import { StoreProvider } from "../context";
+import { SnackbarProvider } from "notistack";
 
 const Layout = ({ children }) => {
   const greenTheme = createMuiTheme({
@@ -21,11 +22,13 @@ const Layout = ({ children }) => {
   return (
     <MuiThemeProvider theme={greenTheme}>
       <StoreProvider>
-        <div className="light-green-bgc h-100vh">
-          <Meta />
-          <Navbar />
-          {children}
-        </div>
+        <SnackbarProvider maxSnack={5}>
+          <div className="light-green-bgc h-100vh">
+            <Meta />
+            <Navbar />
+            {children}
+          </div>
+        </SnackbarProvider>
       </StoreProvider>
     </MuiThemeProvider>
   );

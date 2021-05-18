@@ -91,14 +91,16 @@ const Store = () => {
   const [showCart, setShowCart] = useState(false);
   const [open, setOpen] = useState(false);
 
+  
+
   return (
     <Container style={{paddingBottom: "2rem", position: "relative"}}>
      {/* Snackbar message */}
-     <Snackbar  anchorOrigin={{ vertical: 'top', horizontal: 'right' }} fullWidth open={open} autoHideDuration={6000} onClose={() => setOpen(false)}>
+     {/* <Snackbar  anchorOrigin={{ vertical: 'top', horizontal: 'right' }} fullWidth open={open} autoHideDuration={6000} onClose={() => setOpen(false)}>
         <Alert onClose={() => setOpen(false)} variant="filled" severity="success">
           Item was added to your shopping cart.
         </Alert>
-      </Snackbar>
+      </Snackbar> */}
       <Box position="relative" my="1rem">
         {/* Go back link */}
         <Typography>

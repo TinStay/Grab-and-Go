@@ -18,6 +18,8 @@ import {
 } from "@material-ui/core";
 import AddIcon from "@material-ui/icons/Add";
 import RemoveIcon from "@material-ui/icons/Remove";
+import { useSnackbar } from "notistack";
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -41,6 +43,8 @@ const ProductCard = ({item, showAlert}) => {
   const styles = useStyles();
   const [count, setCount] = useState(1);
   const { selectedStore, shoppingCart, setShoppingCart } = useStoreContext();
+
+  const { enqueueSnackbar } = useSnackbar()
 
 
   const addToCart = (item) => {
@@ -79,7 +83,8 @@ const ProductCard = ({item, showAlert}) => {
     setCount(1)
 
     // Show snackbar message
-    showAlert()
+    // showAlert()
+    enqueueSnackbar("Item was added to your shopping cart.", {variant: "success"})
     
     // Update context state
     setShoppingCart(newShoppingCart);
