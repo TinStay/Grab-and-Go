@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import FilterSelect from "./FilterSelect";
 
 // Material UI
-import { Grid, Container } from "@material-ui/core";
+import { Grid, Container, Box } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 
 // Icons
@@ -14,7 +14,7 @@ import LocationCityIcon from "@material-ui/icons/LocationCity";
 const useStyles = makeStyles((theme) => ({
   root: {
     margin: "0.8rem auto",
-    padding: "0px 15px 15px 15px",
+    padding: "0px 20px 25px 20px",
     backgroundColor: "#fff",
     borderRadius: "10px",
     border: "1px solid #f2f2f2",
@@ -32,8 +32,9 @@ const FiltersBox = (props) => {
   return (
     <Container>
       <h2 className="dark-green-text">Filters</h2>
-        <Grid className={styles.root} container >
-          <Grid item xs={5} style={{marginRight: "auto"}}>
+      <Box className={styles.root}>
+        <Grid container spacing={3}>
+          <Grid item xs={6} style={{marginRight: "0"}}>
             <FilterSelect
               label="Store Type"
               name="storeType"
@@ -41,7 +42,7 @@ const FiltersBox = (props) => {
               icon={<StoreIcon style={{ marginRight: "2px" }} />}
             />
           </Grid>
-          <Grid item xs={5} style={{marginRight: "auto"}}>
+          <Grid item xs={6} style={{marginRight: "0"}}>
             <FilterSelect
               label="Sort By"
               name="sortBy"
@@ -49,7 +50,7 @@ const FiltersBox = (props) => {
               icon={<SortIcon style={{ marginRight: "2px" }} />}
             />
           </Grid>
-          <Grid item xs={5} style={{marginRight: "auto"}}>
+          <Grid item xs={6} style={{marginRight: "auto"}}>
             <FilterSelect
               label="Range"
               name="range"
@@ -57,7 +58,7 @@ const FiltersBox = (props) => {
               icon={<MyLocationIcon style={{ marginRight: "2px" }} />}
             />
           </Grid>
-          <Grid item xs={5} style={{marginRight: "auto"}}>
+          <Grid item xs={6} style={{marginRight: "auto"}}>
             <FilterSelect
               label="Location"
               name="location"
@@ -66,6 +67,7 @@ const FiltersBox = (props) => {
             />
           </Grid>
         </Grid>
+        </Box>
     </Container>
   );
 };

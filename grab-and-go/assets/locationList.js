@@ -6,6 +6,7 @@ export const locationList = [
     lat: 51.4517023,
     lng: 5.4722792,
     storeImage: "/images/store/AH/AH.jpg",
+    storeType: "Grocery store",
     description: "Lorem ipsum dolor sit amet consectetur adipisicing elit.Beatae, dolor ut aliquid nulla explicabo numquam eligendi odit tempore rerum architecto!",
     pickUpTime: "10 am - 18 pm Tuesday (16.04)",
     distanceInfo: {
@@ -23,6 +24,7 @@ export const locationList = [
     lat: 51.470346,
     lng: 5.4941355,
     storeImage: "/images/store/Action/Action.jpg",
+    storeType: "Home Appliances",
     description: "Lorem ipsum dolor sit amet consectetur adipisicing elit.Beatae, dolor ut aliquid nulla explicabo numquam eligendi odit tempore rerum architecto!",
     pickUpTime: "10 am - 18 pm Tuesday (16.04)",
     distanceInfo: {
@@ -38,6 +40,7 @@ export const locationList = [
     lat: 51.44004,
     lng: 5.46476,
     storeImage: "/images/store/Amazing Oriental/Amazing Oriental.jpg",
+    storeType: "Restaurant",
     description: "Lorem ipsum dolor sit amet consectetur adipisicing elit.Beatae, dolor ut aliquid nulla explicabo numquam eligendi odit tempore rerum architecto!",
     pickUpTime: "10 am - 18 pm Tuesday (16.04)",
     distanceInfo: {
@@ -53,8 +56,9 @@ export const locationList = [
     lat: 51.43944,
     lng: 5.47792,
     storeImage: "/images/store/KFC/KFC.jpg",
+    storeType: "Fast Food",
     description: "Lorem ipsum dolor sit amet consectetur adipisicing elit.Beatae, dolor ut aliquid nulla explicabo numquam eligendi odit tempore rerum architecto!",
-    pickUpTime: "10 am - 18 pm Tuesday (16.04)",
+    pickUpTime: "10 am - 18 pm Tuesday (20.05)",
     distanceInfo: {
       distance: null,
       duration: null,
@@ -126,6 +130,7 @@ export const locationList = [
     lat: 51.43677,
     lng: 5.47852,
     storeImage: "/images/store/De Burger/De Burger.png",
+    storeType: "Fast Food",
     description: "Lorem ipsum dolor sit amet consectetur adipisicing elit.Beatae, dolor ut aliquid nulla explicabo numquam eligendi odit tempore rerum architecto!",
     pickUpTime: "10 am - 18 pm Tuesday (16.04)",
     distanceInfo: {

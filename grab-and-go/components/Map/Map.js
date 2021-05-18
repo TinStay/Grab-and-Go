@@ -42,7 +42,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Map = ({ mapElement, map }) => {
+const Map = ({filteredStores}) => {
   // State
   const [userPosition, setUserPosition] = useState();
 
@@ -99,7 +99,6 @@ const Map = ({ mapElement, map }) => {
         if (status !== "OK") {
           alert("Error was: " + status);
         } else {
-          const originList = response.originAddresses;
           const destinationList = response.destinationAddresses;
           const distanceFromOrigin = response.rows[0].elements;
 
@@ -175,7 +174,6 @@ const Map = ({ mapElement, map }) => {
       }
     });
   };
-
  
 
   return (
@@ -193,8 +191,8 @@ const Map = ({ mapElement, map }) => {
           }}
         />
       )}
-      {stores &&
-        stores.map((store, idx) => (
+      {filteredStores &&
+        filteredStores.map((store, idx) => (
           <Marker
             key={idx}
             position={{ lat: store.lat, lng: store.lng }}

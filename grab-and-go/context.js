@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState } from "react";
 
-const StoreContext = createContext();
+export const StoreContext = createContext();
 
 // Use context hook
 export function useStoreContext() {

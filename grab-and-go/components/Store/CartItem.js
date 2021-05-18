@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import { useStoreContext } from "../../context";
-import { returnUpdatedShoppingCart } from "../../shared/sharedFunctions";
+import { returnUpdatedShoppingCart } from "../../shared/helperFunctions";
 
 
 // Mui

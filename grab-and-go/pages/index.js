@@ -3,27 +3,46 @@ import { PureComponent } from "react";
 import ControlPanel from "../components/ControlPanel/ControlPanel";
 import Map from "../components/Map/Map";
 import classes from "../styles/Home.module.scss";
+import { StoreContext } from '../context'
 
 class Home extends PureComponent {
   state = {
-    storeType: null,
-    sortBy: null,
-    range: null,
-    location: null,
+    stores: [],
+    filters: {
+      storeType: "",
+      sortBy: "",
+      range: "",
+      location: "",
+    },
   };
+
+  // Context
+  static contextType = StoreContext
 
   handleFilterChange = (e) => {
     // Update state filter value
-    this.setState({ ...this.state,
-      [e.target.name]: e.target.value });
-    };
+    this.setState({
+      ...this.state,
+      filters: {
+        ...this.state.filters,
+        [e.target.name]: e.target.value,
+      },
+    });
+  };
 
 
-  render() {
-    let mainContainerClasses = [classes.main_container, "row"];
-   
   
+  render() {
+    const storeType = this.state.filters.storeType
+    let filteredStores = [...this.context.stores]
     
+    // Apply filters to store list
+    if(storeType !== ""){
+      filteredStores = this.context.stores.filter(store => store.storeType === storeType)
+    }
+
+      
+    let mainContainerClasses = [classes.main_container, "row"];
 
     return (
       <div className="mx-auto">
@@ -38,11 +57,14 @@ class Home extends PureComponent {
               loadingElement={<div style={{ height: `100%` }} />}
               containerElement={<div style={{ height: `100%` }} />}
               mapElement={<div id="google-map" style={{ height: `100%` }} />}
-              // map={map}
+              filteredStores={filteredStores}
             />
           </div>
           <div className="col-12 col-lg-5 px-0">
-            <ControlPanel handleFilterChange={(e) => this.handleFilterChange(e)}/>
+            <ControlPanel
+              handleFilterChange={(e) => this.handleFilterChange(e)}
+              filteredStores={filteredStores}
+            />
           </div>
         </main>
       </div>

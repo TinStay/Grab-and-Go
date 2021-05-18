@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useStoreContext } from "../../context";
-import { findObjectIdxInArray } from '../../shared/sharedFunctions'
+import { findObjectIdxInArray } from '../../shared/helperFunctions'
 
 //  Material UI
 import { makeStyles } from "@material-ui/core/styles";
