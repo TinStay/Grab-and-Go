@@ -34,12 +34,24 @@ class Home extends PureComponent {
   
   render() {
     const storeType = this.state.filters.storeType
+    const range = this.state.filters.range
     let filteredStores = [...this.context.stores]
     
     // Apply filters to store list
     if(storeType !== ""){
       filteredStores = this.context.stores.filter(store => store.storeType === storeType)
     }
+    if(range !== ""){
+      // Convert string to int
+      let rangeInt = parseInt(range)
+      filteredStores = this.context.stores.filter(store => parseInt(store.distanceInfo.distance.text) < rangeInt)
+    }
+
+    console.log(`range`, range)
+
+    // if(sortBy !== ""){
+    //   filteredStores = this.context.stores.filter(store => store.storeType === storeType)
+    // }
 
       
     let mainContainerClasses = [classes.main_container, "row"];

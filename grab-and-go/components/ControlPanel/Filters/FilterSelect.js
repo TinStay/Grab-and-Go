@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
+import { MenuItem } from "@material-ui/core";
 import InputLabel from "@material-ui/core/InputLabel";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
@@ -7,14 +8,14 @@ import classes from "../../../styles/Home.module.scss";
 
 import * as filterOptions from "./FilterOptions";
 
-const FilterSelect = (props) => {
+const FilterSelect = ({name, label, icon, handleFilterChange}) => {
   {
   }
-  const [selectedValue, setSelectedValue] = useState(null);
+  const [selectedValue, setSelectedValue] = useState("");
 
   let options = [];
 
-  switch (props.name) {
+  switch (name) {
     case "storeType":
       options = filterOptions.storeType;
       break;
@@ -33,19 +34,19 @@ const FilterSelect = (props) => {
   return (
     <FormControl className="w-100 ">
       
-      <InputLabel htmlFor={`${props.name}-select`}>{props.icon} {props.label}</InputLabel>
+      <InputLabel htmlFor={`${name}-select`}>{icon} {label}</InputLabel>
       <Select
-        native
+        // native
         size="small"
         value={selectedValue}
-        onChange={(e) => props.handleFilterChange(e)}
+        onChange={(e) => handleFilterChange(e)}
         inputProps={{
-          name: props.name,
-          id: `${props.name}-select`,
+          name: name,
+          id: `${name}-select`,
         }}
       >
        {options && options.map((option) => {
-         return <option value={option}>{option}</option>
+         return <MenuItem onClick={e => setSelectedValue(option)} value={option === "" ? "" : option}>{option === "" ? "None" : option}</MenuItem>
        })}
         
       </Select>
