@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import { useStoreContext } from "../../context";
-import { updateShoppingCart, getNewTotalPrice } from "../../shared/helperFunctions";
+import { updateShoppingCart } from "../../shared/helperFunctions";
 
 // Mui
 import { Typography, Box, IconButton, Button } from "@material-ui/core";
@@ -22,22 +22,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const CheckoutItemBox = ({item}) => {
+const CheckoutItemBox = ({item, removeItem}) => {
   const { shoppingCart, setShoppingCart } = useStoreContext();
-
-  const removeItem = (idx) => {
-    // Duplicate shopping cart items array
-    let newShoppingCart = {...shoppingCart};
-
-    // Remove item from array
-    newShoppingCart.items.splice(idx, 1);
-
-    // Update totalPrice with updated shopping cart items
-    newShoppingCart.totalPrice = getNewTotalPrice(newShoppingCart.items)
-
-    // Update context state
-    setShoppingCart(newShoppingCart);
-  };
 
   const styles = useStyles();
 

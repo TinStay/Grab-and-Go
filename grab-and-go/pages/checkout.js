@@ -2,6 +2,7 @@ import React from "react";
 import { useStoreContext } from "../context";
 import CheckoutItemBox from "../components/Store/CheckoutItemBox";
 import Link from "next/link";
+import { getNewTotalPrice } from '../shared/helperFunctions'
 
 // Mui
 import {
@@ -44,7 +45,23 @@ const useStyles = makeStyles((theme) => ({
 
 const Checkout = () => {
   const styles = useStyles();
-  const { shoppingCart } = useStoreContext();
+  const { shoppingCart, setShoppingCart } = useStoreContext();
+
+  const removeItem = (idx) => {
+    
+    // Duplicate shopping cart items array
+    let newShoppingCart = {...shoppingCart};
+
+    // Remove item from array
+    newShoppingCart.items.splice(idx, 1);
+
+    // Update totalPrice with updated shopping cart items
+    newShoppingCart.totalPrice = getNewTotalPrice(newShoppingCart.items)
+
+    // Update context state
+    setShoppingCart(newShoppingCart);
+  };
+
 
   return (
     <Container style={{ paddingBottom: "2rem" }}>
@@ -55,21 +72,18 @@ const Checkout = () => {
             <i className="fas fa-angle-left mb-3 me-1"></i>Go back
           </MuiLink>
         </Typography>
-        <Paper className={styles.paperBox}>
-          <Grid container spacing={3}>
-            <Grid item md={8}>
+        <Grid container spacing={3} style={{alignItems: "stretch"}}>
+          <Grid item md={8} style={{height: "100%"}}>
+            <Paper className={styles.paperBox}>
               <Typography className={styles.mainHeading}>Checkout</Typography>
               <Divider />
               {shoppingCart.items?.map((item, idx) => {
-                return (
-                  <CheckoutItemBox
-                    item={item}
-                  ></CheckoutItemBox>
-                );
+                return <CheckoutItemBox item={item} removeItem={() => removeItem(idx)}></CheckoutItemBox>;
               })}
-            </Grid>
-            <Grid item md={4}>
-              
+            </Paper>
+          </Grid>
+          <Grid item md={4}>
+            <Paper className={styles.paperBox}>
               <Typography className={styles.mainHeading}>
                 Billing Information
               </Typography>
@@ -189,22 +203,22 @@ const Checkout = () => {
                     ${(shoppingCart.totalPrice + 2).toFixed(2)}
                   </Typography>
                 </Box>
-                  <Link href="/">
-                    <Button
-                      fullWidth
-                      variant="contained"
-                      float="right"
-                      size="large"
-                      color="primary"
-                      style={{ color: "white" }}
-                    >
-                      Go to checkout
-                    </Button>
-                  </Link>
+                <Link href="/">
+                  <Button
+                    fullWidth
+                    variant="contained"
+                    float="right"
+                    size="large"
+                    color="primary"
+                    style={{ color: "white" }}
+                  >
+                    Go to checkout
+                  </Button>
+                </Link>
               </Box>
-            </Grid>
+            </Paper>
           </Grid>
-        </Paper>
+        </Grid>
       </Box>
     </Container>
   );
