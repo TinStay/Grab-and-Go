@@ -22,7 +22,7 @@ const Layout = ({ children }) => {
   return (
     <MuiThemeProvider theme={greenTheme}>
       <StoreProvider>
-        <SnackbarProvider maxSnack={5}>
+        <SnackbarProvider maxSnack={5} anchorOrigin={{ vertical: "top", horizontal: "right" }}>
           <div className="light-green-bgc h-100vh">
             <Meta />
             <Navbar />

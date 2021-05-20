@@ -78,7 +78,6 @@ const ProductCard = ({item, showAlert}) => {
     setCount(1)
 
     // Show snackbar message
-    // showAlert()
     enqueueSnackbar("Item was added to your shopping cart.", {variant: "success"})
     
     // Update context state
