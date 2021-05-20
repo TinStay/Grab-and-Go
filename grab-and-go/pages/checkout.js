@@ -102,7 +102,7 @@ const Checkout = () => {
               <Box mt={2}>
                 <Box display="flex" justifyContent="space-between">
                   <TextField
-                    id="outlined-basic"
+                    id="firstName"
                     label="First Name"
                     variant="filled"
                     fullWidth
@@ -112,7 +112,7 @@ const Checkout = () => {
                   />
 
                   <TextField
-                    id="outlined-basic"
+                    id="lastName"
                     label="Last Name"
                     variant="filled"
                     fullWidth
@@ -122,7 +122,7 @@ const Checkout = () => {
                 </Box>
 
                 <TextField
-                  id="outlined-basic"
+                  id="streetAddress"
                   label="Street Address"
                   variant="filled"
                   fullWidth
@@ -169,8 +169,8 @@ const Checkout = () => {
                   </FormControl>
                 </Box>
                 <TextField
-                  id="outlined-basic"
-                  label="Street Address"
+                  id="additional"
+                  label="Additional information"
                   variant="filled"
                   fullWidth
                   size="small"
