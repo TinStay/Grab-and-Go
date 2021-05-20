@@ -2,7 +2,7 @@ import React from "react";
 import { useStoreContext } from "../context";
 import CheckoutItemBox from "../components/Store/CheckoutItemBox";
 import Link from "next/link";
-import { getNewTotalPrice } from '../shared/helperFunctions'
+import { getNewTotalPrice } from "../shared/helperFunctions";
 
 // Mui
 import {
@@ -18,7 +18,7 @@ import {
   Select,
   MenuItem,
   Button,
-  Link as MuiLink,
+  useTheme
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 
@@ -45,40 +45,51 @@ const useStyles = makeStyles((theme) => ({
 
 const Checkout = () => {
   const styles = useStyles();
-  const { shoppingCart, setShoppingCart } = useStoreContext();
+  const { selectedStore, shoppingCart, setShoppingCart } = useStoreContext();
+  const theme = useTheme()
+
+  const secondary = theme.palette.secondary.main
 
   const removeItem = (idx) => {
-    
     // Duplicate shopping cart items array
-    let newShoppingCart = {...shoppingCart};
+    let newShoppingCart = { ...shoppingCart };
 
     // Remove item from array
     newShoppingCart.items.splice(idx, 1);
 
     // Update totalPrice with updated shopping cart items
-    newShoppingCart.totalPrice = getNewTotalPrice(newShoppingCart.items)
+    newShoppingCart.totalPrice = getNewTotalPrice(newShoppingCart.items);
 
     // Update context state
     setShoppingCart(newShoppingCart);
   };
-
 
   return (
     <Container style={{ paddingBottom: "2rem" }}>
       <Box my="1rem">
         {/* Go back link */}
         <Typography>
-          <MuiLink color="secondary" className="text-decoration-none" href="/">
-            <i className="fas fa-angle-left mb-3 me-1"></i>Go back
-          </MuiLink>
+          <Link
+            
+            href={`/stores/${selectedStore?.id}`}
+          >
+            <a className="text-decoration-none" style={{color: secondary}}>
+              <i className="fas fa-angle-left mb-3 me-1"></i>Go back
+            </a>
+          </Link>
         </Typography>
-        <Grid container spacing={3} style={{alignItems: "stretch"}}>
-          <Grid item md={8} style={{height: "100%"}}>
+        <Grid container spacing={3} style={{ alignItems: "stretch" }}>
+          <Grid item md={8} style={{ height: "100%" }}>
             <Paper className={styles.paperBox}>
               <Typography className={styles.mainHeading}>Checkout</Typography>
               <Divider />
               {shoppingCart.items?.map((item, idx) => {
-                return <CheckoutItemBox item={item} removeItem={() => removeItem(idx)}></CheckoutItemBox>;
+                return (
+                  <CheckoutItemBox
+                    item={item}
+                    removeItem={() => removeItem(idx)}
+                  ></CheckoutItemBox>
+                );
               })}
             </Paper>
           </Grid>

@@ -17,7 +17,6 @@ import {
   AppBar,
   Tabs,
   Tab,
-  Link as MuiLink,
   IconButton,
   useTheme,
   Divider,
@@ -82,6 +81,7 @@ const Store = () => {
   const styles = useStyles();
   const theme = useTheme();
   const primary = theme.palette.primary.main;
+  const secondary = theme.palette.secondary.main;
 
   // State
   const { selectedStore, shoppingCart } = useStoreContext(0);
@@ -93,9 +93,11 @@ const Store = () => {
       <Box position="relative" my="1rem">
         {/* Go back link */}
         <Typography>
-          <MuiLink color="secondary" className="text-decoration-none" href="/">
-            <i className="fas fa-angle-left mb-3 me-1"></i>Go back
-          </MuiLink>
+          <Link  href="/" >
+            <a className="text-decoration-none" style={{color: secondary}}>
+              <i className="fas fa-angle-left mb-3 me-1"></i>Go back
+            </a>
+          </Link>
         </Typography>
 
         {/* Store info */}
