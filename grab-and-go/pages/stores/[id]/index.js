@@ -3,12 +3,12 @@ import ProductCard from "../../../components/Store/ProductCard";
 import Link from "next/link";
 
 // Components
-import CartItem from "../../../components/Store/CartItem";
+import StoreInfo from '../../../components/Store/StoreInfo'
+import ShoppingCart from '../../../components/Store/ShoppingCart'
 
 // Material ui
 import { makeStyles } from "@material-ui/core/styles";
 import {
-  Paper,
   Button,
   Typography,
   Box,
@@ -17,12 +17,9 @@ import {
   AppBar,
   Tabs,
   Tab,
-  IconButton,
   useTheme,
-  Divider,
 } from "@material-ui/core";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
-import ExpandMoreRoundedIcon from "@material-ui/icons/ExpandMoreRounded";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -48,9 +45,6 @@ function TabPanel(props) {
 import { useStoreContext } from "../../../context";
 
 const useStyles = makeStyles((theme) => ({
-  paperBox: {
-    padding: "20px 25px",
-  },
   cartContainer: {
     position: "fixed",
     bottom: "10%",
@@ -80,11 +74,10 @@ const Store = () => {
   // Mui
   const styles = useStyles();
   const theme = useTheme();
-  const primary = theme.palette.primary.main;
   const secondary = theme.palette.secondary.main;
 
   // State
-  const { selectedStore, shoppingCart } = useStoreContext(0);
+  const { selectedStore, shoppingCart } = useStoreContext();
   const [selectedTab, setSelectedTab] = useState(0);
   const [showCart, setShowCart] = useState(false);
 
@@ -102,58 +95,7 @@ const Store = () => {
 
         {/* Store info */}
         <Box mb={3}>
-          <Paper className={styles.paperBox} elevation={5}>
-            <Grid container spacing={4}>
-              <Grid item md={4} style={{ width: "100%" }}>
-                {selectedStore != null && (
-                  <img
-                    src={selectedStore?.storeImage}
-                    style={{ width: "100%", height: "100%" }}
-                  />
-                )}
-              </Grid>
-              <Grid item md={8}>
-                <Box display="flex" flexDirection="column" height={1}>
-                  {/* Name + distance away */}
-                  <Box
-                    display="flex"
-                    flexGrow="0"
-                    justifyContent="space-between"
-                  >
-                    <Typography color="primary" variant="h4">
-                      {selectedStore?.name}
-                    </Typography>
-                    <Typography color="primary" variant="h6">
-                      {selectedStore?.distanceInfo?.distance?.text} away
-                    </Typography>
-                  </Box>
-
-                  {/* Address */}
-                  <Typography
-                    className="gray-muted"
-                    variant="h7"
-                    component="h6"
-                  >
-                    {selectedStore?.address}
-                  </Typography>
-
-                  {/* Description */}
-                  <Box flexGrow={1} mt={1} mb={3}>
-                    <Typography variant="h7">
-                      {selectedStore?.description}
-                    </Typography>
-                  </Box>
-
-                  {/* Ready for pick up */}
-                  <Box flexGrow={0}>
-                    <Typography color="secondary" variant="h7" component="h6">
-                      Ready for pick up: {selectedStore?.pickUpTime}{" "}
-                    </Typography>
-                  </Box>
-                </Box>
-              </Grid>
-            </Grid>
-          </Paper>
+          <StoreInfo selectedStore={selectedStore}/>
         </Box>
 
         {/* Menu */}
@@ -200,101 +142,7 @@ const Store = () => {
 
         {/* Shopping cart container */}
         {showCart && (
-          <Paper className={styles.cartContainer} elevation={6}>
-            <Box height={1} display="flex" flexDirection="column">
-              {/* Label + close button */}
-              <Box
-                display="flex"
-                alignItems="center"
-                justifyContent="space-between"
-                flexGrow={0}
-                style={{
-                  padding: "12px 25px",
-                  backgroundColor: primary,
-                  color: "white",
-                  textAlign: "right",
-                }}
-              >
-                <Typography style={{ fontWeight: "500", fontSize: "1.2rem" }}>
-                  My Shopping Cart
-                </Typography>
-                <IconButton onClick={() => setShowCart(false)}>
-                  <ExpandMoreRoundedIcon
-                    style={{ color: "white", transform: "scale(1.4)" }}
-                  />
-                </IconButton>
-              </Box>
-
-              <Box
-                display="flex"
-                flexDirection="column"
-                height={"82%"}
-                justifyContent="space-between"
-                flexGrow={1}
-                style={{
-                  padding: "12px 15px",
-                }}
-              >
-                {/* Shopping cart items */}
-                <Box style={{ overflowY: "auto", paddingRight: "1rem" }}>
-                  {shoppingCart &&
-                    shoppingCart.items.map((item) => {
-                      return <CartItem item={item}></CartItem>;
-                    })}
-                </Box>
-
-                <Box style={{ padding: "5px 15px" }}>
-                  {/* Total price info */}
-                  <Box
-                    mt={2}
-                    mb={0.2}
-                    display="flex"
-                    justifyContent="space-between"
-                    className="gray-muted"
-                  >
-                    <Typography>Subtotal: </Typography>
-                    <Typography>
-                      ${shoppingCart.totalPrice.toFixed(2)}
-                    </Typography>
-                  </Box>
-                  <Box
-                    mb={0.2}
-                    display="flex"
-                    justifyContent="space-between"
-                    className="gray-muted"
-                  >
-                    <Typography>Service cost: </Typography>
-                    <Typography>$2</Typography>
-                  </Box>
-                  <Divider style={{ opacity: 0.8 }} />
-                  <Box
-                    mt={1}
-                    display="flex"
-                    justifyContent="space-between"
-                    className="green-text"
-                  >
-                    <Typography variant="h5">Total: </Typography>
-                    <Typography variant="h5">
-                      ${(shoppingCart.totalPrice + 2).toFixed(2)}
-                    </Typography>
-                  </Box>
-                  <Box mt={2}>
-                    <Link href="/checkout">
-                      <Button
-                        fullWidth
-                        variant="contained"
-                        float="right"
-                        color="primary"
-                        style={{ color: "white" }}
-                      >
-                        Go to checkout
-                      </Button>
-                    </Link>
-                  </Box>
-                </Box>
-              </Box>
-            </Box>
-          </Paper>
+          <ShoppingCart shoppingCart={shoppingCart} setShowCart={setShowCart}/>
         )}
 
         {/* Shopping cart button */}
@@ -309,6 +157,7 @@ const Store = () => {
             <Typography>Shopping Cart</Typography>
           </Button>
         </Box>
+        
       </Box>
     </Container>
   );
