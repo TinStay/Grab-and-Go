@@ -64,7 +64,6 @@ class Home extends PureComponent {
       );
     }
 
-    let mainContainerClasses = [classes.main_container];
 
     return (
       <Box>
@@ -72,7 +71,7 @@ class Home extends PureComponent {
           <title>Grab and Go</title>
           <link rel="icon" href="/favicon.ico" />
         </Head>
-        <Grid container className={mainContainerClasses.join(" ")}>
+        <Grid container className={classes.main_container}>
           <Grid item xs={12} md={7}>
             <Box className={styles.mapContainer}>
               <Map
