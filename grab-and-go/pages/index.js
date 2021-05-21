@@ -5,6 +5,17 @@ import Map from "../components/Map/Map";
 import classes from "../styles/Home.module.scss";
 import { StoreContext } from '../context'
 
+// Material UI
+import {Box, Grid} from '@material-ui/core'
+import { withStyles } from "@material-ui/core/styles"
+
+const styles = theme => ({
+  mapContainer: {
+    height: "100vh",
+    backgroundColor: "red",
+  }
+})
+
 class Home extends PureComponent {
   state = {
     stores: [],
@@ -35,6 +46,7 @@ class Home extends PureComponent {
   render() {
     const storeType = this.state.filters.storeType
     const range = this.state.filters.range
+    const styles = this.props
     let filteredStores = [...this.context.stores]
     
     // Apply filters to store list
@@ -48,16 +60,16 @@ class Home extends PureComponent {
       filteredStores = this.context.stores.filter(store => parseInt(store.distanceInfo.distance.text) < rangeInt)
     }
       
-    let mainContainerClasses = [classes.main_container, "row"];
+    let mainContainerClasses = [classes.main_container];
 
     return (
-      <div className="mx-auto">
+      <Box >
         <Head>
           <title>Grab and Go</title>
           <link rel="icon" href="/favicon.ico" />
         </Head>
-        <main className={mainContainerClasses.join(" ")}>
-          <div className="col-12 col-lg-7 px-0" style={{ height: "100vh" }}>
+        <Grid container className={mainContainerClasses.join(" ")}>
+          <Grid item md={7} className={styles.mapContainer} style={{height: "100vh"}}>
             <Map
               googleMapURL={`https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=AIzaSyAOJDDyL012DooU8FHDbH8yLARMV7L4U-o`}
               loadingElement={<div style={{ height: `100%` }} />}
@@ -65,17 +77,17 @@ class Home extends PureComponent {
               mapElement={<div id="google-map" style={{ height: `100%` }} />}
               filteredStores={filteredStores}
             />
-          </div>
-          <div className="col-12 col-lg-5 px-0">
+          </Grid>
+          <Grid item md={5}>
             <ControlPanel
               handleFilterChange={(e) => this.handleFilterChange(e)}
               filteredStores={filteredStores}
             />
-          </div>
-        </main>
-      </div>
+          </Grid>
+        </Grid>
+      </Box>
     );
   }
 }
 
-export default Home;
+export default withStyles(styles)(Home);
