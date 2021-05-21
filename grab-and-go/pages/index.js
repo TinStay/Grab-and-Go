@@ -3,18 +3,20 @@ import { PureComponent } from "react";
 import ControlPanel from "../components/ControlPanel/ControlPanel";
 import Map from "../components/Map/Map";
 import classes from "../styles/Home.module.scss";
-import { StoreContext } from '../context'
+import { StoreContext } from "../context";
 
 // Material UI
-import {Box, Grid} from '@material-ui/core'
-import { withStyles } from "@material-ui/core/styles"
+import { Box, Grid } from "@material-ui/core";
+import { withStyles } from "@material-ui/core/styles";
 
-const styles = theme => ({
+const useStyles = (theme) => ({
   mapContainer: {
-    height: "100vh",
-    backgroundColor: "red",
-  }
-})
+    height: "60vh",
+    [theme.breakpoints.up("md")]: {
+      height: "100vh",
+    },
+  },
+});
 
 class Home extends PureComponent {
   state = {
@@ -28,7 +30,7 @@ class Home extends PureComponent {
   };
 
   // Context
-  static contextType = StoreContext
+  static contextType = StoreContext;
 
   handleFilterChange = (e) => {
     // Update state filter value
@@ -41,44 +43,48 @@ class Home extends PureComponent {
     });
   };
 
-
-  
   render() {
-    const storeType = this.state.filters.storeType
-    const range = this.state.filters.range
-    const styles = this.props
-    let filteredStores = [...this.context.stores]
-    
+    const storeType = this.state.filters.storeType;
+    const range = this.state.filters.range;
+    const styles = { ...this.props.classes };
+    let filteredStores = [...this.context.stores];
+
     // Apply filters to store list
-    if(storeType !== ""){
-      filteredStores = this.context.stores.filter(store => store.storeType === storeType)
+    if (storeType !== "") {
+      filteredStores = this.context.stores.filter(
+        (store) => store.storeType === storeType
+      );
     }
-    
-    if(range !== ""){
+
+    if (range !== "") {
       // Convert string to int
-      let rangeInt = parseInt(range)
-      filteredStores = this.context.stores.filter(store => parseInt(store.distanceInfo.distance.text) < rangeInt)
+      let rangeInt = parseInt(range);
+      filteredStores = this.context.stores.filter(
+        (store) => parseInt(store.distanceInfo.distance.text) < rangeInt
+      );
     }
-      
+
     let mainContainerClasses = [classes.main_container];
 
     return (
-      <Box >
+      <Box>
         <Head>
           <title>Grab and Go</title>
           <link rel="icon" href="/favicon.ico" />
         </Head>
         <Grid container className={mainContainerClasses.join(" ")}>
-          <Grid item md={7} className={styles.mapContainer} style={{height: "100vh"}}>
-            <Map
-              googleMapURL={`https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=AIzaSyAOJDDyL012DooU8FHDbH8yLARMV7L4U-o`}
-              loadingElement={<div style={{ height: `100%` }} />}
-              containerElement={<div style={{ height: `100%` }} />}
-              mapElement={<div id="google-map" style={{ height: `100%` }} />}
-              filteredStores={filteredStores}
-            />
+          <Grid item xs={12} md={7}>
+            <Box className={styles.mapContainer}>
+              <Map
+                googleMapURL={`https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=AIzaSyAOJDDyL012DooU8FHDbH8yLARMV7L4U-o`}
+                loadingElement={<div style={{ height: `100%` }} />}
+                containerElement={<div style={{ height: `100%` }} />}
+                mapElement={<div id="google-map" style={{ height: `100%` }} />}
+                filteredStores={filteredStores}
+              />
+            </Box>
           </Grid>
-          <Grid item md={5}>
+          <Grid item xs={12} md={5}>
             <ControlPanel
               handleFilterChange={(e) => this.handleFilterChange(e)}
               filteredStores={filteredStores}
@@ -90,4 +96,4 @@ class Home extends PureComponent {
   }
 }
 
-export default withStyles(styles)(Home);
+export default withStyles(useStyles)(Home);
