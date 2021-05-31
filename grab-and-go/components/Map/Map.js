@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import { useStoreContext } from "../../context";
 import { locationList } from "../../assets/locationList";
 import classes from "../../styles/Home.module.scss";
-
+import TravelModeSelect from './TravelModeSelect'
 
 // Material UI
 import {
@@ -22,12 +22,11 @@ import {
   withScriptjs,
   withGoogleMap,
   InfoWindow,
-  DirectionsRenderer 
+  DirectionsRenderer,
 } from "react-google-maps";
 
 const useStyles = makeStyles((theme) => ({
   infoWindowButton: {
-    margin: "0 auto",
     backgroundColor: theme.palette.secondary.main,
     borderRadius: "50px",
     "&:hover": {
@@ -35,19 +34,16 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   infoWindowButtonUnderlined: {
-    margin: "0 auto",
     color: theme.palette.secondary.main,
     borderRadius: "50px",
-    "&:hover": {
-      // backgroundColor: theme.palette.secondary.dark,
-    },
   },
 }));
 
-const Map = ({filteredStores}) => {
+const Map = ({ filteredStores }) => {
   // State
   const [userPosition, setUserPosition] = useState();
   const [directions, setDirections] = useState();
+  const [travelMode, setTravelMode] = useState("DRIVING");
 
   const {
     selectedStore,
@@ -75,6 +71,13 @@ const Map = ({filteredStores}) => {
 
     setStores(locationList);
   }, []);
+
+  useEffect(() => {
+    if(directions){
+      // Get directions with updated travel mode
+      showDirections()
+    }
+  }, [travelMode])
 
   useEffect(() => {
     if (!userPosition) return;
@@ -151,23 +154,26 @@ const Map = ({filteredStores}) => {
   const showDirections = () => {
     const DirectionsService = new google.maps.DirectionsService();
 
-    var start = new google.maps.LatLng(userPosition.lat, userPosition.lng)
-    var end = new google.maps.LatLng(selectedStore.lat, selectedStore.lng)
-    
-    DirectionsService.route({
-      origin: start,
-      destination: end,
-      travelMode: google.maps.TravelMode.DRIVING,
-    }, (result, status) => {
-      if (status === google.maps.DirectionsStatus.OK) {
-        setDirections(result)
-      } else {
-        console.error(`error fetching directions ${result}`);
-      }
-    });
-  };
- 
+    var start = new google.maps.LatLng(userPosition.lat, userPosition.lng);
+    var end = new google.maps.LatLng(selectedStore.lat, selectedStore.lng);
 
+    DirectionsService.route(
+      {
+        origin: start,
+        destination: end,
+        travelMode: travelMode,
+      },
+      (result, status) => {
+        if (status === google.maps.DirectionsStatus.OK) {
+          setDirections(result);
+        } else {
+          console.error(`error fetching directions ${result}`);
+        }
+      }
+    );
+  };
+
+  console.log(`travelMode`, travelMode)
   return (
     <GoogleMap
       defaultZoom={13}
@@ -217,8 +223,25 @@ const Map = ({filteredStores}) => {
             <p className={classes.info_window_address}>
               {selectedStore?.address}
             </p>
-            <Box display="flex">
-              <a onClick={(e) => goToStorePage(e, `stores/${selectedStore.id}`)}>
+
+            {/* Travel mode */}
+            {directions && (
+              <TravelModeSelect travelMode={travelMode} setTravelMode={(option) => setTravelMode(option.toUpperCase())}/>
+            )}
+
+            <Box display="flex" justifyContent="space-between">
+              <Button
+                className={styles.infoWindowButtonUnderlined}
+                color="primary"
+                onClick={
+                  directions ? (e) => setDirections() : (e) => showDirections()
+                }
+              >
+                {directions ? "Hide directions" : "Show directions"}
+              </Button>
+              <a
+                onClick={(e) => goToStorePage(e, `stores/${selectedStore.id}`)}
+              >
                 <Button
                   className={styles.infoWindowButton}
                   variant="contained"
@@ -227,19 +250,17 @@ const Map = ({filteredStores}) => {
                   View products
                 </Button>
               </a>
-              <Button
-                className={styles.infoWindowButtonUnderlined}
-                color="primary"
-                onClick={directions ? (e) => setDirections() : (e) => showDirections()}
-              >
-                {directions ? "Hide directions": "Show directions"}
-              </Button>
             </Box>
           </div>
         </InfoWindow>
       )}
       {/* Directions */}
-      {directions && <DirectionsRenderer directions={directions} options={{suppressMarkers: true}}/>}
+      {directions && (
+        <DirectionsRenderer
+          directions={directions}
+          options={{ suppressMarkers: true }}
+        />
+      )}
     </GoogleMap>
   );
 };

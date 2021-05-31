@@ -35,3 +35,11 @@ export const getNewTotalPrice = items => {
 
   return newTotalPrice
 }
+
+export const capitalized = string => {
+  // Make string lowercase first
+  let lowerCaseString = string.toLowerCase()
+
+  return lowerCaseString.charAt(0).toUpperCase() + lowerCaseString.slice(1)
+}
+
