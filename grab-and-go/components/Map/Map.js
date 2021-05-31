@@ -4,6 +4,7 @@ import { useStoreContext } from "../../context";
 import { locationList } from "../../assets/locationList";
 import classes from "../../styles/Home.module.scss";
 
+
 // Material UI
 import {
   Button,
@@ -21,6 +22,7 @@ import {
   withScriptjs,
   withGoogleMap,
   InfoWindow,
+  DirectionsRenderer 
 } from "react-google-maps";
 
 const useStyles = makeStyles((theme) => ({
@@ -45,6 +47,7 @@ const useStyles = makeStyles((theme) => ({
 const Map = ({filteredStores}) => {
   // State
   const [userPosition, setUserPosition] = useState();
+  const [directions, setDirections] = useState();
 
   const {
     selectedStore,
@@ -145,32 +148,21 @@ const Map = ({filteredStores}) => {
     router.push(href);
   };
 
-  const showDirections = (e, href) => {
-    var mapOptions = {
-      zoom:13,
-      center: { lat: 51.44083, lng: 5.47778 }
-    }
-    var map = new google.maps.Map(document.getElementById("google-map"), mapOptions)
-  
-    let directionsService = new google.maps.DirectionsService();
-  
-    // Create a directions rendered object
-    let directionsRenderer = new google.maps.DirectionsRenderer();
-  
-    // Bind directionRenderer to map
-    directionsRenderer.setMap(map);
-    
+  const showDirections = () => {
+    const DirectionsService = new google.maps.DirectionsService();
+
     var start = new google.maps.LatLng(userPosition.lat, userPosition.lng)
     var end = new google.maps.LatLng(selectedStore.lat, selectedStore.lng)
-    var request = {
+    
+    DirectionsService.route({
       origin: start,
       destination: end,
-      travelMode: "DRIVING",
-    };
-    directionsService.route(request, function (result, status) {
-      if (status == "OK") {
-        directionsRenderer.setDirections(result);
-        console.log(`result`, result.routes[0].legs[0].duration.text)
+      travelMode: google.maps.TravelMode.DRIVING,
+    }, (result, status) => {
+      if (status === google.maps.DirectionsStatus.OK) {
+        setDirections(result)
+      } else {
+        console.error(`error fetching directions ${result}`);
       }
     });
   };
@@ -238,14 +230,16 @@ const Map = ({filteredStores}) => {
               <Button
                 className={styles.infoWindowButtonUnderlined}
                 color="primary"
-                onClick={(e) => showDirections()}
+                onClick={directions ? (e) => setDirections() : (e) => showDirections()}
               >
-                Show directions
+                {directions ? "Hide directions": "Show directions"}
               </Button>
             </Box>
           </div>
         </InfoWindow>
       )}
+      {/* Directions */}
+      {directions && <DirectionsRenderer directions={directions} options={{suppressMarkers: true}}/>}
     </GoogleMap>
   );
 };
