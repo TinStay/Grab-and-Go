@@ -60,7 +60,7 @@ class Home extends PureComponent {
       // Convert string to int
       let rangeInt = parseInt(range);
       filteredStores = this.context.stores.filter(
-        (store) => parseInt(store.distanceInfo.distance.text) < rangeInt
+        (store) => parseInt(store?.distanceInfo?.distance?.text) < rangeInt
       );
     }
 
