@@ -47,12 +47,12 @@ const Map = ({ filteredStores }) => {
   const [directions, setDirections] = useState();
   const [travelMode, setTravelMode] = useState("DRIVING");
   const [center, setCenter] = useState({ lat: 51.44083, lng: 5.47778 });
-  const [bounds, setBounds] = useState(null);
-  const [refs, setRefs] = useState({});
+  // const [bounds, setBounds] = useState(null);
+  // const [refs, setRefs] = useState({});
   
   // Refs
-  const googleMapRef = useRef() 
-  const searchBoxRef = useRef() 
+  // const googleMapRef = useRef() 
+  // const searchBoxRef = useRef() 
 
   const {
     selectedStore,
@@ -182,38 +182,51 @@ const Map = ({ filteredStores }) => {
     );
   };
 
-  // Search bar
-  const onBoundsChanged = () => {
-    setBounds(refs.map.getBounds())
-    setCenter(refs.map.getCenter())
-  }
+  // // Search bar
+  // const onBoundsChanged = () => {
+  //   setBounds(refs.map.getBounds())
+  //   setCenter(refs.map.getCenter())
+  // }
 
-  const onMapMounted = ref => {
-    refs.map = ref
-  }
+  // const onMapMounted = ref => {
+  //   refs.map = ref
+  // }
 
-  const onPlacesChanged = () => {
-    const places = searchBoxRef.getPlaces();
-    const bounds = new google.maps.LatLngBounds();
+  // const onPlacesChanged = () => {
+  //   const places = searchBoxRef.getPlaces();
+  //   const bounds = new google.maps.LatLngBounds();
 
-    console.log(`places`, places)
+  //   console.log(`places`, places)
 
-    // places.forEach(place => {
-    //   if (place.geometry.viewport) {
-    //     bounds.union(place.geometry.viewport)
-    //   } else {
-    //     bounds.extend(place.geometry.location)
-    //   }
-    // });
-    // const nextMarkers = places.map(place => ({
-    //   position: place.geometry.location,
-    // }));
-    // const nextCenter = _.get(nextMarkers, '0.position', this.state.center);
+  //   // places.forEach(place => {
+  //   //   if (place.geometry.viewport) {
+  //   //     bounds.union(place.geometry.viewport)
+  //   //   } else {
+  //   //     bounds.extend(place.geometry.location)
+  //   //   }
+  //   // });
+  //   // const nextMarkers = places.map(place => ({
+  //   //   position: place.geometry.location,
+  //   // }));
+  //   // const nextCenter = _.get(nextMarkers, '0.position', this.state.center);
 
-    // this.setState({
-    //   center: nextCenter,
-    //   markers: nextMarkers,
-    // });
+  //   // this.setState({
+  //   //   center: nextCenter,
+  //   //   markers: nextMarkers,
+  //   // });
+  // }
+
+  let showDirectionsInfo = false
+  if(directions && selectedStore){
+    // Directions coordinates returned from request
+    // get destination value and compare with selected store
+    // in order to render travelMode select and directions button in infoWindow
+    let lat = directions.request.destination.location.lat()
+    let lng = directions.request.destination.location.lng()
+
+    if(selectedStore?.lat === lat && selectedStore?.lng === lng){
+      showDirectionsInfo = true
+    }
   }
 
   return (
@@ -222,8 +235,8 @@ const Map = ({ filteredStores }) => {
       defaultZoom={13}
       center={center}
       defaultOptions={{ styles: mapStyles }}
-      onBoundsChanged={onBoundsChanged}
-      ref={onMapMounted}
+      // onBoundsChanged={onBoundsChanged}
+      // ref={onMapMounted}
     >
       {userPosition && (
         <Marker
@@ -270,7 +283,7 @@ const Map = ({ filteredStores }) => {
             </p>
 
             {/* Travel mode */}
-            {directions && (
+            {(directions && showDirectionsInfo)  && (
               <TravelModeSelect travelMode={travelMode} setTravelMode={(option) => setTravelMode(option.toUpperCase())}/>
             )}
 
@@ -279,10 +292,10 @@ const Map = ({ filteredStores }) => {
                 className={styles.infoWindowButtonUnderlined}
                 color="primary"
                 onClick={
-                  directions ? (e) => setDirections() : (e) => showDirections()
+                  (directions && showDirectionsInfo) ? (e) => setDirections() : (e) => showDirections()
                 }
               >
-                {directions ? "Hide directions" : "Show directions"}
+                {(directions && showDirectionsInfo) ? "Hide directions" : "Show directions"}
               </Button>
               <a
                 onClick={(e) => goToStorePage(e, `stores/${selectedStore.id}`)}
@@ -307,7 +320,7 @@ const Map = ({ filteredStores }) => {
         />
       )}
       {/* Search bar */}
-      <SearchBox
+      {/* <SearchBox
       ref={searchBoxRef}
       bounds={bounds}
       controlPosition={google.maps.ControlPosition.TOP_LEFT}
@@ -330,7 +343,7 @@ const Map = ({ filteredStores }) => {
           textOverflow: `ellipses`,
         }}
       />
-    </SearchBox>
+    </SearchBox> */}
     </GoogleMap>
     {/* <StandaloneSearchBox
     ref={searchBoxRef}
