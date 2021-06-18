@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { useStoreContext } from "../../context";
 import { locationList } from "../../assets/locationList";
@@ -24,8 +24,6 @@ import {
   InfoWindow,
   DirectionsRenderer,
 } from "react-google-maps";
-const { StandaloneSearchBox } = require("react-google-maps/lib/components/places/StandaloneSearchBox");
-const { SearchBox } = require("react-google-maps/lib/components/places/SearchBox");
 
 const useStyles = makeStyles((theme) => ({
   infoWindowButton: {
@@ -47,12 +45,6 @@ const Map = ({ filteredStores }) => {
   const [directions, setDirections] = useState();
   const [travelMode, setTravelMode] = useState("DRIVING");
   const [center, setCenter] = useState({ lat: 51.44083, lng: 5.47778 });
-  // const [bounds, setBounds] = useState(null);
-  // const [refs, setRefs] = useState({});
-  
-  // Refs
-  // const googleMapRef = useRef() 
-  // const searchBoxRef = useRef() 
 
   const {
     selectedStore,
@@ -182,40 +174,6 @@ const Map = ({ filteredStores }) => {
     );
   };
 
-  // // Search bar
-  // const onBoundsChanged = () => {
-  //   setBounds(refs.map.getBounds())
-  //   setCenter(refs.map.getCenter())
-  // }
-
-  // const onMapMounted = ref => {
-  //   refs.map = ref
-  // }
-
-  // const onPlacesChanged = () => {
-  //   const places = searchBoxRef.getPlaces();
-  //   const bounds = new google.maps.LatLngBounds();
-
-  //   console.log(`places`, places)
-
-  //   // places.forEach(place => {
-  //   //   if (place.geometry.viewport) {
-  //   //     bounds.union(place.geometry.viewport)
-  //   //   } else {
-  //   //     bounds.extend(place.geometry.location)
-  //   //   }
-  //   // });
-  //   // const nextMarkers = places.map(place => ({
-  //   //   position: place.geometry.location,
-  //   // }));
-  //   // const nextCenter = _.get(nextMarkers, '0.position', this.state.center);
-
-  //   // this.setState({
-  //   //   center: nextCenter,
-  //   //   markers: nextMarkers,
-  //   // });
-  // }
-
   let showDirectionsInfo = false
   if(directions && selectedStore){
     // Directions coordinates returned from request
@@ -235,8 +193,6 @@ const Map = ({ filteredStores }) => {
       defaultZoom={13}
       center={center}
       defaultOptions={{ styles: mapStyles }}
-      // onBoundsChanged={onBoundsChanged}
-      // ref={onMapMounted}
     >
       {userPosition && (
         <Marker
@@ -319,54 +275,7 @@ const Map = ({ filteredStores }) => {
           options={{ suppressMarkers: true }}
         />
       )}
-      {/* Search bar */}
-      {/* <SearchBox
-      ref={searchBoxRef}
-      bounds={bounds}
-      controlPosition={google.maps.ControlPosition.TOP_LEFT}
-      onPlacesChanged={onPlacesChanged}
-    >
-      <input
-        type="text"
-        placeholder="Customized your placeholder"
-        style={{
-          boxSizing: `border-box`,
-          border: `1px solid transparent`,
-          width: `240px`,
-          height: `32px`,
-          marginTop: `27px`,
-          padding: `0 12px`,
-          borderRadius: `3px`,
-          boxShadow: `0 2px 6px rgba(0, 0, 0, 0.3)`,
-          fontSize: `14px`,
-          outline: `none`,
-          textOverflow: `ellipses`,
-        }}
-      />
-    </SearchBox> */}
     </GoogleMap>
-    {/* <StandaloneSearchBox
-    ref={searchBoxRef}
-    bounds={bounds}
-    onPlacesChanged={onPlacesChanged}
-  >
-    <input
-      type="text"
-      placeholder="Customized your placeholder"
-      style={{
-        boxSizing: `border-box`,
-        border: `1px solid transparent`,
-        width: `240px`,
-        height: `32px`,
-        padding: `0 12px`,
-        borderRadius: `3px`,
-        boxShadow: `0 2px 6px rgba(0, 0, 0, 0.3)`,
-        fontSize: `14px`,
-        outline: `none`,
-        textOverflow: `ellipses`,
-      }}
-    />
-  </StandaloneSearchBox> */}
   </>
   );
 };
