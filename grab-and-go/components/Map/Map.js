@@ -3,13 +3,13 @@ import { useRouter } from "next/router";
 import { useStoreContext } from "../../context";
 import { locationList } from "../../assets/locationList";
 import InfoWindow from "./InfoWindow";
+import Marker from "./Marker";
 
 import mapStyles from "./mapStyles";
 
 // Google maps
 import {
   GoogleMap,
-  Marker,
   withScriptjs,
   withGoogleMap,
   DirectionsRenderer,
@@ -162,32 +162,17 @@ const Map = ({ filteredStores }) => {
   }
 
   return (
-    <>
       <GoogleMap
         defaultZoom={13}
         center={center}
         defaultOptions={{ styles: mapStyles }}
       >
-        {userPosition && (
-          <Marker
-            position={{ lat: userPosition.lat, lng: userPosition.lng }}
-            icon={{
-              url: "/images/userPointer.svg",
-              scaledSize: new window.google.maps.Size(45, 50),
-            }}
-          />
-        )}
+        {/* Display user location */}
+        {userPosition && <Marker location={userPosition} userMarker />}
+        {/* Display store locations */}
         {filteredStores &&
           filteredStores.map((store, idx) => (
-            <Marker
-              key={idx}
-              position={{ lat: store.lat, lng: store.lng }}
-              onClick={(e) => handleMarkerClick(e, store)}
-              icon={{
-                url: "/images/pointer.svg",
-                scaledSize: new window.google.maps.Size(45, 50),
-              }}
-            />
+            <Marker key={idx} location={store} onClick={handleMarkerClick} />
           ))}
         {selectedStore && (
           <InfoWindow
@@ -195,8 +180,8 @@ const Map = ({ filteredStores }) => {
             setSelectedStore={setSelectedStore}
             directions={directions}
             showDirections={showDirections}
-            travelMode={travelMode} 
-            setTravelMode={setTravelMode} 
+            travelMode={travelMode}
+            setTravelMode={setTravelMode}
             setDirections={setDirections}
             showDirectionsInfo={showDirectionsInfo}
             goToStorePage={goToStorePage}
@@ -210,7 +195,6 @@ const Map = ({ filteredStores }) => {
           />
         )}
       </GoogleMap>
-    </>
   );
 };
 
