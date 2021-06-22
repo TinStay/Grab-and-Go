@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useRouter } from "next/router";
 import { useStoreContext } from "../../context";
 import { locationList } from "../../assets/locationList";
@@ -16,11 +16,12 @@ import {
   withGoogleMap,
   DirectionsRenderer,
 } from "react-google-maps";
+import { StandaloneSearchBox } from "react-google-maps/lib/components/places/StandaloneSearchBox";
 
 const useStyles = makeStyles((theme) => ({
   searchBox: {
-    position: "absolute", 
-    bottom: 30, 
+    position: "absolute",
+    bottom: 30,
     left: "calc(50% - 120px)",
     [theme.breakpoints.up("md")]: {
       bottom: 0,
@@ -34,6 +35,9 @@ const Map = ({ filteredStores }) => {
   const [userPosition, setUserPosition] = useState();
   const [directions, setDirections] = useState();
   const [travelMode, setTravelMode] = useState("DRIVING");
+  const [places, setPlaces] = useState([]);
+  const [refs, setRefs] = useState({});
+  const [bounds, setBounds] = useState();
   const [center, setCenter] = useState({ lat: 51.44083, lng: 5.47778 });
 
   const {
@@ -44,7 +48,8 @@ const Map = ({ filteredStores }) => {
   } = useStoreContext();
 
   const router = useRouter();
-  const styles = useStyles()
+  const styles = useStyles();
+  const searchBoxRef = useRef();
 
   useEffect(async () => {
     // Get location of user
@@ -163,6 +168,31 @@ const Map = ({ filteredStores }) => {
     );
   };
 
+  const onSearchBoxMounted = (ref) => {
+    refs.searchBox = ref;
+    // console.log(`ref`, refs.searchBox)
+  };
+
+  // Search locations
+  const onPlacesChanged = async () => {
+    // Get place data from google api
+    const place = await refs.searchBox.getPlaces();
+
+    let newMapPosition = {...center}
+
+    if(place){
+      // Get coordinates
+      newMapPosition = {
+        lat: place[0].geometry.location.lat(),
+        lng: place[0].geometry.location.lng(),
+      };
+    }
+
+    // Update map and 
+    setCenter(newMapPosition);
+    setPlaces(place);
+  };
+
   let showDirectionsInfo = false;
   if (directions && selectedStore) {
     // Directions coordinates returned from request
@@ -183,22 +213,28 @@ const Map = ({ filteredStores }) => {
       defaultOptions={{ styles: mapStyles }}
     >
       <Box className={styles.searchBox}>
-        <input
-          type="text"
-          placeholder="Search locations"
-          style={{
-            boxSizing: `border-box`,
-            border: `1px solid transparent`,
-            width: `240px`,
-            height: `32px`,
-            padding: `0 12px`,
-            borderRadius: `3px`,
-            boxShadow: `0 2px 6px rgba(0, 0, 0, 0.3)`,
-            fontSize: `14px`,
-            outline: `none`,
-            textOverflow: `ellipses`,
-          }}
-        />
+        <StandaloneSearchBox
+          ref={onSearchBoxMounted}
+          bounds={bounds}
+          onPlacesChanged={onPlacesChanged}
+        >
+          <input
+            type="text"
+            placeholder="Search locations"
+            style={{
+              boxSizing: `border-box`,
+              border: `1px solid transparent`,
+              width: `240px`,
+              height: `32px`,
+              padding: `0 12px`,
+              borderRadius: `3px`,
+              boxShadow: `0 2px 6px rgba(0, 0, 0, 0.3)`,
+              fontSize: `14px`,
+              outline: `none`,
+              textOverflow: `ellipses`,
+            }}
+          />
+        </StandaloneSearchBox>
       </Box>
       {/* Display user location */}
       {userPosition && <Marker location={userPosition} userMarker />}
