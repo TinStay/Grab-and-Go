@@ -12,6 +12,7 @@ import { withStyles } from "@material-ui/core/styles";
 const useStyles = (theme) => ({
   mapContainer: {
     height: "60vh",
+    position: "relative",
     [theme.breakpoints.up("md")]: {
       height: "100vh",
     },
@@ -78,7 +79,7 @@ class Home extends PureComponent {
                 googleMapURL={`https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=AIzaSyAOJDDyL012DooU8FHDbH8yLARMV7L4U-o`}
                 loadingElement={<div style={{ height: `100%` }} />}
                 containerElement={<div style={{ height: `100%` }} />}
-                mapElement={<div id="google-map" style={{ height: `100%` }} />}
+                mapElement={<div id="google-map" style={{ height: `100%`}} />}
                 filteredStores={filteredStores}
               />
             </Box>

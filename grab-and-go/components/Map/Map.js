@@ -4,6 +4,8 @@ import { useStoreContext } from "../../context";
 import { locationList } from "../../assets/locationList";
 import InfoWindow from "./InfoWindow";
 import Marker from "./Marker";
+import { Typography, Box } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
 
 import mapStyles from "./mapStyles";
 
@@ -14,6 +16,18 @@ import {
   withGoogleMap,
   DirectionsRenderer,
 } from "react-google-maps";
+
+const useStyles = makeStyles((theme) => ({
+  searchBox: {
+    position: "absolute", 
+    bottom: 30, 
+    left: "calc(50% - 120px)",
+    [theme.breakpoints.up("md")]: {
+      bottom: 0,
+      top: 30,
+    },
+  },
+}));
 
 const Map = ({ filteredStores }) => {
   // State
@@ -30,6 +44,7 @@ const Map = ({ filteredStores }) => {
   } = useStoreContext();
 
   const router = useRouter();
+  const styles = useStyles()
 
   useEffect(async () => {
     // Get location of user
@@ -162,39 +177,57 @@ const Map = ({ filteredStores }) => {
   }
 
   return (
-      <GoogleMap
-        defaultZoom={13}
-        center={center}
-        defaultOptions={{ styles: mapStyles }}
-      >
-        {/* Display user location */}
-        {userPosition && <Marker location={userPosition} userMarker />}
-        {/* Display store locations */}
-        {filteredStores &&
-          filteredStores.map((store, idx) => (
-            <Marker key={idx} location={store} onClick={handleMarkerClick} />
-          ))}
-        {selectedStore && (
-          <InfoWindow
-            selectedStore={selectedStore}
-            setSelectedStore={setSelectedStore}
-            directions={directions}
-            showDirections={showDirections}
-            travelMode={travelMode}
-            setTravelMode={setTravelMode}
-            setDirections={setDirections}
-            showDirectionsInfo={showDirectionsInfo}
-            goToStorePage={goToStorePage}
-          />
-        )}
-        {/* Directions */}
-        {directions && (
-          <DirectionsRenderer
-            directions={directions}
-            options={{ suppressMarkers: true }}
-          />
-        )}
-      </GoogleMap>
+    <GoogleMap
+      defaultZoom={13}
+      center={center}
+      defaultOptions={{ styles: mapStyles }}
+    >
+      <Box className={styles.searchBox}>
+        <input
+          type="text"
+          placeholder="Search locations"
+          style={{
+            boxSizing: `border-box`,
+            border: `1px solid transparent`,
+            width: `240px`,
+            height: `32px`,
+            padding: `0 12px`,
+            borderRadius: `3px`,
+            boxShadow: `0 2px 6px rgba(0, 0, 0, 0.3)`,
+            fontSize: `14px`,
+            outline: `none`,
+            textOverflow: `ellipses`,
+          }}
+        />
+      </Box>
+      {/* Display user location */}
+      {userPosition && <Marker location={userPosition} userMarker />}
+      {/* Display store locations */}
+      {filteredStores &&
+        filteredStores.map((store, idx) => (
+          <Marker key={idx} location={store} onClick={handleMarkerClick} />
+        ))}
+      {selectedStore && (
+        <InfoWindow
+          selectedStore={selectedStore}
+          setSelectedStore={setSelectedStore}
+          directions={directions}
+          showDirections={showDirections}
+          travelMode={travelMode}
+          setTravelMode={setTravelMode}
+          setDirections={setDirections}
+          showDirectionsInfo={showDirectionsInfo}
+          goToStorePage={goToStorePage}
+        />
+      )}
+      {/* Directions */}
+      {directions && (
+        <DirectionsRenderer
+          directions={directions}
+          options={{ suppressMarkers: true }}
+        />
+      )}
+    </GoogleMap>
   );
 };
 
